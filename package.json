@@ -1,5 +1,5 @@
 {
-  "name": "hrr26-greenfield",
+  "name": "Greenfield",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,16 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TheBowlers/hrr26-greenfield.git"
+    "url": "git+https://github.com/TheBowlers/Greenfield.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TheBowlers/hrr26-greenfield/issues"
+    "url": "https://github.com/TheBowlers/Greenfield/issues"
   },
-  "homepage": "https://github.com/TheBowlers/hrr26-greenfield#readme",
+  "homepage": "https://github.com/TheBowlers/Greenfield#readme",
   "dependencies": {
     "express": "^4.16.0",
+    "mongodb": "^2.2.31",
     "morgan": "^1.9.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
