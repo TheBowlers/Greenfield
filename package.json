@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/webpack -d",
-    "build:watch": "node_modules/.bin/webpack -d --watch && nodemon app.js"
+    "build:watch": "nodemon app.js && node_modules/.bin/webpack -d --watch"
   },
   "repository": {
     "type": "git",
