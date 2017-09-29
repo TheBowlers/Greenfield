@@ -14,7 +14,7 @@ app.use(morgan('[:date[clf]] | ":method :url" | STATUS: :status :res[content-len
 app.set('port', 8080);
 
 
-const publicDir = '\\src\\client';
+const publicDir = '/src/client';
 app.use(express.static(__dirname + publicDir));
 console.log('public directory is: ' + __dirname + publicDir);
 
