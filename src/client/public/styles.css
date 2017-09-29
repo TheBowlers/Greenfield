@@ -1,1 +1,38 @@
-@import url(https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css)
+.sign-up {
+  float: right;
+  margin: 5px 200px 0px 0px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.log-in {
+  position: relative;
+  padding-right: 20px;
+  font-size: 14px;
+}
+
+.row {
+ margin: 50px 100px 0px 100px;
+ border: 2px solid green;
+}
+
+.jumbotron {
+  margin: 50px 100px 0px 100px;
+  text-align: center;
+  height: 75%;
+}
+
+.wizard {
+  height: 50%;
+}
+
+.profile {
+  float: right;
+  margin: 0px 100px 0px 0px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
