@@ -1,6 +1,6 @@
 //server-config.js
-
-var app = require('../../../../app.js').app;
+const express = require('express');
+const app = express();
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -30,18 +30,21 @@ app.get('/questions', function(req, res) {
   let questionType = req.query.questionType;
 
   if (!questionType) {
-    console.log('No question type given');
+    res.send('No question type given');
     //Could also be made to give an utterly random question
   } else {
     MongoClient.connect(url, function(err, db) {
-      assert.equal(null, err);
       console.log('Connected to MongoDB server');
-      findQ(db, function(questions) {
+      findQ(db, questionType, function(questions) {
         questions.forEach(function(question) {
           response.push(question);
         });
-        let chooseOne = Math.floor(Math.random * response.length);
-        res.send(response[chooseOne]);
+        if (response.length === 1) { //TODO: Use better logic lines 42-47
+          res.send(response[0])
+        } else {
+          let chooseOne = Math.floor(Math.random * response.length);
+          res.send(response[chooseOne]);
+        }
         db.close();
       });
     });
@@ -52,14 +55,12 @@ app.get('/questions', function(req, res) {
 app.post('/questions', function(req, res) {
   //The question object which will be added
   let question = req.body;
-
   MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
     console.log('Connected to MongoDB server');
-    insertQ(db, function() {
+    insertQ(db, question, function() {
       //inserts to table and creates a unique index based on prompt
-      indexQ(db function() {
-        res.send('Added question to database')
+      indexQ(db, function() {
+        res.status(200).send('Question added to database');
         db.close();
       });
     });
@@ -72,9 +73,9 @@ app.post('/questions/remove', function(req, res) {
   let id = req.body.id;
 
   MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
+    //assert.equal(null, err);
     console.log('Connected to MongoDB server');
-    removeQ(db, function() {
+    removeQ(db, id, function() {
       db.close();
     });
   });
@@ -88,11 +89,12 @@ app.post('/questions/update', function(req, res) {
   let property = req.body.property
 
   MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
     console.log('Connected to MongoDB server');
-    updateQ(db, function() {
+    updateQ(db, id, function() {
       db.close();
     });
   });
 });
 
+
+module.exports = app;
