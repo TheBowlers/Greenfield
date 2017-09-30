@@ -2,25 +2,14 @@
 var MongoClient = require('mongodb').MongoClient
 , assert = require('assert');
 
-//Connection URL
-
-//This code is for UPDATE aka PUT
-// MongoClient.connect(url, function(err, db) {
-//   assert.equal(null, err);
-//   console.log('Connected to MongoDB server');
-//   updateDocument(db, function() {
-//     //closes connection with callback after inserting data
-//     db.close();
-//   });
-// });
 
 /********DATA METHODS********/
 
-//Using 'insertMany' to insert data to our collection
+//Using 'insert' to insert data to our collection
 var insertQ = function(db, callback) {
   //Specify the collection where we will 'insert' in this case 'questions'
   var collection = db.collection('questions');
-  //use insertMany to insert and array of JSON objects into collection
+  //can use 'insertMany' to insert and array of JSON objects into collection
   collection.insert(question, function(err, result) {
     assert.equal(err, null);
     assert.equal(1, result.result.n); //result.result Result sent from MongoDB
@@ -31,7 +20,7 @@ var insertQ = function(db, callback) {
   });
 }
 
-//Using 'find' to return data
+//Using 'find' to return data row(s)
 var findQ = function(db, callback) {
   //Specify the collection where we will 'find' in this case 'questions'
   var collection = db.collection('questions');
@@ -40,27 +29,26 @@ var findQ = function(db, callback) {
     .toArray(function(err, docs) {
       assert.equal(err, null);
       console.log('Found the following records...');
-      console.log(docs);
       callback(docs);
     });
 }
 
 //Update data row
 var updateQ = function(db, callback) {
-  //Specify the collection where we will 'find' in this case 'questions'
+  //Specify the collection where we will 'update' in this case 'questions'
   var collection = db.collection('questions');
   //Update selections where the first argument is the 'find' and the second argument is the 'replace'
-  collection.updateOne({_id: id}, { $set: {property}}, function(err, result) {
+  collection.updateOne({_id: id}, { $set: property}, function(err, result) {
     assert.equal(err, null);
     assert.equal(1, result.result.n);
-    console.log("Updated question where _id = ", id);
+    console.log("Updated question where _id = ", id, 'to contain', property);
     callback(result);
   })
 }
 
 //Remove data row
 var removeQ = function(db, callback) {
-  //Specify the collection where we will 'find' in this case 'questions'
+  //Specify the collection where we will 'remove' in this case 'questions'
   var collection = db.collection('questions');
   // Delete document where a is 3
   collection.deleteOne({ _id : id }, function(err, result) {
@@ -73,14 +61,13 @@ var removeQ = function(db, callback) {
 
 //Make a "hashed" index on collection
 var indexQ = function(db, callback) {
-  //Specify the collection where we will 'find' in this case 'questions'
+  //Specify the collection where we will 'index' in this case 'questions'
   db.collection('questions')
   .createIndex(
   {"prompt": 1},
   null,
   function(err, results) {
-    console.log("Created index on 'promt' property");
-    console.log(results);
+    console.log("Created index on 'prompt' property");
     callback();
   }
   )
