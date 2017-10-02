@@ -1,7 +1,4 @@
-//Data CRUD operations
-// var MongoClient = require('mongodb').MongoClient;
-
-/********DATA METHODS********/
+/********DATA CRUD METHODS********/
 
 //Using 'insert' to insert data to our collection
 var insertQ = function(db, question, callback) {
@@ -74,5 +71,4 @@ module.exports = {
   updateQ: updateQ,
   removeQ: removeQ,
   indexQ: indexQ,
-  // MongoClient: MongoClient
 }

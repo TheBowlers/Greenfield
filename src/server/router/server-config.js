@@ -1,15 +1,14 @@
-//server-config.js
 const express = require('express');
 const app = express();
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
 
-//Question request-handler functions
-var handleGet = require('.././db/models/questions.js').get;
-var handlePost = require('.././db/models/questions.js').post;
-var handleDelete = require('.././db/models/questions.js').delete;
-var handleUpdate = require('.././db/models/questions.js').update;
+//Question helper functions
+var handleGet = require('.././db/models/questions.js').getQuestion;
+var handlePost = require('.././db/models/questions.js').postQuestion;
+var handleDelete = require('.././db/models/questions.js').deleteQuestion;
+var handleUpdate = require('.././db/models/questions.js').updateQuestion;
 
 
 

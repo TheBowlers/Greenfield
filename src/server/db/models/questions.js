@@ -1,4 +1,3 @@
-//All the request-handlers for questions model
 var MongoClient = require('mongodb').MongoClient;
 //Use proper url for MongoDB cluster
 var url = require('../../../.././config.js').dbUrl;
@@ -9,7 +8,7 @@ var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var indexQ = require('.././utils/questions-helpers.js').indexQ;
 
-exports.get = function(req, res) {
+exports.getQuestion = function(req, res) {
   //fetched questions are pushed to array
   let response = [];
 
@@ -40,7 +39,7 @@ exports.get = function(req, res) {
     }
 }
 
-exports.post = function(req, res) {
+exports.postQuestion = function(req, res) {
   //The question object which will be added
   let question = req.body;
 
@@ -56,7 +55,7 @@ exports.post = function(req, res) {
   });
 }
 
-exports.delete = function(req, res) {
+exports.deleteQuestion = function(req, res) {
   //id determines which question
   let id = req.body.id;
 
@@ -70,7 +69,7 @@ exports.delete = function(req, res) {
   });
 }
 
-exports.update = function(req, res) {
+exports.updateQuestion = function(req, res) {
   //id determines which question
   let id = req.body._id;
   //property is an object where key:value pairs to be updated or added will be defined
