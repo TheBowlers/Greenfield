@@ -79,3 +79,5 @@ class QuestionView extends React.Component {
   }
 }
 
+export default QuestionView;
+

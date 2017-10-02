@@ -1,14 +1,17 @@
 import React from 'react';
 
-class MainPage extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props)
   }
 
   render() {
     return (
+      <div>
+        <p>Header</p>
+      </div>
     )
   }
 }
 
-export default Login;
+export default Header;

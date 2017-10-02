@@ -1,5 +1,8 @@
 import React from 'react';
 import Login from './Login.jsx'
+import Header from './Header.jsx'
+import MainView from './MainView.jsx'
+import Footer from './Footer.jsx'
 
 class App extends React.Component {
   constructor(props) {
@@ -9,8 +12,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <p>Hello World</p>
-        <Login />
+        <Header />
+        <MainView />
+        <Footer />
       </div>
     )
   }
