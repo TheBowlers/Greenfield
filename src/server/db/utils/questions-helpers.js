@@ -1,7 +1,4 @@
-//Data CRUD operations
-var MongoClient = require('mongodb').MongoClient;
-
-/********DATA METHODS********/
+/********DATA CRUD METHODS********/
 
 //Using 'insert' to insert data to our collection
 var insertQ = function(db, question, callback) {
@@ -10,7 +7,7 @@ var insertQ = function(db, question, callback) {
   //can use 'insertMany' to insert and array of JSON objects into collection
   collection.insert(question, function(err, result) {
 
-    console.log('Inserted a question into Mongo collection');
+    console.log('Inserted a question', question, 'into Mongo collection');
     callback(result);
   });
 }
@@ -23,13 +20,13 @@ var findQ = function(db, questionType, callback) {
     //Find question, empty should return all
     collection.find({questionType: questionType})
     .toArray(function(err, docs) {
-      console.log('Found the following records...');
+      console.log('Found the following record(s)...');
       callback(docs);
     });
 }
 
 //Update data row
-var updateQ = function(db, id, callback) {
+var updateQ = function(db, id, property, callback) {
   //Specify the collection where we will 'update' in this case 'questions'
   var collection = db.collection('test-questions');
   //Update selections where the first argument is the 'find' and the second argument is the 'replace'
@@ -74,5 +71,4 @@ module.exports = {
   updateQ: updateQ,
   removeQ: removeQ,
   indexQ: indexQ,
-  MongoClient: MongoClient
 }
