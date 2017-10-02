@@ -1,8 +1,7 @@
 'use strict';
-
 const express = require('express');
 const morgan = require('morgan');
-const app = express();
+const app = require('./src/server/router/server-config.js')
 
 //app.use(morgan({ format: "default" }));
 //app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
