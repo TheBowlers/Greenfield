@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
     "build": "node_modules/.bin/webpack -d",
     "build:watch": "node_modules/.bin/webpack -d --watch"
   },

@@ -1,14 +1,3 @@
-.sign-up {
-  float: right;
-  margin: 5px 0px 0px 0px;
-  font-size: 16px;
-}
-
-.log-in {
-  padding-right: 20px;
-  font-size: 14px;
-}
-
 .jumbotron {
   text-align: center;
 }
@@ -17,10 +6,6 @@
   position: absolute;
   bottom: 0;
   width: 100%;
-}
-
-form {
-  border: 2px solid green;
 }
 
 h1 {
@@ -34,26 +19,26 @@ h1 {
 .questionView {
   border-width: 2px 2px 1px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 350px;
 }
 
 .answerView {
   border-width: 1px 2px 1px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 350px;
 }
 
 .submitView {
   border-width: 1px 2px 2px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 75px;
 }
 
 .modules, .stats {
-  border: 2px solid green;
+  border: 2px solid #4E7AB5;
   height: 775px;
 }
 .mainView {
@@ -68,4 +53,21 @@ h1 {
 .answer-field {
   height: 100%;
   font-size: 3em;
+}
+
+.btn-google {
+  width: 200px;
+  height: auto;
+  float: right;
+}
+
+.btn-google:hover {
+  cursor: pointer;
+  cursor: hand;
+  content: url("/public/images/btn_google_signin_light_focus_web@2x.png");
+}
+
+.profile-pic {
+  width: auto;
+  height: 20px;
 }
