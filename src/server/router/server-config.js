@@ -40,13 +40,17 @@ app.use('/auth', auth);
 var handlePostUser = require('.././db/models/users.js').postUser;
 var handleUserDataGoogle = require('.././db/models/users.js').handleUserDataGoogle;
 var handleGetUser = require('.././db/models/users.js').getUser;
+var handleUpdateUserScore = require('.././db/models/users.js').updateScore;
 
 // var handleUpdateUser = require('.././db/models/users.js').updateUser;
 
 /*USER ROUTING*/
 
-//Festches user data from email
+//Fetches user data from email
 app.get('/users', handleGetUser);
+
+//Updates user's score
+app.post('/users/update', handleUpdateUserScore);
 
 /*END USER ROUTING*/
 

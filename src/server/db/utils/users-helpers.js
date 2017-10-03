@@ -28,14 +28,17 @@ var checkUser = function(db, email, success, failure) {
 }
 
 //Update user's score
-var updateUserScore = function (db, user, points, callback) {
+var updateUserScore = function (db, email, points, callback) {
 
     var collection = db.collection('test-users');
 
     collection.findOneAndUpdate(
-    { _id: user._id },
-    { $inc: { "score" : points } } //adds number of points to user's score
-    )
+      { email: email },
+      { $inc: { "score" : points } } //adds number of points to user's score
+    , function(err, response) {
+      callback(response);
+    })
+
 }
 
 module.exports = {

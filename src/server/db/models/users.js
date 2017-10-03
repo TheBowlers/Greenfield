@@ -54,6 +54,23 @@ exports.getUser = function(req, res) {
   })
 }
 
+exports.updateScore = function(req, res) {
+
+  let email = req.body.email;
+  let points = req.body.points
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log('Could not connect', err);
+    } else {
+      updateUserScore(db, email, points, function(response) {
+        console.log('response line 66', response.value);
+        res.status(200).send(response.value);
+      })
+    }
+  })
+}
+
 exports.handleUserDataGoogle = function(user) {
 
   //User email
