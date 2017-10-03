@@ -20,6 +20,9 @@ exports.getQuestion = function(req, res) {
     //Could also be made to give an utterly random question
   } else {
     MongoClient.connect(url, function(err, db) {
+      if(err){
+        return console.error(err);
+      }
       console.log('Connected to MongoDB server');
       findQ(db, questionType, function(questions) {
         questions.forEach(function(question) {
