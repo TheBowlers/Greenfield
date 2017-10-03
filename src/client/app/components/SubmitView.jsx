@@ -7,8 +7,8 @@ class SubmitView extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>SubmitView</p>
+      <div className="submitView">
+        <button className="btn btn-lg btn-primary col-md-5 submit">Submit</button>
       </div>
     )
   }

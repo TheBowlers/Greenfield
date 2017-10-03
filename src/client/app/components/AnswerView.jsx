@@ -7,8 +7,8 @@ class AnswerView extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>AnswerView</p>
+      <div className="answerView">
+
       </div>
     )
   }

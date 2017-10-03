@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      loggedIn: false
+      loggedIn: true
     }
   }
 
@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <div>
         <Header loggedIn={this.state.loggedIn} />
-        <MainView />
+        <MainView loggedIn={this.state.loggedIn} />
         <Footer />
       </div>
     )

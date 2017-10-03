@@ -52,7 +52,8 @@ class QuestionView extends React.Component {
     //<ResponseView question={this.currentQuestion.answerText}>
     //<QuestionButtons question={this.currentQuestion}>
     return (
-      <div>
+      <div className="questionView">
+
       </div>
       // <div>
       //   <div>Select a question type
