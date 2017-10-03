@@ -7,12 +7,16 @@ import Footer from './Footer.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      loggedIn: false
+    }
   }
 
   render() {
     return (
       <div>
-        <Header />
+        <Header loggedIn={this.state.loggedIn} />
         <MainView />
         <Footer />
       </div>

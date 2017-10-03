@@ -1,3 +1,5 @@
+import React from 'react';
+
 class QuestionView extends React.Component {
   constructor(props) {
     super(props);
@@ -51,29 +53,31 @@ class QuestionView extends React.Component {
     //<QuestionButtons question={this.currentQuestion}>
     return (
       <div>
-        <div>Select a question type
-          <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response< /a>
-        </div>
-
-        <div className="head-question">
-          <div className="head-question-prompt">
-            {this.currentQuestion.questionText}
-          </div>
-          <div className="head-question-response">
-            <form>
-              <input
-                className="response-field"
-                type="text"
-                value={this.state.currentResponse} />
-            </form>
-          </div>
-          <div className="head-question-buttons">
-            <button className="btn-submit">
-              <span className="btn-text">Submit</span>
-            </button>
-          </div>
-        </div>
       </div>
+      // <div>
+      //   <div>Select a question type
+      //     <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)}>Text Response< /a>
+      //   </div>
+
+      //   <div className="head-question">
+      //     <div className="head-question-prompt">
+      //       {this.currentQuestion.questionText}
+      //     </div>
+      //     <div className="head-question-response">
+      //       <form>
+      //         <input
+      //           className="response-field"
+      //           type="text"
+      //           value={this.state.currentResponse} />
+      //       </form>
+      //     </div>
+      //     <div className="head-question-buttons">
+      //       <button className="btn-submit">
+      //         <span className="btn-text">Submit</span>
+      //       </button>
+      //     </div>
+      //   </div>
+      // </div>
     )
   }
 }
