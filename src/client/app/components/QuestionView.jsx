@@ -6,7 +6,7 @@ class QuestionView extends React.Component {
 
     this.state = {
       currentQuestionType: 'textResponse',
-      currentQuestion: null,
+      currentQuestion: {},
       currentResponse: ''
     };
   }
@@ -55,36 +55,25 @@ class QuestionView extends React.Component {
     //<QuestionButtons question={this.currentQuestion}>
     return (
       <div className="questionView">
-      <div>
-      //  <div>Select a question type
-      //    <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response</a>
-      //  </div>
+        <div>
+         <div>Select a question type
+           <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response</a>
+         </div>
+        </div>
+        <div>
+          <div>Select a question type
+            <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)}>Text Response</a>
+          </div>
+          <div className="head-question">
+            <div className="head-question-prompt">
+              {this.state.currentQuestion.questionText}
+            </div>
 
-      // </div>
-      // <div>
-      //   <div>Select a question type
-      //     <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)}>Text Response< /a>
-      //   </div>
-
-      //   <div className="head-question">
-      //     <div className="head-question-prompt">
-      //       {this.currentQuestion.questionText}
-      //     </div>
-      //     <div className="head-question-response">
-      //       <form>
-      //         <input
-      //           className="response-field"
-      //           type="text"
-      //           value={this.state.currentResponse} />
-      //       </form>
-      //     </div>
-      //     <div className="head-question-buttons">
-      //       <button className="btn-submit">
-      //         <span className="btn-text">Submit</span>
-      //       </button>
-      //     </div>
-      //   </div>
-      // </div>
+            <div className="head-question-buttons">
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }
