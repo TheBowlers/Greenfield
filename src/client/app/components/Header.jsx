@@ -7,7 +7,8 @@ class Header extends React.Component {
     this.state = {
       dropdownClicked: false,
       profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
-      username: "Default"
+      username: "Default",
+      userScore: "9,000"
     }
   }
 
@@ -23,6 +24,7 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
+              <li><a href="#">{this.state.userScore}</a></li>
               <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
                 <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img class="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
