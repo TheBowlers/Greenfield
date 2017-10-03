@@ -21,7 +21,15 @@ class MainView extends React.Component {
       )
     } else {
       return (
-        <div>
+        <div className="container">
+          <div className="jumbotron">
+            <h1>Quizzer Wizard</h1>
+            <img className="wizard" src="http://southparkstudios.mtvnimages.com/shared/characters/alter-egos/the-grand-wizard.png?height=165" alt="" />
+            <p>
+              <a className="btn btn-lg btn-success">Start Quizzing</a>
+              <a className="btn btn-lg btn-primary">Visit our Github</a>
+            </p>
+          </div>
         </div>
       )
     }

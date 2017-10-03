@@ -31,9 +31,8 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
           <ul className="nav navbar-nav navbar-right">
-            <li><a href="#">Log In</a></li>
             <li>
-              <div className="btn btn-success sign-up">Sign Up</div>
+              <img className="btn-google" src="/public/images/btn_google_signin_light_normal_web@2x.png" />
             </li>
           </ul>
           </div>
