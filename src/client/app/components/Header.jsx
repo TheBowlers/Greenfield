@@ -3,6 +3,16 @@ import React from 'react';
 class Header extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      dropdownClicked: false
+    }
+  }
+
+  handleDropdownClick() {
+    this.setState({
+      dropdownClicked: !this.state.dropdownClicked
+    })
   }
 
   render() {
@@ -11,8 +21,8 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle profile" data-toggle="dropdown" role="button">Profile <span className="caret"></span></a>
+              <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
+                <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button">Profile <span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Signed in as</a></li>
                   <li className="divider"></li>
