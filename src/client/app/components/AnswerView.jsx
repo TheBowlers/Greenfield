@@ -9,7 +9,7 @@ class AnswerView extends React.Component {
     return (
       <div className="answerView">
         <div className="head-question-response">
-          <div class="answer-field" contentEditable="true" ></div>
+          <div className="answer-field" contentEditable="true" ></div>
         </div>
       </div>
     )
