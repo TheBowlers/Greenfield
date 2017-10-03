@@ -1,8 +1,69 @@
+'use strict';
 const express = require('express');
 const app = express();
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
+
+// Middleware
+const passport = require('passport');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const config = require('../../../config.js');  //credentials
+const auth = require('./../auth/auth'); // take care of auth routing
+
+// Morgan request logging
+const morgan = require('morgan');
+app.use(morgan(
+    '[:date[clf]] | ":method :url" | STATUS: :status :res[content-length] ":referrer" '));
+app.use('/auth', auth);
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(session({secret: 'quiz me not'}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+//serializing of users is to associate the connected client with a user in the database.
+// This is currently set to use memory
+// todo: Update to user only the user.id and query the db for the user entry.
+
+passport.serializeUser(function(user, done) {
+  done(null, user);  // todo: only pass user.id when we can do a DB lookup
+});
+
+passport.deserializeUser(function(user, done) { // todo: Once above method is updated to user.id, pass userId when we can do a DB lookup
+  //user.findById(id)...
+  done(null, user);
+});
+
+
+
+// Passport configuration with Google strategy
+passport.use(new GoogleStrategy({
+      clientID: config.Google.clientID,
+      clientSecret: config.Google.clientSecret,
+      callbackURL: "http://www.devcareerguide.com/auth/google/callback"
+    },
+    function(req, accessToken, refreshToken, profile, done) {
+      return done(null, profile);
+/*  // todo: Create the user or log them in.
+      User.findOrCreate({googleId: profile.id}, function(err, user) {
+        if (err) {
+          return console.error(err);
+        }
+        //call done here;
+      });
+*/
+    }
+));
+
+
+
+//////////////// End Passport config
+
 
 //Question helper functions
 var handleGetQuestion = require('.././db/models/questions.js').getQuestion;
@@ -12,9 +73,6 @@ var handleUpdateQuestion = require('.././db/models/questions.js').updateQuestion
 
 
 
-app.use(cors());
-
-app.use(bodyParser.json());
 
 /*QUESTION ROUTING*/
 
@@ -30,6 +88,29 @@ app.post('/questions/remove', handleDeleteQuestion);
 
 //Updates certain properties for a question bt '_id'
 app.post('/questions/update', handleUpdateQuestion);
+
+// Login routing
+
+app.post('/login', passport.authenticate('local', { successRedirect: '/',
+  failureRedirect: '/login' }));
+
+app.post('/login',
+    passport.authenticate('local'),
+    function(req, res) {
+      // If this function gets called, authentication was successful.
+      // `req.user` contains the authenticated user.
+      res.redirect('/users/' + req.user.username);
+    });
+
+app.post('/login',
+    passport.authenticate('local', { successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true })
+);
+
+
+
+
 
 
 module.exports = app;
