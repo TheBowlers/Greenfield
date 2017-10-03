@@ -1,3 +1,11 @@
+// on GET to views/app..., checkLogin.
+  // If not login, render the login page
+  // if logged in,
+  // on get of the page at all...
+  // on get of login...
+
+
+
 const routes = function(){
 
 
@@ -20,9 +28,7 @@ const routes = function(){
         failureFlash: true })
   );
 
-
-
-
 };
+
 
 module.exports = routes;
