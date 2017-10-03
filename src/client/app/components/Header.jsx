@@ -30,11 +30,11 @@ class Header extends React.Component {
       return (
         <div className="nav navbar">
           <div className="container">
-          <ul className="nav navbar-nav navbar-right">
-            <li>
-              <img className="btn-google" src="/public/images/btn_google_signin_light_normal_web@2x.png" />
-            </li>
-          </ul>
+            <ul className="nav navbar-nav navbar-right">
+              <li>
+                <img className="btn-google" src="/public/images/btn_google_signin_light_normal_web@2x.png" />
+              </li>
+            </ul>
           </div>
         </div>
       )
