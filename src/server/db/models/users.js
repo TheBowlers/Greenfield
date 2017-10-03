@@ -5,6 +5,7 @@ var url = require('../../../.././config.js').dbUrl;
 var signupUser = require('.././utils/users-helpers.js').signupUser;
 var checkUser = require('.././utils/users-helpers.js').checkUser;
 var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
+var updateUserQuestions = require('.././utils/users-helpers.js').updateUserQuestions;
 
 exports.postUser = function(user) {
   //The user object which will be added
@@ -16,10 +17,9 @@ exports.postUser = function(user) {
     image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
     questionsAnswered: []
   }
-  //should eliminate circular reference
+
+  //should eliminate circular reference. NOT TOTALLY SURE THIS IS NECESSARY
   let newUser = JSON.parse(JSON.stringify(newUserObj))
-  console.log('newUser', newUser);
-  console.log('olduser', newUserObj)
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -57,15 +57,19 @@ exports.getUser = function(req, res) {
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
-  let points = req.body.points
+  let points = req.body.points;
+  let questionData = req.body.questionData;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
       console.log('Could not connect', err);
     } else {
       updateUserScore(db, email, points, function(response) {
-        console.log('response line 66', response.value);
-        res.status(200).send(response.value);
+        console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
+        //Score property is not updated in this response. But the next one will be
+        updateUserQuestions(db, email, questionData, function(response) {
+          res.status(200).send(response.value);
+        })
       })
     }
   })

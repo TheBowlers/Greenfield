@@ -19,7 +19,6 @@ var checkUser = function(db, email, success, failure) {
     //Find question, empty should return all
   collection.find({ email: email }).toArray(function(err, user) {
     if (user.length) {
-      console.log('User line 22',user)
       success(user);
     } else {
       failure();
@@ -41,8 +40,21 @@ var updateUserScore = function (db, email, points, callback) {
 
 }
 
+var updateUserQuestions = function(db, email, questionData, callback) {
+
+  var collection = db.collection('test-users');
+
+  collection.findOneAndUpdate(
+      { email: email },
+      { $push: { questionsAnswered: questionData} } //adds question response data to user's data
+    , function(err, response) {
+      callback(response);
+    })
+}
+
 module.exports = {
   signupUser: signupUser,
   checkUser: checkUser,
-  updateUserScore: updateUserScore
+  updateUserScore: updateUserScore,
+  updateUserQuestions: updateUserQuestions
 }
