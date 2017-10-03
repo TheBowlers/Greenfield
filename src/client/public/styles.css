@@ -31,19 +31,36 @@ h1 {
   text-align: center;
 }
 
-.questionView, .answerView {
-  border: 1px solid green;
-  height: 35%;
+.questionView {
+  border-width: 2px 2px 1px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 350px;
+}
+
+.answerView {
+  border-width: 1px 2px 1px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 350px;
 }
 
 .submitView {
-  border: 1px solid green;
-  height: 6%;
+  border-width: 1px 2px 2px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 75px;
 }
 
 .modules, .stats {
-  border: 1px solid green;
+  border: 2px solid green;
+  height: 775px;
 }
 .mainView {
   margin: 0px 10%;
+}
+
+.submit {
+  float: right;
+  margin: 8px 8px;
 }

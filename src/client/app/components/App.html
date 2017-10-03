@@ -10,9 +10,9 @@
     <div class="nav navbar">
       <div class="container">
         <ul class="nav navbar-nav navbar-right">
-          <!-- remove open and set aria-expanded to false to hide dropdown -->
-          <li class="dropdown open">
-            <a href="#" class="dropdown-toggle profile" data-toggle="dropdown" role="button" aria-expanded="true">Profile <span class="caret"></span></a>
+          <!-- remove open to hide dropdown -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle profile" data-toggle="dropdown" role="button">Profile <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#">Signed in as</a></li>
               <li class="divider"></li>
@@ -28,7 +28,9 @@
 
     <div class="container-fluid mainView">
       <div class="row">
-        <div class="col-md-3 modules">Modules</div>
+        <div class="col-md-3 modules hidden-sm hidden-xs">
+          <h1>Modules</h1>
+        </div>
         <div class="col-md-6">
           <div class="questionView">
 
@@ -37,12 +39,12 @@
 
           </div>
           <div class="submitView">
-            <div class="col-md-6 col-md-offset-6">
-                <button class="btn btn-lg btn-primary col-md-7 col-md-offset-4">Submit</button>
-            </div>
+            <button class="btn btn-lg btn-primary col-md-5 submit">Submit</button>
           </div>
         </div>
-        <div class="col-md-3 stats">Stats</div>
+        <div class="col-md-3 stats">
+          <h1>Stats</h1>
+        </div>
       </div>
     </div>
 
