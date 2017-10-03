@@ -8,10 +8,6 @@
   width: 100%;
 }
 
-form {
-  border: 2px solid green;
-}
-
 h1 {
   text-align: center;
 }
@@ -23,26 +19,26 @@ h1 {
 .questionView {
   border-width: 2px 2px 1px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 350px;
 }
 
 .answerView {
   border-width: 1px 2px 1px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 350px;
 }
 
 .submitView {
   border-width: 1px 2px 2px 2px;
   border-style: solid;
-  border-color: green;
+  border-color: #4E7AB5;
   height: 75px;
 }
 
 .modules, .stats {
-  border: 2px solid green;
+  border: 2px solid #4E7AB5;
   height: 775px;
 }
 .mainView {
