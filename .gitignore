@@ -4,11 +4,11 @@ bower_components/
 
 build/
 dist/
-/config.js
 
 .idea
 /credentials.js
 /package-lock.json
 /TheBowlers3.pem
+/config.js
 .floo
 .flooignore
