@@ -6,7 +6,8 @@ class Header extends React.Component {
 
     this.state = {
       dropdownClicked: false,
-      profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png"
+      profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
+      username: "Default"
     }
   }
 
@@ -26,6 +27,7 @@ class Header extends React.Component {
                 <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img class="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Signed in as</a></li>
+                  <li><a href="#"><strong>{this.state.username}</strong></a></li>
                   <li className="divider"></li>
                   <li><a href="#">Your Stats</a></li>
                   <li className="divider"></li>
