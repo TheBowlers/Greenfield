@@ -23,7 +23,7 @@ class MainView extends React.Component {
       return (
         <div className="container-fluid">
           <div className="row">
-            <div className="jumbotron col-lg-10 col-lg-offset-1">
+            <div className="jumbotron col-md-10 col-md-offset-1">
               <h1>Quizzer Wizard</h1>
               <img className="wizard" src="http://southparkstudios.mtvnimages.com/shared/characters/alter-egos/the-grand-wizard.png?height=165" alt="" />
               <p>

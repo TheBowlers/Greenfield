@@ -60,8 +60,8 @@ h1 {
 }
 
 .btn-google {
-  max-width: 50%;
-  max-height: 50%;
+  width: 200px;
+  height: auto;
   float: right;
 }
 
@@ -69,4 +69,9 @@ h1 {
   cursor: pointer;
   cursor: hand;
   content: url("/public/images/btn_google_signin_light_focus_web@2x.png");
+}
+
+.profile-pic {
+  width: auto;
+  height: 20px;
 }
