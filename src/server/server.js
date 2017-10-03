@@ -1,5 +1,6 @@
 
-const server = {
+
+const server = function() {
 
   const morgan = require('morgan');
   const passport = require('passport');
@@ -40,41 +41,7 @@ const server = {
   const routes = require('./router/routes');
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
 
 
 module.exports = server;
