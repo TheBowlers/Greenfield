@@ -10,3 +10,5 @@ dist/
 /credentials.js
 /package-lock.json
 /TheBowlers3.pem
+.floo
+.flooignore
