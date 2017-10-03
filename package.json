@@ -22,8 +22,11 @@
     "cors": "^2.8.4",
     "express": "^4.16.0",
     "jquery": "^3.2.1",
+    "express-session": "^1.15.6",
     "mongodb": "^2.2.31",
     "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0"
   },

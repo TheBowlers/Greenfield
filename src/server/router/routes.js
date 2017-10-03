@@ -1,8 +1,9 @@
+const routes = function(){
 
-const routes = {
 
   app.post('/login', passport.authenticate('local', { successRedirect: '/',
   failureRedirect: '/login' }));
+
 
 
   app.post('/login',
@@ -22,15 +23,6 @@ const routes = {
 
 
 
-
-
-
-
-
-
 };
-
-
-
 
 module.exports = routes;
