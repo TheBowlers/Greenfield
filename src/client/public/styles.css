@@ -1,38 +1,66 @@
 .sign-up {
   float: right;
-  margin: 5px 200px 0px 0px;
+  margin: 5px 0px 0px 0px;
   font-size: 16px;
-  font-weight: bold;
 }
 
 .log-in {
-  position: relative;
   padding-right: 20px;
   font-size: 14px;
 }
 
-.row {
- margin: 50px 100px 0px 100px;
- border: 2px solid green;
-}
-
 .jumbotron {
-  margin: 50px 100px 0px 100px;
   text-align: center;
-  height: 75%;
-}
-
-.wizard {
-  height: 50%;
-}
-
-.profile {
-  float: right;
-  margin: 0px 100px 0px 0px;
 }
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+form {
+  border: 2px solid green;
+}
+
+h1 {
+  text-align: center;
+}
+
+.lead {
+  text-align: center;
+}
+
+.questionView {
+  border-width: 2px 2px 1px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 350px;
+}
+
+.answerView {
+  border-width: 1px 2px 1px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 350px;
+}
+
+.submitView {
+  border-width: 1px 2px 2px 2px;
+  border-style: solid;
+  border-color: green;
+  height: 75px;
+}
+
+.modules, .stats {
+  border: 2px solid green;
+  height: 775px;
+}
+.mainView {
+  margin: 0px 10%;
+}
+
+.submit {
+  float: right;
+  margin: 8px 8px;
 }
