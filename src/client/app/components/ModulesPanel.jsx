@@ -7,8 +7,8 @@ class ModulesPanel extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>ModulesPanel</h3>
+      <div className="col-md-3 modules hidden-sm hidden-xs">
+        <h1>Modules</h1>
       </div>
     )
   }

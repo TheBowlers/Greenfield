@@ -7,8 +7,8 @@ class StatsPanel extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>StatsPanel</h3>
+      <div className="col-md-3 stats">
+        <h1>Stats</h1>
       </div>
     )
   }

@@ -9,13 +9,22 @@ class MainView extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <ModulesPanel />
-        <QuestionPanel />
-        <StatsPanel />
-      </div>
-    )
+    if (this.props.loggedIn) {
+      return (
+        <div className="container-fluid mainView">
+          <div className="row">
+            <ModulesPanel />
+            <QuestionPanel />
+            <StatsPanel />
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+        </div>
+      )
+    }
   }
 }
 

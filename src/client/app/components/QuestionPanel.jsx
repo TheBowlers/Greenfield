@@ -11,8 +11,7 @@ class QuestionPanel extends React.Component {
 
   render() {
     return (
-      <div>
-        <h3>QuestionPanel</h3>
+      <div className="col-md-6">
         <QuestionView />
         <AnswerView />
         <SubmitView />
