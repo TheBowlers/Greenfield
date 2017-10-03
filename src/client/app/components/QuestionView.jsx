@@ -26,6 +26,8 @@ class QuestionView extends React.Component {
   }
 
   getQuestion (questionType, callback) {
+    //todo: change to relative path for urlRoute
+  }
     let urlRoute = 'http://127.0.0.1:8080/questions?questionType=' + questionType;
     $.ajax({
       url: urlRoute,
@@ -52,7 +54,7 @@ class QuestionView extends React.Component {
     return (
       <div>
         <div>Select a question type
-          <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response< /a>
+          <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response</a>
         </div>
 
         <div className="head-question">
