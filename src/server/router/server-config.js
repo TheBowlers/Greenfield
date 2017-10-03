@@ -36,12 +36,26 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', auth);
 
+//User handler functions
+var handlePostUser = require('.././db/models/users.js').postUser;
+// var handleUserData = require('.././db/models/users.js').handleUserData;
+// var handleUpdateUser = require('.././db/models/users.js').updateUser;
+
+/*USER ROUTING*/
+
+//Festches user data from email
+// app.get('/users', handleGetUser);
+
+/*END USER ROUTING*/
+
 //serializing of users is to associate the connected client with a user in the database.
 // This is currently set to use memory
 // todo: Update to user only the user.id and query the db for the user entry.
 
 passport.serializeUser(function(user, done) {
   console.log('User profile has been received and is:', user );
+  //TODO: A function which tests if user is in db by email
+  //handleUserData(user)//////TODO
   done(null, user);  // todo: only pass user.id when we can do a DB lookup
 });
 
@@ -72,14 +86,11 @@ passport.use(new GoogleStrategy({
 /////////////// End Passport config
 
 
-//Question helper functions
+//Question handler functions
 var handleGetQuestion = require('.././db/models/questions.js').getQuestion;
 var handlePostQuestion = require('.././db/models/questions.js').postQuestion;
 var handleDeleteQuestion = require('.././db/models/questions.js').deleteQuestion;
 var handleUpdateQuestion = require('.././db/models/questions.js').updateQuestion;
-
-
-
 
 /*QUESTION ROUTING*/
 
@@ -95,6 +106,8 @@ app.post('/questions/remove', handleDeleteQuestion);
 
 //Updates certain properties for a question bt '_id'
 app.post('/questions/update', handleUpdateQuestion);
+/*END QUESTION ROUTING*/
+
 
 // Login routing
 
