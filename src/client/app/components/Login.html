@@ -8,29 +8,32 @@
   <body>
 
     <div class="nav navbar">
-      <div class="btn btn-success container-fluid sign-up">Sign Up</div>
-      <ul class="nav navbar-nav navbar-right log-in">
+      <div class="container">
+      <ul class="nav navbar-nav navbar-right">
         <li><a href="#">Log In</a></li>
+        <li>
+          <div class="btn btn-success sign-up">Sign Up</div>
+        </li>
       </ul>
+      </div>
     </div>
 
-    <div class="row">
-      <form class="form-horizontal">
-        <fieldset>
-         <div class="form-group">
-           <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-           <div class="col-lg-2">
-             <input type="text" class="form-control" id="inputEmail" placeholder="Email">
-           </div>
-         </div>
-         <div class="form-group">
-           <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-           <div class="col-lg-2">
-             <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-           </div>
-         </div>
-        </fieldset>
-      </form>
+    <div class="container">
+      <div class="row">
+        <form class="col-md-4 col-md-offset-4">
+          <h1>Sign In</h1>
+          <div class="form-group">
+            <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email address">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password">
+          </div>
+          <button type="submit" class="btn btn-lg col-md-12 btn-success">Sign In</button>
+          <div class="row">
+            <p class="lead">Or, sign in with <a href="INSERT AUTH LINK">Google</a></p>
+          </div>
+        </form>
+      </div>
     </div>
 
   </body>

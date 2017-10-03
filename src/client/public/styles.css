@@ -13,12 +13,37 @@
   text-align: center;
 }
 
-.wizard {
-  height: 50%;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+form {
+  border: 2px solid green;
+}
+
+h1 {
+  text-align: center;
+}
+
+.lead {
+  text-align: center;
+}
+
+.questionView, .answerView {
+  border: 1px solid green;
+  height: 35%;
+}
+
+.submitView {
+  border: 1px solid green;
+  height: 6%;
+}
+
+.modules, .stats {
+  border: 1px solid green;
+}
+.mainView {
+  margin: 0px 10%;
 }
