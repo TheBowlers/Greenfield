@@ -25,7 +25,7 @@ class QuestionView extends React.Component {
     );
   }
 
-  getQuestion (questionType, callback) => {
+  getQuestion (questionType, callback) {
     let urlRoute = 'http://127.0.0.1:8080/questions?questionType=' + questionType;
     $.ajax({
       url: urlRoute,
@@ -50,29 +50,28 @@ class QuestionView extends React.Component {
     //<ResponseView question={this.currentQuestion.answerText}>
     //<QuestionButtons question={this.currentQuestion}>
     return (
-      <div>Select a question type
-        <a
-          href=""
-          onClick={() => this.handleQuestionTypeClick(textResponse)} > Text Response
-        </a>
-      </div>
+      <div>
+        <div>Select a question type
+          <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response< /a>
+        </div>
 
-      <div className="head-question">
-        <div className="head-question-prompt">
-          {this.currentQuestion.questionText}
-        </div>
-        <div className="head-question-response">
-          <form>
-            <input
-              className="response-field"
-              type="text"
-              value={this.state.currentResponse} />
-          </form>
-        </div>
-        <div className="head-question-buttons">
-          <button className="btn-submit">
-            <span className="btn-text">Submit</span>
-          </button>
+        <div className="head-question">
+          <div className="head-question-prompt">
+            {this.currentQuestion.questionText}
+          </div>
+          <div className="head-question-response">
+            <form>
+              <input
+                className="response-field"
+                type="text"
+                value={this.state.currentResponse} />
+            </form>
+          </div>
+          <div className="head-question-buttons">
+            <button className="btn-submit">
+              <span className="btn-text">Submit</span>
+            </button>
+          </div>
         </div>
       </div>
     )
