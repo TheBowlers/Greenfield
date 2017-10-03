@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const app = express();
+const publicDir = '/src/client';
 
 var cors = require('cors');
 var bodyParser = require('body-parser');
@@ -17,20 +18,30 @@ const auth = require('./../auth/auth'); // take care of auth routing
 const morgan = require('morgan');
 app.use(morgan(
     '[:date[clf]] | ":method :url" | STATUS: :status :res[content-length] ":referrer" '));
-app.use('/auth', auth);
+
+app.use(express.static(__dirname.substring(0, __dirname.length - 18) + publicDir));
+console.log('public directory is: ' + __dirname.substring(0, __dirname.length - 18) + publicDir);
+
+
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({secret: 'quiz me not'}));
+app.use(session({
+  secret: 'quiz me not',
+  resave: true,
+  saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use('/auth', auth);
 
 //serializing of users is to associate the connected client with a user in the database.
 // This is currently set to use memory
 // todo: Update to user only the user.id and query the db for the user entry.
 
 passport.serializeUser(function(user, done) {
+  console.log('User profile has been received and is:', user );
   done(null, user);  // todo: only pass user.id when we can do a DB lookup
 });
 
@@ -39,13 +50,11 @@ passport.deserializeUser(function(user, done) { // todo: Once above method is up
   done(null, user);
 });
 
-
-
 // Passport configuration with Google strategy
 passport.use(new GoogleStrategy({
       clientID: config.Google.clientID,
       clientSecret: config.Google.clientSecret,
-      callbackURL: "http://www.devcareerguide.com/auth/google/callback"
+      callbackURL: "http://localhost:8080/auth/google/callback"
     },
     function(req, accessToken, refreshToken, profile, done) {
       return done(null, profile);
@@ -60,9 +69,7 @@ passport.use(new GoogleStrategy({
     }
 ));
 
-
-
-//////////////// End Passport config
+/////////////// End Passport config
 
 
 //Question helper functions
