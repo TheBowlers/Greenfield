@@ -38,13 +38,15 @@ app.use('/auth', auth);
 
 //User handler functions
 var handlePostUser = require('.././db/models/users.js').postUser;
-// var handleUserData = require('.././db/models/users.js').handleUserData;
+var handleUserDataGoogle = require('.././db/models/users.js').handleUserDataGoogle;
+var handleGetUser = require('.././db/models/users.js').getUser;
+
 // var handleUpdateUser = require('.././db/models/users.js').updateUser;
 
 /*USER ROUTING*/
 
 //Festches user data from email
-// app.get('/users', handleGetUser);
+app.get('/users', handleGetUser);
 
 /*END USER ROUTING*/
 
@@ -54,8 +56,9 @@ var handlePostUser = require('.././db/models/users.js').postUser;
 
 passport.serializeUser(function(user, done) {
   console.log('User profile has been received and is:', user );
+  console.log('DISPLAYNAME', user._json.displayName)
   //TODO: A function which tests if user is in db by email
-  //handleUserData(user)//////TODO
+  handleUserDataGoogle(user)//////TODO
   done(null, user);  // todo: only pass user.id when we can do a DB lookup
 });
 

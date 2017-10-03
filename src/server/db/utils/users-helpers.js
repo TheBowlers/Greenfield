@@ -12,19 +12,19 @@ var signupUser = function(db, user, callback) {
 }
 
 //Check if user exists
-var findUser = function(db, email, success, failure) {
+var checkUser = function(db, email, success, failure) {
   //Specify the collection where we will 'find' in this case 'users'
 
   var collection = db.collection('test-users');
     //Find question, empty should return all
-    collection.find({ email: email }, function(err, user) {
-      if (user) {
-        success(user);
-      } else {
-        failure(user);
-      }
-    })
-
+  collection.find({ email: email }).toArray(function(err, user) {
+    if (user.length) {
+      console.log('User line 22',user)
+      success(user);
+    } else {
+      failure();
+    }
+  });
 }
 
 //Update user's score
@@ -40,6 +40,6 @@ var updateUserScore = function (db, user, points, callback) {
 
 module.exports = {
   signupUser: signupUser,
-  findUser: findUser,
+  checkUser: checkUser,
   updateUserScore: updateUserScore
 }

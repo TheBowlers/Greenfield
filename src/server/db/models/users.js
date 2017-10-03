@@ -3,43 +3,75 @@ var MongoClient = require('mongodb').MongoClient;
 var url = require('../../../.././config.js').dbUrl;
 //User helper functions
 var signupUser = require('.././utils/users-helpers.js').signupUser;
-var findUser = require('.././utils/users-helpers.js').findUser;
+var checkUser = require('.././utils/users-helpers.js').checkUser;
 var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
 
-exports.postUser = function(req, res) {
+exports.postUser = function(user) {
   //The user object which will be added
-  let question = req.body;
+  let newUserObj = {
+    displayName: user._json.displayName,
+    email: user._json.emails[0].value,
+    score: 0,
+    token: user._json.etag,
+    image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
+    questionsAnswered: []
+  }
+  //should eliminate circular reference
+  let newUser = JSON.parse(JSON.stringify(newUserObj))
+  console.log('newUser', newUser);
+  console.log('olduser', newUserObj)
 
   MongoClient.connect(url, function(err, db) {
-    console.log('Connected to MongoDB server');
-    signupUser(db, user, function() {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('Connected to MongoDB server');
+      signupUser(db, newUser, function() {
       //inserts user to table
-      res.status(200).send('User added to database');
-      db.close();
-    });
+        console.log('Signed Up new user with email:', newUser.email);
+        db.close();
+      });
+    }
+
   });
 }
 
-exports.handleUserData = function(user, res) {
-  //fetched questions are pushed to array
+//Sends user object for given email address
+exports.getUser = function(req, res) {
+
+  let email = req.query.email;
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log('Could not connect', err);
+    } else {
+      checkUser(db, email, function(userData) {
+        res.status(200).send(userData[0]);
+      }, function(userData) {
+        res.status(404).send('Could not get data for user with that email');
+      })
+    }
+  })
+}
+
+exports.handleUserDataGoogle = function(user) {
 
   //User email
-  let email = user.emails[0].value;
+  let email = user._json.emails[0].value;
 
   if (!email) {
-    console.log('No valid email');
-    //Could also be made to give an utterly random question
+    console.log('No valid email to create account with');
   } else {
     MongoClient.connect(url, function(err, db) {
-      if(err){
+      if(err) {
         return console.error(err);
       }
       console.log('Connected to MongoDB server');
-      findUser(db, email,
-        function(user) {//found User callback
-
-        }, function(user) {//did not find User callback
-
+      checkUser(db, email,
+        function(userData) {//found User callback
+          console.log('Found data for user with email:', userData[0]);
+        }, function() {//did not find User callback
+          exports.postUser(user);
       })
       db.close();
     });
