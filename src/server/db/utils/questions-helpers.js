@@ -8,8 +8,19 @@ var insertQ = function(db, question, callback) {
   collection.insert(question, function(err, result) {
 
     console.log('Inserted a question', question, 'into Mongo collection');
-    callback(result);
+    callback(result.ops);
   });
+}
+
+
+var findAllQ = function(db, callback) {
+  var collection = db.collection('test-questions');
+    //Find question, empty should return all
+    collection.find({})
+    .toArray(function(err, docs) {
+      console.log('Found the following record(s)...');
+      callback(docs);
+    });
 }
 
 //Using 'find' to return data row(s)
@@ -51,24 +62,11 @@ var removeQ = function(db, id, callback) {
   });
 }
 
-//Make a "hashed" index on collection
-var indexQ = function(db, callback) {
-  //Specify the collection where we will 'index' in this case 'questions'
-  db.collection('test-questions')
-  .createIndex(
-  {"prompt": 1},
-  null,
-  function(err, results) {
-    console.log("Created index on 'prompt' property");
-    callback();
-  }
-  )
-}
 
 module.exports = {
   insertQ: insertQ,
   findQ: findQ,
   updateQ: updateQ,
   removeQ: removeQ,
-  indexQ: indexQ,
+  findAllQ: findAllQ
 }
