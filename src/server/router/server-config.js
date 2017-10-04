@@ -35,6 +35,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', auth);
+app.use(function(req, res, next) {
+  console.log('User in request:', req.user);
+  console.log('Session in request:', req.session);
+  console.log('User in session:', req.session.user);
+  console.log('Assigning new user: Jonny');
+  req.session.user = {username: 'Jonny'}
+  next();
+});
+
 
 //User handler functions
 var handlePostUser = require('.././db/models/users.js').postUser;
