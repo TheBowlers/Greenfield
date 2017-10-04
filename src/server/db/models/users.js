@@ -3,23 +3,23 @@ var MongoClient = require('mongodb').MongoClient;
 var url = require('../../../.././config.js').dbUrl;
 //User helper functions
 var signupUser = require('.././utils/users-helpers.js').signupUser;
-var checkUser = require('.././utils/users-helpers.js').checkUser;
+var fetchUserByEmail = require('.././utils/users-helpers.js').fetchUserByEmail;
 var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
 var updateUserQuestions = require('.././utils/users-helpers.js').updateUserQuestions;
 
-exports.postUser = function(user) {
+exports.formatUserData = function(user) {
   //The user object which will be added
-  let newUserObj = {
+  let newUser = {
     displayName: user._json.displayName,
     email: user._json.emails[0].value,
     score: 0,
-    token: user._json.etag,
+    token: user._json.etag.split('"').join(''), // Trims token from '"someToken"' to resemble a simple string. May have unintended consequences down the road.-ZB
     image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
     questionsAnswered: []
   }
 
   //should eliminate circular reference. NOT TOTALLY SURE THIS IS NECESSARY
-  let newUser = JSON.parse(JSON.stringify(newUserObj))
+  //let newUser = JSON.parse(JSON.stringify(newUserObj))
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -27,7 +27,7 @@ exports.postUser = function(user) {
     } else {
       console.log('Connected to MongoDB server');
       signupUser(db, newUser, function() {
-      //inserts user to table
+        //inserts user to table
         console.log('Signed Up new user with email:', newUser.email);
         db.close();
       });
@@ -45,7 +45,7 @@ exports.getUser = function(req, res) {
     if (err) {
       console.log('Could not connect', err);
     } else {
-      checkUser(db, email, function(userData) {
+      fetchUserByEmail(db, email, function(userData) {
         res.status(200).send(userData[0]);
       }, function(userData) {
         res.status(404).send('Could not get data for user with that email');
@@ -54,11 +54,25 @@ exports.getUser = function(req, res) {
   })
 }
 
+//TODO: question_id, timeToAnswer, pointsAwarded
+// Builds
+exports.formatResponseData = function(params, points) {
+  let questionData = {
+    question_id: params.question_id,
+    timeToAnswer: params.timeToAnswer,
+    pointsAwarded: points,
+    respondedCorrect: points > 0
+  }
+  return questionData
+}
+
+
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
-  let points = req.body.points;
-  let questionData = req.body.questionData;
+  let points = req.body.pointsAwarded;
+  let questionData = exports.formatResponseData(req.body, points);
+  //OLD WAY: let questionData = req.body.questionData;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -88,11 +102,12 @@ exports.handleUserDataGoogle = function(user) {
         return console.error(err);
       }
       console.log('Connected to MongoDB server');
-      checkUser(db, email,
+      fetchUserByEmail(db, email,
         function(userData) {//found User callback
           console.log('Found data for user with email:', userData[0]);
+          //session initialization?
         }, function() {//did not find User callback
-          exports.postUser(user);
+          exports.formatUserData(user);
       })
       db.close();
     });

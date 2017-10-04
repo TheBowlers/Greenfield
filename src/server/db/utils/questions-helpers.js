@@ -8,7 +8,7 @@ var insertQ = function(db, question, callback) {
   collection.insert(question, function(err, result) {
 
     console.log('Inserted a question', question, 'into Mongo collection');
-    callback(result);
+    callback(result.ops);
   });
 }
 
@@ -51,24 +51,10 @@ var removeQ = function(db, id, callback) {
   });
 }
 
-//Make a "hashed" index on collection
-var indexQ = function(db, callback) {
-  //Specify the collection where we will 'index' in this case 'questions'
-  db.collection('test-questions')
-  .createIndex(
-  {"prompt": 1},
-  null,
-  function(err, results) {
-    console.log("Created index on 'prompt' property");
-    callback();
-  }
-  )
-}
 
 module.exports = {
   insertQ: insertQ,
   findQ: findQ,
   updateQ: updateQ,
   removeQ: removeQ,
-  indexQ: indexQ,
 }

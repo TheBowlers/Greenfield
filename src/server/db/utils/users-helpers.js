@@ -12,11 +12,12 @@ var signupUser = function(db, user, callback) {
 }
 
 //Check if user exists
-var checkUser = function(db, email, success, failure) {
+var fetchUserByEmail = function(db, email, success, failure) {
   //Specify the collection where we will 'find' in this case 'users'
 
   var collection = db.collection('test-users');
     //Find question, empty should return all
+  // For testing purposes if you need to drop table: collection.drop()
   collection.find({ email: email }).toArray(function(err, user) {
     if (user.length) {
       success(user);
@@ -54,7 +55,7 @@ var updateUserQuestions = function(db, email, questionData, callback) {
 
 module.exports = {
   signupUser: signupUser,
-  checkUser: checkUser,
+  fetchUserByEmail: fetchUserByEmail,
   updateUserScore: updateUserScore,
   updateUserQuestions: updateUserQuestions
 }

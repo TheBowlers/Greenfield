@@ -50,7 +50,7 @@ var handleUpdateUserScore = require('.././db/models/users.js').updateScore;
 app.get('/users', handleGetUser);
 
 //Updates user's score
-app.post('/users/update', handleUpdateUserScore);
+app.put('/users/update', handleUpdateUserScore);
 
 /*END USER ROUTING*/
 
@@ -62,7 +62,7 @@ passport.serializeUser(function(user, done) {
   console.log('User profile has been received and is:', user );
   console.log('DISPLAYNAME', user._json.displayName)
   //TODO: A function which tests if user is in db by email
-  handleUserDataGoogle(user)//////TODO
+  handleUserDataGoogle(user)
   done(null, user);  // todo: only pass user.id when we can do a DB lookup
 });
 

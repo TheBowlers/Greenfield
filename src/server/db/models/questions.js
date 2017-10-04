@@ -48,13 +48,12 @@ exports.postQuestion = function(req, res) {
 
   MongoClient.connect(url, function(err, db) {
     console.log('Connected to MongoDB server');
-    insertQ(db, question, function() {
-      //inserts to table and creates a unique index based on prompt
-      indexQ(db, function() {
-        res.status(200).send('Question added to database');
-        db.close();
+    insertQ(db, question, function(question) {
+
+      // Sends question + _id
+      res.status(200).send(question[0]);
+      db.close();
       });
-    });
   });
 }
 
