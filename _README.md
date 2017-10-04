@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Kent Shepard
+  - __Scrum Master__: Jonathan Lewis
+  - __Lead Engineer__: Zack Biernat
 
 ## Table of Contents
 
@@ -50,3 +50,23 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+
+
+## API
+
+### Questions
+
+```JSON
+
+{
+  "email": "zackbiernat@gmail.com",
+  "points": 0,
+  "questionData": {
+      "_id": "asfueihf375y4",
+      "respondedCorrect": "true"
+      }
+  }
+}
+
+
+```
