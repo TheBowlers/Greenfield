@@ -3,9 +3,13 @@ var MongoClient = require('mongodb').MongoClient;
 var url = require('../../../.././config.js').dbUrl;
 //User helper functions
 var signupUser = require('.././utils/users-helpers.js').signupUser;
-var fetchUserByEmail = require('.././utils/users-helpers.js').fetchUserByEmail;
+var findUserByEmail = require('.././utils/users-helpers.js').findUserByEmail;
 var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
 var updateUserQuestions = require('.././utils/users-helpers.js').updateUserQuestions;
+
+//Question helper functions
+var findQById = require('.././utils/questions-helpers.js').findQById;
+
 
 exports.formatUserData = function(user) {
   //The user object which will be added
@@ -15,7 +19,7 @@ exports.formatUserData = function(user) {
     score: 0,
     token: user._json.etag.split('"').join(''), // Trims token from '"someToken"' to resemble a simple string. May have unintended consequences down the road.-ZB
     image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
-    questionsAnswered: []
+    questionsAnswered: {}
   }
 
   //should eliminate circular reference. NOT TOTALLY SURE THIS IS NECESSARY
@@ -45,7 +49,7 @@ exports.getUser = function(req, res) {
     if (err) {
       console.log('Could not connect', err);
     } else {
-      fetchUserByEmail(db, email, function(userData) {
+      findUserByEmail(db, email, function(userData) {
         res.status(200).send(userData[0]);
       }, function(userData) {
         res.status(404).send('Could not get data for user with that email');
@@ -54,30 +58,87 @@ exports.getUser = function(req, res) {
   })
 }
 
-//TODO: question_id, timeToAnswer, pointsAwarded
-// Builds
-exports.formatResponseData = function(params, points) {
-  let questionData = {
-    question_id: params.question_id,
-    timeToAnswer: params.timeToAnswer,
-    pointsAwarded: points,
-    respondedCorrect: points > 0
+// Builds new Entry for user's 'questionsAnswered'
+exports.formatResponseData = function(params, db) {
+  let questionId = params.question_id
+  let pointsScored = 0;
+  let max = 0;
+  let pointsAccumulated = 0;
+  let bestTime = 0;
+  findQById(db, questionId, function(question) {
+    pointsScored = question.difficulty * 1000;
+    pointsScored += question.difficulty * (question.time - params.timeToAnswer);
+    max = question.difficulty * 1000;
+    max += question.difficulty * question.time;
+    //console.log('question', question)
+    //console.log('max',max,'points',pointsScored)
+    findUserByEmail(db, params.email, function(userResponseData) {
+    console.log(userResponseData);
+    if (userResponseData.questionsAnswered !== undefined) {
+      pointsAccumulated = userResponseData.pointsAwarded;
+      bestTime = userResponseData.bestTimeToAnswer
+    } else {
+
+    }
+  });
+  });
+
+
+
+  if (userResponseData) {
+    pointsAccumulated = userResponseData.pointsAwarded;
+    bestTime = userResponseData.bestTimeToAnswer
   }
+
+  if (pointsAccumulated + pointsScored < max) {
+    pointsScored += pointsAccumulated;
+  } else {
+    pointsScored = max;
+  }
+
+  if (bestTime !==0 && bestTime > params.timeToAnswer) {
+    bestTime = params.timeToAnswer
+  }
+  if (!params.isCorrect) {
+    pointsScored = 0;
+  }
+
+  let netPoints = pointsScored - pointsAccumulated;
+  if (netPoints < 0) {
+    netPoints = 0;
+  }
+
+  let questionData = {
+    id: questionId,
+    bestTimeToAnswer: bestTime,
+    pointsAwarded: pointsScored,
+    respondedCorrect: params.isCorrect,
+    lastPoints: netPoints
+  }
+  console.log('line 114',questionData)
   return questionData
 }
 
+// exports.calcMaxScore = function(questionId, db) {
+//   findQById(db, questionId, function(question) {
+//     let base = question.baseScore;
+//     let timeAllowed = question.time;
+//   });
+// }
 
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
-  let points = req.body.pointsAwarded;
-  let questionData = exports.formatResponseData(req.body, points);
+  //let points = req.body.pointsAwarded;
   //OLD WAY: let questionData = req.body.questionData;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
       console.log('Could not connect', err);
     } else {
+      let questionData = exports.formatResponseData(req.body, db);
+      let points = questionData.lastPoints;
+      //OLD
       updateUserScore(db, email, points, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
         //Score property is not updated in this response. But the next one will be
@@ -102,7 +163,7 @@ exports.handleUserDataGoogle = function(user) {
         return console.error(err);
       }
       console.log('Connected to MongoDB server');
-      fetchUserByEmail(db, email,
+      findUserByEmail(db, email,
         function(userData) {//found User callback
           console.log('Found data for user with email:', userData[0]);
           //session initialization?

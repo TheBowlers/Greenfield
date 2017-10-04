@@ -1,4 +1,6 @@
 /********DATA CRUD METHODS********/
+var mongodb = require("mongodb");
+var ObjectId = mongodb.ObjectId;
 
 //Using 'insert' to insert data to our collection
 var insertQ = function(db, question, callback) {
@@ -23,17 +25,31 @@ var findAllQ = function(db, callback) {
     });
 }
 
-//Using 'find' to return data row(s)
-var findQ = function(db, questionType, callback) {
+//Using 'find' to return data row(s) for a given questionType
+var findQByType = function(db, questionType, callback) {
   //Specify the collection where we will 'find' in this case 'questions'
 
   var collection = db.collection('test-questions');
     //Find question, empty should return all
     collection.find({questionType: questionType})
-    .toArray(function(err, docs) {
+    .toArray(function(err, questions) {
       console.log('Found the following record(s)...');
-      callback(docs);
+      callback(questions);
     });
+}
+
+//Using 'find' to return data row(s) for a given questionId
+var findQById = function(db, questionId, callback) {
+  //Specify the collection where we will 'find' in this case 'questions'
+
+  var collection = db.collection('test-questions');
+  console.log('id', questionId)
+    //Find question, empty should return all
+  collection.find({_id: ObjectId(questionId)})
+  .toArray(function(err, question) {
+    console.log('Found the following record(s)...', question);
+    callback(question[0]);
+  });
 }
 
 //Update data row
@@ -65,7 +81,8 @@ var removeQ = function(db, id, callback) {
 
 module.exports = {
   insertQ: insertQ,
-  findQ: findQ,
+  findQByType: findQByType,
+  findQById: findQById,
   updateQ: updateQ,
   removeQ: removeQ,
   findAllQ: findAllQ
