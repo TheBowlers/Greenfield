@@ -26,7 +26,7 @@ class Header extends React.Component {
             <ul className="nav navbar-nav navbar-right">
               <li><a href="#">{this.state.userScore}</a></li>
               <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
-                <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img class="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
+                <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Signed in as</a></li>
                   <li><a href="#"><strong>{this.state.username}</strong></a></li>
