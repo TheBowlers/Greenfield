@@ -6,7 +6,7 @@ var insertQ = require('.././utils/questions-helpers.js').insertQ;
 var findQ = require('.././utils/questions-helpers.js').findQ;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
-var indexQ = require('.././utils/questions-helpers.js').indexQ;
+var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
 
 exports.getQuestion = function(req, res) {
   //fetched questions are pushed to array
@@ -15,8 +15,24 @@ exports.getQuestion = function(req, res) {
   //Question genre id
   let questionType = req.query.questionType;
 
+  //sends all questions
   if (!questionType) {
-    res.send('No question type given');
+    MongoClient.connect(url, function(err, db) {
+      if(err){
+        return console.error(err);
+      } else {
+        let response = [];
+        findAllQ(db, function(questions) {
+          questions.forEach(function(question) {
+            response.push(question);
+            console.log(response)
+          });
+      res.status(200).send(response);
+        });
+      }
+    });
+
+
     //Could also be made to give an utterly random question
   } else {
     MongoClient.connect(url, function(err, db) {

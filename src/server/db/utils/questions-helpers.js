@@ -12,6 +12,17 @@ var insertQ = function(db, question, callback) {
   });
 }
 
+
+var findAllQ = function(db, callback) {
+  var collection = db.collection('test-questions');
+    //Find question, empty should return all
+    collection.find({})
+    .toArray(function(err, docs) {
+      console.log('Found the following record(s)...');
+      callback(docs);
+    });
+}
+
 //Using 'find' to return data row(s)
 var findQ = function(db, questionType, callback) {
   //Specify the collection where we will 'find' in this case 'questions'
@@ -57,4 +68,5 @@ module.exports = {
   findQ: findQ,
   updateQ: updateQ,
   removeQ: removeQ,
+  findAllQ: findAllQ
 }
