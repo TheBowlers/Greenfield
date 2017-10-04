@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 //Use proper url for MongoDB cluster
 var url = require('../../../.././config.js').dbUrl;
-////Question helper functions
+//Question helper functions
 var insertQ = require('.././utils/questions-helpers.js').insertQ;
 var findQ = require('.././utils/questions-helpers.js').findQ;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
