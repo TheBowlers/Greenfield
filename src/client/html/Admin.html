@@ -6,6 +6,7 @@
   </head>
   <body>
     <div class="container">
+      <form id="question" class="form-horizontal">
         <fieldset>
           <legend>Add Question Form</legend>
           <div class="form-group">
@@ -70,15 +71,16 @@
           <div class="form-group">
             <div class="col-lg-8 col-lg-offset-2">
               <button type="reset" class="btn btn-default">Cancel</button>
-              <button class="submit btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </fieldset>
+      </form>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script>
       $(document).ready(function(){
-        $('button.submit').on('click', function() {
+        $('form').submit(function() {
           var questionData = {
             title: $('#inputTitle').val(),
             questionText: $('#questionText').val(),
@@ -89,30 +91,17 @@
             author: $('#inputAuthor').val()
           };
 
-          var checkInputs = function() {
-            for (var key in questionData) {
-              if (questionData[key] === "" || questionData[key] === 0) {
-                return false;
-              }
+          $.ajax({
+            url: 'http://127.0.0.1:8080/questions',
+            type: 'POST',
+            data: questionData,
+            success: function(data) {
+              alert('success');
+            },
+            error: function(err) {
+              alert('error');
             }
-            return true;
-          }
-
-          var filledOut = checkInputs();
-
-          if (filledOut) {
-            $.ajax({
-              url: 'http://127.0.0.1:8080/questions',
-              method: 'POST',
-              data: questionData,
-              success: function(data) {
-                alert('success');
-              },
-              error: function(err) {
-                alert('error');
-              }
-            })
-          }
+          })
         });
       });
     </script>
