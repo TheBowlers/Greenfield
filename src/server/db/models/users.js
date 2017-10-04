@@ -59,7 +59,7 @@ exports.getUser = function(req, res) {
 }
 
 // Builds new Entry for user's 'questionsAnswered'
-exports.formatResponseData = function(params, db) {
+exports.formatResponseData = function(params, db, callback) {
   let questionId = params.question_id
   let pointsScored = 0;
   let max = 0;
@@ -73,50 +73,43 @@ exports.formatResponseData = function(params, db) {
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
     findUserByEmail(db, params.email, function(userResponseData) {
-    console.log(userResponseData);
-    if (userResponseData.questionsAnswered !== undefined) {
-      pointsAccumulated = userResponseData.pointsAwarded;
-      bestTime = userResponseData.bestTimeToAnswer
-    } else {
+      console.log(userResponseData);
+      if (userResponseData.questionsAnswered !== undefined) {
+        pointsAccumulated = userResponseData.pointsAwarded;
+        bestTime = userResponseData.bestTimeToAnswer
+      }
+      if (pointsAccumulated + pointsScored < max) {
+        pointsScored += pointsAccumulated;
+      } else {
+        pointsScored = max;
+      }
 
-    }
+      if (bestTime === 0 || bestTime > params.timeToAnswer) {
+        bestTime = params.timeToAnswer
+      }
+      if (!params.isCorrect) {
+        pointsScored = 0;
+      }
+
+      let netPoints = pointsScored - pointsAccumulated;
+      if (netPoints < 0) {
+        netPoints = 0;
+      }
+      let questionData = {
+        id: questionId,
+        bestTimeToAnswer: bestTime,
+        pointsAwarded: pointsScored,
+        respondedCorrect: params.isCorrect,
+        lastPoints: netPoints
+      }
+      console.log('line 105',questionData)
+      callback(questionData);
+    });
   });
-  });
 
 
 
-  if (userResponseData) {
-    pointsAccumulated = userResponseData.pointsAwarded;
-    bestTime = userResponseData.bestTimeToAnswer
-  }
 
-  if (pointsAccumulated + pointsScored < max) {
-    pointsScored += pointsAccumulated;
-  } else {
-    pointsScored = max;
-  }
-
-  if (bestTime !==0 && bestTime > params.timeToAnswer) {
-    bestTime = params.timeToAnswer
-  }
-  if (!params.isCorrect) {
-    pointsScored = 0;
-  }
-
-  let netPoints = pointsScored - pointsAccumulated;
-  if (netPoints < 0) {
-    netPoints = 0;
-  }
-
-  let questionData = {
-    id: questionId,
-    bestTimeToAnswer: bestTime,
-    pointsAwarded: pointsScored,
-    respondedCorrect: params.isCorrect,
-    lastPoints: netPoints
-  }
-  console.log('line 114',questionData)
-  return questionData
 }
 
 // exports.calcMaxScore = function(questionId, db) {
@@ -136,16 +129,16 @@ exports.updateScore = function(req, res) {
     if (err) {
       console.log('Could not connect', err);
     } else {
-      let questionData = exports.formatResponseData(req.body, db);
-      let points = questionData.lastPoints;
-      //OLD
-      updateUserScore(db, email, points, function(response) {
+      let questionData = exports.formatResponseData(req.body, db, function(questionData) {
+        let points = questionData.lastPoints;
+        updateUserScore(db, email, points, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
         //Score property is not updated in this response. But the next one will be
-        updateUserQuestions(db, email, questionData, function(response) {
-          res.status(200).send(response.value);
+          updateUserQuestions(db, email, questionData, function(response) {
+            res.status(200).send(response.value);
+          })
         })
-      })
+      });
     }
   })
 }
