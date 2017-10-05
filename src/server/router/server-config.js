@@ -123,7 +123,7 @@ app.use(function (req, res, next) {
 app.get('/', function(req, res, next) {
     console.log('Curerent logged in user:', req.user);
     console.log('GETTING WITH HANDLEBARS');
-    res.render('home');
+    res.render('index');
 });
 
 app.get('/logout', function(req, res, next) {
