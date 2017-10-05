@@ -56,6 +56,7 @@ var updateUserQuestions = function(db, email, questionData, callback) {
       }
       //adds question response data to user's data
     , function(err, response) {
+      console.log('errrrr',err,'reesssssss',response)
       callback(response);
     })
 }

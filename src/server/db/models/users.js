@@ -110,10 +110,6 @@ exports.formatResponseData = function(params, db, callback) {
       callback(questionData);
     });
   });
-
-
-
-
 }
 
 // exports.calcMaxScore = function(questionId, db) {
@@ -126,19 +122,19 @@ exports.formatResponseData = function(params, db, callback) {
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
-  //let points = req.body.pointsAwarded;
-  //OLD WAY: let questionData = req.body.questionData;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
       console.log('Could not connect', err);
     } else {
+      //render questionResponseData
       let questionData = exports.formatResponseData(req.body, db, function(questionData) {
         let points = questionData.lastPoints;
         updateUserScore(db, email, points, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
-        //Score property is not updated in this response. But the next one will be
+
           updateUserQuestions(db, email, questionData, function(response) {
+            console.log('RESPONSE',response)
             res.status(200).send(response.value);
           })
         })
