@@ -9,13 +9,17 @@ class Header extends React.Component {
       profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
       username: "Default",
       userScore: "9,000"
-    }
+    };
   }
 
   handleDropdownClick() {
     this.setState({
       dropdownClicked: !this.state.dropdownClicked
-    })
+    });
+  }
+
+  loginWithGoogle() {
+    window.location = "/auth/google";
   }
 
   render() {
@@ -29,12 +33,12 @@ class Header extends React.Component {
                 <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Signed in as</a></li>
-                  <li><a href="#"><strong>{this.state.username}</strong></a></li>
+                  <li><a href="#"><strong>{this.props.displayname}</strong></a></li>
                   <li className="divider"></li>
                   <li><a href="#">Your Stats</a></li>
                   <li className="divider"></li>
                   <li><a href="#">Account Settings</a></li>
-                  <li><a href="#">Sign out</a></li>
+                  <li><a href="/logout" onClick={this.props.logout}>Sign out</a></li>
                 </ul>
               </li>
             </ul>
@@ -47,7 +51,7 @@ class Header extends React.Component {
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
               <li>
-                <img className="btn-google" src="/public/images/btn_google_signin_light_normal_web@2x.png" />
+                <img onClick={this.loginWithGoogle} className="btn-google" src="/public/images/btn_google_signin_light_normal_web@2x.png" />
               </li>
             </ul>
           </div>

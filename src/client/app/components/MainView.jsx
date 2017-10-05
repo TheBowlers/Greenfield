@@ -5,7 +5,10 @@ import StatsPanel from './StatsPanel.jsx'
 
 class MainView extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = {
+      currentQuestion: {}
+    };
   }
 
   render() {
@@ -14,8 +17,8 @@ class MainView extends React.Component {
         <div className="container-fluid mainView">
           <div className="row">
             <ModulesPanel />
-            <QuestionPanel />
-            <StatsPanel />
+            <QuestionPanel currentQuestion = {this.state.currentQuestion}/>
+            <StatsPanel currentQuestion = {this.state.currentQuestion}/>
           </div>
         </div>
       )
@@ -27,7 +30,7 @@ class MainView extends React.Component {
               <h1>Quizzer Wizard</h1>
               <img className="wizard" src="http://southparkstudios.mtvnimages.com/shared/characters/alter-egos/the-grand-wizard.png?height=165" alt="" />
               <p>
-                <a className="btn btn-lg btn-primary">Visit our Github</a>
+                <a href="https://github.com/TheBowlers/Greenfield" target="_blank" className="btn btn-lg btn-primary">Visit our Github</a>
               </p>
             </div>
           </div>

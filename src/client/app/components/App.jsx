@@ -6,17 +6,25 @@ import Footer from './Footer.jsx'
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      loggedIn: true
-    }
+      loggedIn: Boolean(document.user),
+      displayname: document.user || null
+    };
+  }
+
+  logout() {
+    document.user = null;
+    this.setState({loggedIn: flase});
+    window.location = "/logout";
+    console.log('LOGGING OUT');
   }
 
   render() {
     return (
       <div>
-        <Header loggedIn={this.state.loggedIn} />
+        <Header displayname={this.state.displayname}logout={this.logout} loggedIn={this.state.loggedIn} />
         <MainView loggedIn={this.state.loggedIn} />
         <Footer />
       </div>
