@@ -37,8 +37,14 @@ class MainView extends React.Component {
     $.ajax({
       url: '/questions',
       data: {questionType: 'textResponse'},
-      success: this.renderNewQuestion,
-      failure: this.renderNewQuestion,
+      success: () => {
+        console.log('success');
+        this.renderNewQuestion();
+      },
+      failure: () => {
+        console.log('failed');
+        this.renderNewQuestion();
+      },
       dataType: 'application/json'
     });
   }
