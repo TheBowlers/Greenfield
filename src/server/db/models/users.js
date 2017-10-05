@@ -73,11 +73,11 @@ exports.formatResponseData = function(params, db, callback) {
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
     findUserByEmail(db, params.email, function(userResponseData) {
-      console.log(userResponseData);
-      if (userResponseData.questionsAnswered !== undefined) {
-        pointsAccumulated = userResponseData.pointsAwarded;
-        bestTime = userResponseData.bestTimeToAnswer
+      if (userResponseData[0].questionsAnswered[questionId]) {
+        pointsAccumulated = userResponseData[0].questionsAnswered[questionId].pointsAwarded;
+        bestTime = userResponseData[0].questionsAnswered[questionId].bestTimeToAnswer
       }
+
       if (pointsAccumulated + pointsScored < max) {
         pointsScored += pointsAccumulated;
       } else {
@@ -102,14 +102,9 @@ exports.formatResponseData = function(params, db, callback) {
         respondedCorrect: params.isCorrect,
         lastPoints: netPoints
       }
-      console.log('line 105',questionData)
       callback(questionData);
     });
   });
-
-
-
-
 }
 
 // exports.calcMaxScore = function(questionId, db) {
@@ -122,18 +117,17 @@ exports.formatResponseData = function(params, db, callback) {
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
-  //let points = req.body.pointsAwarded;
-  //OLD WAY: let questionData = req.body.questionData;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
       console.log('Could not connect', err);
     } else {
+      //render questionResponseData
       let questionData = exports.formatResponseData(req.body, db, function(questionData) {
         let points = questionData.lastPoints;
         updateUserScore(db, email, points, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
-        //Score property is not updated in this response. But the next one will be
+
           updateUserQuestions(db, email, questionData, function(response) {
             res.status(200).send(response.value);
           })
