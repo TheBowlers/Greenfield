@@ -15,6 +15,7 @@ const config = require('../../../config.js');  //credentials
 const auth = require('./../auth/auth'); // take care of auth routing
 const handlebars = require('express-handlebars');
 const path = require('path');
+const markdown = require('helper-markdown'); //allows markdown view rendering
 
 // Morgan request logging
 const morgan = require('morgan');
@@ -25,10 +26,16 @@ app.use(morgan(
 const viewPath = path.join(__dirname, 'views');
 console.log('Views are in', viewPath);
 app.set('views', viewPath);
-app.engine('handlebars', handlebars({
+//handlebars.registerHelper('markdown', markdown());
+const hbEngine = handlebars({
   defaultLayout: 'main',
-  layoutsDir: viewPath + "/layouts/"
-}));
+  layoutsDir: viewPath + "/layouts/",
+  helpers: {
+    markdown: markdown
+  }
+});
+
+app.engine('handlebars', hbEngine);
 app.set('view engine', 'handlebars');
 
 
@@ -142,6 +149,11 @@ app.get('/logout', function(req, res, next) {
   next();
 });
 
+
+// To API docs
+app.get('/api', function(req, res, next) {
+  res.render('api');
+});
 
 
 app.use(express.static(__dirname.substring(0, __dirname.length - 18) + publicDir));
