@@ -11,8 +11,8 @@ var signupUser = function(db, user, callback) {
   });
 }
 
-//Check if user exists
-var fetchUserByEmail = function(db, email, success, failure) {
+//Find a user by email address
+var findUserByEmail = function(db, email, success, failure) {
   //Specify the collection where we will 'find' in this case 'users'
 
   var collection = db.collection('test-users');
@@ -44,10 +44,17 @@ var updateUserScore = function (db, email, points, callback) {
 var updateUserQuestions = function(db, email, questionData, callback) {
 
   var collection = db.collection('test-users');
+  let questionId = questionData.id;
 
   collection.findOneAndUpdate(
       { email: email },
-      { $push: { questionsAnswered: questionData} } //adds question response data to user's data
+      { $set: {
+          questionsAnswered: {
+            [questionId]: questionData
+          }
+        }
+      }
+      //adds question response data to user's data
     , function(err, response) {
       callback(response);
     })
@@ -55,7 +62,7 @@ var updateUserQuestions = function(db, email, questionData, callback) {
 
 module.exports = {
   signupUser: signupUser,
-  fetchUserByEmail: fetchUserByEmail,
+  findUserByEmail: findUserByEmail,
   updateUserScore: updateUserScore,
   updateUserQuestions: updateUserQuestions
 }
