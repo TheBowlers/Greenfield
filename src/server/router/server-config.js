@@ -126,6 +126,15 @@ app.get('/', function(req, res, next) {
     res.render('index');
 });
 
+app.get('/admin', function(req, res, next) {
+  if(req.user) {
+    res.render('admin');
+  } else {
+    res.redirect('/');
+  }
+
+});
+
 app.get('/logout', function(req, res, next) {
   console.log('USER WILL LOGOUT NOW', req.user );
   req.logout();
