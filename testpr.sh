@@ -7,7 +7,8 @@ npm run build
 if [ -n START ];
 then
 start http://localhost:8080
-elif [ -n OPEN ];
+fi
+if [ -n OPEN ];
 then
 open http://localhost:8080
 fi
