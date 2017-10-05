@@ -73,14 +73,10 @@ exports.formatResponseData = function(params, db, callback) {
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
     findUserByEmail(db, params.email, function(userResponseData) {
-      console.log(questionId,'id')
-        console.log('questions', userResponseData[0].questionsAnswered[questionId])
       if (userResponseData[0].questionsAnswered[questionId]) {
         pointsAccumulated = userResponseData[0].questionsAnswered[questionId].pointsAwarded;
         bestTime = userResponseData[0].questionsAnswered[questionId].bestTimeToAnswer
-      console.log(bestTime, 'bbgggggbb', pointsAccumulated, 'ppgggggpppp')
       }
-      console.log(bestTime, 'bbbb', pointsAccumulated, 'pppppp')
 
       if (pointsAccumulated + pointsScored < max) {
         pointsScored += pointsAccumulated;
@@ -106,7 +102,6 @@ exports.formatResponseData = function(params, db, callback) {
         respondedCorrect: params.isCorrect,
         lastPoints: netPoints
       }
-      console.log('line 105',questionData)
       callback(questionData);
     });
   });
@@ -134,7 +129,6 @@ exports.updateScore = function(req, res) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
 
           updateUserQuestions(db, email, questionData, function(response) {
-            console.log('RESPONSE',response)
             res.status(200).send(response.value);
           })
         })
