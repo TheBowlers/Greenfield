@@ -153,8 +153,8 @@ questions/ POST
 
 #### Parameters
 
-| param |   description   | data type | examples |
-|------------|-----------|----------|
+| param |   description   | data type | examples |  
+|------------|-----------|------------|-----------|  
 | __questionType__ |  The type of question | String |'textResponse' |  
 | __title__ |  Title to display when showing question | String | 'Function Binding' |  
 | __questionText__ |  The question text displayed to the user | String | 'What Array method removes and returns the last element in an array?' |  
