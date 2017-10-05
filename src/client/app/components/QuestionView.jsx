@@ -55,25 +55,22 @@ class QuestionView extends React.Component {
     //<QuestionButtons question={this.currentQuestion}>
     return (
       <div className="questionView">
+        {/*
         <div>
          <div>Select a question type
            <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)} >Text Response</a>
          </div>
         </div>
-        <div>
-          <div>Select a question type
-            <a href="" onClick={() => this.handleQuestionTypeClick(this.state.currentQuestionType)}>Text Response</a>
-          </div>
+        */}
           <div className="head-question">
             <div className="head-question-prompt">
-              {this.state.currentQuestion.questionText}
+              {this.props.currentQuestion.questionText}
             </div>
 
             <div className="head-question-buttons">
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }
