@@ -13,14 +13,24 @@ const cookieParser = require('cookie-parser');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const config = require('../../../config.js');  //credentials
 const auth = require('./../auth/auth'); // take care of auth routing
+const handlebars = require('express-handlebars');
+const path = require('path');
 
 // Morgan request logging
 const morgan = require('morgan');
 app.use(morgan(
     '[:date[clf]] | ":method :url" | STATUS: :status :res[content-length] ":referrer" '));
 
-app.use(express.static(__dirname.substring(0, __dirname.length - 18) + publicDir));
-console.log('public directory is: ' + __dirname.substring(0, __dirname.length - 18) + publicDir);
+// View engine
+const viewPath = path.join(__dirname, 'views');
+console.log('Views are in', viewPath);
+app.set('views', viewPath);
+app.engine('handlebars', handlebars({
+  defaultLayout: 'main',
+  layoutsDir: viewPath + "/layouts/"
+}));
+app.set('view engine', 'handlebars');
+
 
 
 app.use(cors());
@@ -35,6 +45,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth', auth);
+
+
 
 //User handler functions
 var handlePostUser = require('.././db/models/users.js').postUser;
@@ -60,11 +72,17 @@ app.put('/users/update', handleUpdateUserScore);
 
 passport.serializeUser(function(user, done) {
   console.log('User profile has been received and is:', user );
-  console.log('DISPLAYNAME', user._json.displayName)
+  console.log('DISPLAYNAME', user._json.displayName);
+
+
+
+
   //TODO: A function which tests if user is in db by email
   handleUserDataGoogle(user)
   done(null, user);  // todo: only pass user.id when we can do a DB lookup
 });
+
+console.log(passport._serializers.toString());
 
 passport.deserializeUser(function(user, done) { // todo: Once above method is updated to user.id, pass userId when we can do a DB lookup
   //user.findById(id)...
@@ -89,8 +107,54 @@ passport.use(new GoogleStrategy({
 */
     }
 ));
-
 /////////////// End Passport config
+
+
+// Global Vars for Handlebars
+
+app.use(function (req, res, next) {
+  res.locals.user = req.user?  req.user.displayName : null;
+  console.log('USER EXTRACTED:', res.locals.user);
+  next();
+});
+
+
+
+app.get('/', function(req, res, next) {
+    console.log('Curerent logged in user:', req.user);
+    console.log('GETTING WITH HANDLEBARS');
+    res.render('index');
+});
+
+app.get('/admin', function(req, res, next) {
+  if(req.user) {
+    res.render('admin');
+  } else {
+    res.redirect('/');
+  }
+
+});
+
+app.get('/logout', function(req, res, next) {
+  console.log('USER WILL LOGOUT NOW', req.user );
+  req.logout();
+  res.redirect('/');
+  next();
+});
+
+
+
+app.use(express.static(__dirname.substring(0, __dirname.length - 18) + publicDir));
+console.log('public directory is: ' + __dirname.substring(0, __dirname.length - 18) + publicDir);
+
+
+
+
+
+
+
+
+
 
 
 //Question handler functions
@@ -121,8 +185,7 @@ app.post('/questions/update', handleUpdateQuestion);
 app.post('/login', passport.authenticate('local', { successRedirect: '/',
   failureRedirect: '/login' }));
 
-app.post('/login',
-    passport.authenticate('local'),
+app.post('/login', passport.authenticate('local'),
     function(req, res) {
       // If this function gets called, authentication was successful.
       // `req.user` contains the authenticated user.
