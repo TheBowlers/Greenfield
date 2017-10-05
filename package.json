@@ -7,7 +7,7 @@
     "start": "nodemon app.js",
     "build": "node_modules/.bin/webpack -d",
     "build:watch": "node_modules/.bin/webpack -d --watch",
-    "testpr": "npm install && npm run build && start http://localhost:8080 && nodemon app.js"
+    "testpr": "bash testpr.sh"
   },
   "repository": {
     "type": "git",
