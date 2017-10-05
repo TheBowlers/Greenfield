@@ -73,11 +73,15 @@ exports.formatResponseData = function(params, db, callback) {
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
     findUserByEmail(db, params.email, function(userResponseData) {
-      console.log(userResponseData);
-      if (userResponseData.questionsAnswered !== undefined) {
-        pointsAccumulated = userResponseData.pointsAwarded;
-        bestTime = userResponseData.bestTimeToAnswer
+      console.log(questionId,'id')
+        console.log('questions', userResponseData[0].questionsAnswered[questionId])
+      if (userResponseData[0].questionsAnswered[questionId]) {
+        pointsAccumulated = userResponseData[0].questionsAnswered[questionId].pointsAwarded;
+        bestTime = userResponseData[0].questionsAnswered[questionId].bestTimeToAnswer
+      console.log(bestTime, 'bbgggggbb', pointsAccumulated, 'ppgggggpppp')
       }
+      console.log(bestTime, 'bbbb', pointsAccumulated, 'pppppp')
+
       if (pointsAccumulated + pointsScored < max) {
         pointsScored += pointsAccumulated;
       } else {
