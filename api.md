@@ -14,16 +14,16 @@ Sent when user submits a response to a question
 | __email__ |  The user's email address | String | user@gmail.com |
 | __question_id__  |  Object containing _id and respondedCorrect   | String | asfueihf375y4 |
 | __timeToAnswer__  |  How long the user took to answer in ms  |  Int  | 5000 |
-| __pointsAwarded__  |  The number of points awarded (0 if incorrect)  |  Int  | 1000 |
+| __isCorrect__  |  whether or not answered correctly  |  Boolean  | true, false |
 
 
 Example:
 ```JSON
 {
-  "email": "zackbiernat@gmail.com",
-  "pointsAwarded": 0,
-  "question_id": "asfueihf375y4",
-  "timeToAnswer": 25000
+  "email": "jonathandavidlewis@gmail.com",
+  "question_id": "59d5d9ba47f17d558312855d",
+  "timeToAnswer": 50000,
+  "isCorrect": true
 }
 
 ```
@@ -31,30 +31,29 @@ Example:
 
 ```JSON
 {
-   "_id": "59d403fe9cfbabc8ebfce63d",
-   "displayName": "Zack Biernat",
-   "email": "zackbiernat@gmail.com",
-   "score": 115,
-   "token": "Sh4n9u6EtD24TM0RmWv7jTXojqc/bF-MSzFdiRCGppa2abn2rW-_deA",
-   "image": "https://lh3.googleusercontent.com/-z0Z8/AAAAAI/AAAAIM/r49UX6Y/photo.jpg?sz=50",
-   "questionsAnswered": {
-     "asfueihf375y4": {
-       "bestTimeToAnswer": "25000",
-       "totalPointsAwarded": 3645
-     }
-   } 
+    "_id": "59d54e71afbbf6e6860dd780",
+    "displayName": "Jonathan Lewis",
+    "email": "jonathandavidlewis@gmail.com",
+    "score": 14000,
+    "token": "\"Sh4n9u6EtD24TM0RmWv7jTXojqc/v6QHZOtaBb6lx6yHmKClKzYWK30\"",
+    "image": "https://lh3.googleusercontent.com/-rYHI9wtK9Cc/AAAAAAAAAAI/AAAAAAAAFcs/HL8ghRxkbSk/photo.jpg?sz=50",
+    "questionsAnswered": {
+        "59d5d9ba47f17d558312855d": {
+            "id": "59d5d9ba47f17d558312855d",
+            "bestTimeToAnswer": 5000,
+            "pointsAwarded": -39000,
+            "respondedCorrect": true,
+            "lastPoints": 0
+        }
+    }
 }
-
-
-
-
 ```
 
 
 
 ## Questions
 
-Client GET request for question
+### Client GET request for question
 ```JSON
 
 {
@@ -70,17 +69,48 @@ Client GET request for question
 
 ```
 
-/questions GET
+### /questions GET
+
+`/questions`
+
+Returns all questions
+
+Example reponse
+```json
+{
+        "_id": "59d53ce599c01f1f98309fa9",
+        "title": "asdf",
+        "questionText": "sadf",
+        "answerText": "asdf",
+        "questionType": "textResponse",
+        "difficulty": "1",
+        "time": "5",
+        "author": "admin"
+    },
+    {
+        "_id": "59d53d1499c01f1f98309faa",
+        "title": "asdf",
+        "questionText": "asdf",
+        "answerText": "asdf",
+        "questionType": "textResponse",
+        "difficulty": "1",
+        "time": "4",
+        "author": "admin"
+    },
+```
+
+
+### /questions?questionType GET
 
 `/questions?questionType=textResponse`
 
-### Parameters
+#### Parameters
 
 | param |   description   | data type | examples |
 |------------|-----------|----------|-------------|
 | __questionType__ |  The type of question | String | 'textResponse' |
 
-### Response
+#### Response
 ```JSON
 {
    "_id": "59d280d22e38d4a336f661fa",
@@ -95,9 +125,9 @@ Client GET request for question
 
 ```
 
-questions/ POST
+### questions/ POST
 
-### Parameters
+#### Parameters
 
 | param |   description   | data type | examples |  
 |------------|-----------|------------|-----------|  
@@ -109,7 +139,7 @@ questions/ POST
 | __time__ |  time to answer for full points in milliseconds | Int | 3000 |  
 | __author__ |  Username of the author | String | 'Zack' | 
 
-### Response
+#### Response
 ```JSON
 {
    "_id": "59d280d22e38d4a336f661fa",
