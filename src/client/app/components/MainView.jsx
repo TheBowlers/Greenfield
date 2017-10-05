@@ -7,8 +7,44 @@ class MainView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      currentQuestion: {}
+      mainView: 'start',
+      currentQuestion: {
+        "_id": "demo",
+        "title": "Ready to start quizzing?",
+        "questionText": "When you start quizzing, a new question will appear here. Read the prompt and try to answer quickly to receive a bonus",
+        "answerText": "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
+        "questionType": "textResponse",
+        "difficulty": "1",
+        "time": "5",
+        "author": "admin"
+      }
     };
+    this.changeView = this.changeView.bind(this);
+    this.getNextQuestion = this.getNextQuestion.bind(this);
+  }
+
+  componentDidMount() {
+
+  }
+
+  renderNewQuestion(questionData) {
+    console.log('renderNewQuestion Called');
+    this.setState({currentQuestion: questionData});
+  }
+
+  getNextQuestion() {
+    console.log('Getting next question');
+    $.ajax({
+      url: '/questions',
+      data: {questionType: 'textResponse'},
+      success: this.renderNewQuestion,
+      failure: this.renderNewQuestion,
+      dataType: 'application/json'
+    });
+  }
+
+  changeView(viewName) {
+    this.setState({mainView: viewName});
   }
 
   render() {
@@ -17,8 +53,8 @@ class MainView extends React.Component {
         <div className="container-fluid mainView">
           <div className="row">
             <ModulesPanel />
-            <QuestionPanel currentQuestion = {this.state.currentQuestion}/>
-            <StatsPanel currentQuestion = {this.state.currentQuestion}/>
+            <QuestionPanel getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
+            <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
           </div>
         </div>
       )

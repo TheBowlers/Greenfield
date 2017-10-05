@@ -52,7 +52,7 @@ h1 {
 
 .answer-field {
   height: 100%;
-  font-size: 3em;
+  font-size: 2em;
 }
 
 .btn-google {
@@ -70,4 +70,8 @@ h1 {
 .profile-pic {
   width: auto;
   height: 20px;
+}
+
+.questionView {
+  font-size: 3em;
 }
