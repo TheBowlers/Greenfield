@@ -8,6 +8,7 @@ var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
 var updateUserQuestions = require('.././utils/users-helpers.js').updateUserQuestions;
 var updateUserQuestionsData = require('.././utils/users-helpers.js').updateUserQuestionsData;
 var findUserResponseDataByEmail = require('.././utils/users-helpers.js').findUserResponseDataByEmail;
+var findAllUsers = require('.././utils/users-helpers.js').findAllUsers;
 
 
 
@@ -56,6 +57,21 @@ exports.getUser = function(req, res) {
         res.status(200).send(userData[0]);
       }, function(userData) {
         res.status(404).send('Could not get data for user with that email');
+      })
+    }
+  })
+}
+
+exports.getAllUsers = function(req, res) {
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) {
+      console.log('Could not connect', err);
+    } else {
+      findAllUsers(db, function(userData) {
+        res.status(200).send(userData);
+      }, function(userData) {
+        res.status(404).send('Could not get users, check auth');
       })
     }
   })

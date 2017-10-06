@@ -14,7 +14,6 @@ var signupUser = function(db, user, callback) {
 //Find a user by email address
 var findUserByEmail = function(db, email, success, failure) {
   //Specify the collection where we will 'find' in this case 'users'
-
   var collection = db.collection('test-users');
     //Find question, empty should return all
   // For testing purposes if you need to drop table:collection.drop()
@@ -26,6 +25,21 @@ var findUserByEmail = function(db, email, success, failure) {
     }
   });
 }
+
+var findAllUsers = function(db, success, failure) {
+  //Specify the collection where we will 'find' in this case 'users'
+  var collection = db.collection('test-users');
+    //Find question, empty should return all
+  // For testing purposes if you need to drop table:collection.drop()
+  collection.find().project({ _id: 0, displayName: 1, score: 1 }).sort({ score: 1}).toArray(function(err, user) {
+    if (user.length) {
+      success(user);
+    } else {
+      failure();
+    }
+  });
+}
+
 
 //Update user's score
 var updateUserScore = function (db, email, points, callback) {
@@ -101,6 +115,7 @@ var findUserResponseDataByEmail = function(db, email, success, failure) {
 module.exports = {
   signupUser: signupUser,
   findUserByEmail: findUserByEmail,
+  findAllUsers: findAllUsers,
   updateUserScore: updateUserScore,
   updateUserQuestions: updateUserQuestions,
   updateUserQuestionsData: updateUserQuestionsData,
