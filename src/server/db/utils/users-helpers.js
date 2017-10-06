@@ -17,7 +17,7 @@ var findUserByEmail = function(db, email, success, failure) {
 
   var collection = db.collection('test-users');
     //Find question, empty should return all
-  // For testing purposes if you need to drop table: collection.drop()
+  // For testing purposes if you need to drop table:collection.drop()
   collection.find({ email: email }).toArray(function(err, user) {
     if (user.length) {
       success(user);
@@ -47,23 +47,62 @@ var updateUserQuestions = function(db, email, questionData, callback) {
   let questionId = questionData.id;
 
   collection.findOneAndUpdate(
-      { email: email },
-      { $set: {
-          questionsAnswered: {
-            [questionId]: questionData
-          }
+      { email: email},// "questionsAnswered._id": questionId },
+      { $push: {
+          questionsAnswered: questionData
         }
       }
       //adds question response data to user's data
     , function(err, response) {
-      console.log('errrrr',err,'reesssssss',response)
+      console.log('err',err,'res',response)
       callback(response);
     })
 }
+
+var updateUserQuestionsData = function(db, email, questionData, callback) {
+
+  var collection = db.collection('test-users');
+  let questionId = questionData.id;
+  let queryString = "questionsAnswered.$." + questionId;
+
+  collection.findAndModify(
+      { email: email, questionsAnswered: {
+          $elemMatch: {
+            id: questionId
+          }
+        }
+      },
+      [],
+      { $set: {"questionsAnswered.$": questionData}
+      }
+      //adds question response data to user's data
+    , function(err, response) {
+      console.log('err',err,'res',response)
+      callback(response);
+    })
+}
+
+var findUserResponseDataByEmail = function(db, email, success, failure) {
+  //Specify the collection where we will 'find' in this case 'users'
+
+  var collection = db.collection('test-users');
+    //Find question, empty should return all
+  // For testing purposes if you need to drop table:collection.drop()
+  collection.find({ email: email }, {questionsAnswered: 1}).toArray(function(err, user) {
+    if (user.length) {
+      success(user);
+    } else {
+      failure();
+    }
+  });
+}
+
 
 module.exports = {
   signupUser: signupUser,
   findUserByEmail: findUserByEmail,
   updateUserScore: updateUserScore,
-  updateUserQuestions: updateUserQuestions
+  updateUserQuestions: updateUserQuestions,
+  updateUserQuestionsData: updateUserQuestionsData,
+  findUserResponseDataByEmail: findUserResponseDataByEmail
 }

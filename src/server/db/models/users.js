@@ -6,6 +6,10 @@ var signupUser = require('.././utils/users-helpers.js').signupUser;
 var findUserByEmail = require('.././utils/users-helpers.js').findUserByEmail;
 var updateUserScore = require('.././utils/users-helpers.js').updateUserScore;
 var updateUserQuestions = require('.././utils/users-helpers.js').updateUserQuestions;
+var updateUserQuestionsData = require('.././utils/users-helpers.js').updateUserQuestionsData;
+var findUserResponseDataByEmail = require('.././utils/users-helpers.js').findUserResponseDataByEmail;
+
+
 
 //Question helper functions
 var findQById = require('.././utils/questions-helpers.js').findQById;
@@ -19,7 +23,7 @@ exports.formatUserData = function(user) {
     score: 0,
     token: user._json.etag.split('"').join(''), // Trims token from '"someToken"' to resemble a simple string. May have unintended consequences down the road.-ZB
     image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
-    questionsAnswered: {}
+    questionsAnswered: []
   }
 
   //should eliminate circular reference. NOT TOTALLY SURE THIS IS NECESSARY
@@ -36,7 +40,6 @@ exports.formatUserData = function(user) {
         db.close();
       });
     }
-
   });
 }
 
@@ -67,15 +70,27 @@ exports.formatResponseData = function(params, db, callback) {
   let bestTime = 0;
   findQById(db, questionId, function(question) {
     pointsScored = question.difficulty * 1000;
-    pointsScored += question.difficulty * (question.time - params.timeToAnswer);
+    if (question.time - params.timeToAnswer > 0) {
+      pointsScored += question.difficulty * (question.time - params.timeToAnswer);
+    }
     max = question.difficulty * 1000;
     max += question.difficulty * question.time;
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
-    findUserByEmail(db, params.email, function(userResponseData) {
-      if (userResponseData[0].questionsAnswered[questionId]) {
-        pointsAccumulated = userResponseData[0].questionsAnswered[questionId].pointsAwarded;
-        bestTime = userResponseData[0].questionsAnswered[questionId].bestTimeToAnswer
+
+    findUserResponseDataByEmail(db, params.email, function(userResponseData) {
+
+      let questionResponseData;
+      for (let i = 0; i < userResponseData[0].questionsAnswered.length; i++) {
+        if (userResponseData[0].questionsAnswered[i].id === questionId) {
+          questionResponseData = userResponseData[0].questionsAnswered[i];
+        }
+      }
+      if (questionResponseData) {
+        answeredPrior = true;
+        pointsAccumulated = questionResponseData.pointsAwarded;
+        bestTime = questionResponseData.bestTimeToAnswer
+        console.log(bestTime, 'Best time thus far', pointsAccumulated, 'Points awarded thus far')
       }
 
       if (pointsAccumulated + pointsScored < max) {
@@ -102,17 +117,11 @@ exports.formatResponseData = function(params, db, callback) {
         respondedCorrect: params.isCorrect,
         lastPoints: netPoints
       }
-      callback(questionData);
+      //console.log('line 105',questionData)
+      callback(questionData, answeredPrior);
     });
   });
 }
-
-// exports.calcMaxScore = function(questionId, db) {
-//   findQById(db, questionId, function(question) {
-//     let base = question.baseScore;
-//     let timeAllowed = question.time;
-//   });
-// }
 
 exports.updateScore = function(req, res) {
 
@@ -123,14 +132,22 @@ exports.updateScore = function(req, res) {
       console.log('Could not connect', err);
     } else {
       //render questionResponseData
-      let questionData = exports.formatResponseData(req.body, db, function(questionData) {
+      let questionData = exports.formatResponseData(req.body, db, function(questionData, answeredPrior) {
         let points = questionData.lastPoints;
         updateUserScore(db, email, points, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
-
-          updateUserQuestions(db, email, questionData, function(response) {
-            res.status(200).send(response.value);
-          })
+        //Score property is not updated in this response. But the next one will be
+          if (answeredPrior) {
+            console.log('answeredPrior')
+           // update only that field
+            updateUserQuestionsData(db, email, questionData, function(response) {
+              res.status(200).send(response.value);
+            })
+          } else {
+            updateUserQuestions(db, email, questionData, function(response) {
+              res.status(200).send(response.value);
+            })
+          }
         })
       });
     }
