@@ -75,15 +75,8 @@ exports.formatResponseData = function(params, db, callback) {
     }
     max = question.difficulty * 1000;
     max += question.difficulty * question.time;
-<<<<<<< HEAD
     //console.log('question', question)
     //console.log('max',max,'points',pointsScored)
-    findUserByEmail(db, params.email, function(userResponseData) {
-      if (userResponseData[0].questionsAnswered[questionId]) {
-        pointsAccumulated = userResponseData[0].questionsAnswered[questionId].pointsAwarded;
-        bestTime = userResponseData[0].questionsAnswered[questionId].bestTimeToAnswer
-=======
-    let answeredPrior = false;
 
     findUserResponseDataByEmail(db, params.email, function(userResponseData) {
 
@@ -97,8 +90,7 @@ exports.formatResponseData = function(params, db, callback) {
         answeredPrior = true;
         pointsAccumulated = questionResponseData.pointsAwarded;
         bestTime = questionResponseData.bestTimeToAnswer
-      console.log(bestTime, 'Best time thus far', pointsAccumulated, 'Points awarded thus far')
->>>>>>> fix-questions-data
+        console.log(bestTime, 'Best time thus far', pointsAccumulated, 'Points awarded thus far')
       }
 
       if (pointsAccumulated + pointsScored < max) {
@@ -125,12 +117,8 @@ exports.formatResponseData = function(params, db, callback) {
         respondedCorrect: params.isCorrect,
         lastPoints: netPoints
       }
-<<<<<<< HEAD
-      callback(questionData);
-=======
       //console.log('line 105',questionData)
       callback(questionData, answeredPrior);
->>>>>>> fix-questions-data
     });
   });
 }
@@ -143,17 +131,7 @@ exports.updateScore = function(req, res) {
     if (err) {
       console.log('Could not connect', err);
     } else {
-<<<<<<< HEAD
       //render questionResponseData
-      let questionData = exports.formatResponseData(req.body, db, function(questionData) {
-        let points = questionData.lastPoints;
-        updateUserScore(db, email, points, function(response) {
-        console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
-
-          updateUserQuestions(db, email, questionData, function(response) {
-            res.status(200).send(response.value);
-          })
-=======
       let questionData = exports.formatResponseData(req.body, db, function(questionData, answeredPrior) {
         let points = questionData.lastPoints;
         updateUserScore(db, email, points, function(response) {
@@ -170,7 +148,6 @@ exports.updateScore = function(req, res) {
               res.status(200).send(response.value);
             })
           }
->>>>>>> fix-questions-data
         })
       });
     }
