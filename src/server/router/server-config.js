@@ -59,15 +59,15 @@ app.use('/auth', auth);
 var handlePostUser = require('.././db/models/users.js').postUser;
 var handleUserDataGoogle = require('.././db/models/users.js').handleUserDataGoogle;
 var handleGetUser = require('.././db/models/users.js').getUser;
+var handleGetAllUsers = require('.././db/models/users.js').getAllUsers;
 var handleUpdateUserScore = require('.././db/models/users.js').updateScore;
-
-// var handleUpdateUser = require('.././db/models/users.js').updateUser;
 
 /*USER ROUTING*/
 
 //Fetches user data from email
-app.get('/users', handleGetUser);
-
+app.get('/users/email', handleGetUser);
+//Fetches all users
+app.get('/users', handleGetAllUsers);
 //Updates user's score
 app.put('/users/update', handleUpdateUserScore);
 
