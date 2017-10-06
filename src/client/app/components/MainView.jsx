@@ -17,35 +17,88 @@ class MainView extends React.Component {
         "difficulty": "1",
         "time": "5",
         "author": "admin"
-      }
+      },
+      answerField: "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
+      questionStartTime: 0,
+      answerSubmitTime: 0
     };
     this.changeView = this.changeView.bind(this);
     this.getNextQuestion = this.getNextQuestion.bind(this);
+    this.submitAnswer = this.submitAnswer.bind(this);
   }
 
   componentDidMount() {
 
   }
 
+  submitAnswer() {
+    const questionEndTime = Date.now();
+    const timeToAnswer = questionEndTime - this.state.questionStartTime;
+    const questionId = this.state.currentQuestion._id;
+    const correctAnswer = this.state.currentQuestion.answerText;
+    const isCorrect = ($('.answer-field').text() == correctAnswer);
+    if(isCorrect) {
+      console.log('Answer Correct!');
+    } else {
+      console.log('Answer incorrect.');
+    }
+    console.log(`It took you ${timeToAnswer/1000} seconds to answer`);
+
+
+    console.log('Submitting answer...');
+    const request = $.ajax({
+      method: "PUT",
+      url: '/users/update',
+      data: {
+        email: document.user.email,
+        question_id: questionId,
+        timeToAnswer: timeToAnswer,
+        isCorrect: isCorrect
+      },
+      dataType: 'application/json'
+    });
+
+    request.done((data) => {
+      console.log('success');
+      const question = JSON.parse(data.responseText);
+      this.renderNewQuestion(question);
+    });
+
+    request.fail((data) => {
+      console.log('failed');
+      const question = JSON.parse(data.responseText);
+      this.renderNewQuestion(question);
+    });
+  }
+
   renderNewQuestion(questionData) {
     console.log('renderNewQuestion Called');
-    this.setState({currentQuestion: questionData});
+    this.setState({
+      currentQuestion: questionData,
+      answerField: '',
+      questionStartTime: Date.now()
+    });
   }
 
   getNextQuestion() {
     console.log('Getting next question');
-    $.ajax({
+    const request = $.ajax({
+      method: "GET",
       url: '/questions',
       data: {questionType: 'textResponse'},
-      success: () => {
-        console.log('success');
-        this.renderNewQuestion();
-      },
-      failure: () => {
-        console.log('failed');
-        this.renderNewQuestion();
-      },
       dataType: 'application/json'
+    });
+
+    request.done((data) => {
+      console.log('success');
+      const question = JSON.parse(data.responseText);
+      this.renderNewQuestion(question);
+    });
+
+    request.fail((data) => {
+      console.log('failed');
+      const question = JSON.parse(data.responseText);
+      this.renderNewQuestion(question);
     });
   }
 
@@ -59,7 +112,7 @@ class MainView extends React.Component {
         <div className="container-fluid mainView">
           <div className="row">
             <ModulesPanel />
-            <QuestionPanel getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
+            <QuestionPanel submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
             <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
           </div>
         </div>

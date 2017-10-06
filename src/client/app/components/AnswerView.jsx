@@ -5,12 +5,16 @@ class AnswerView extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps() {
+
+  }
+
   render() {
     return (
       <div className="answerView">
         <div className="head-question-response">
           <div className="answer-field" contentEditable="true" >
-            {this.props.currentQuestion.answerText}
+            {this.props.answerField}
           </div>
         </div>
       </div>

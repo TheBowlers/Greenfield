@@ -33,7 +33,7 @@ class Header extends React.Component {
                 <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu">
                   <li><a href="#">Signed in as</a></li>
-                  <li><a href="#"><strong>{this.props.displayname}</strong></a></li>
+                  <li><a href="#"><strong>{this.props.user.displayName}</strong></a></li>
                   <li className="divider"></li>
                   <li><a href="#">Your Stats</a></li>
                   <li className="divider"></li>
