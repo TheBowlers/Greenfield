@@ -80,3 +80,17 @@ h1 {
   font-size: 1.5em;
   font-weight: bold;
 }
+
+.wrong-answer-feedback {
+  background-color: red;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.correct-answer-feedback {
+  background-color: lawngreen;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: black;
+
+}

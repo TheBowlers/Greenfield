@@ -4,17 +4,38 @@ class SubmitView extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      mainButtonText: 'Submit',
+      nextButtonText: 'Start Quizzing!',
       startTime: Date.now(),
       timeElapsed: 0,
       timerIsOn: false,
       displayTimeElapsed: '',
-      canAnswer: false
+      canAnswer: false,
+      hasStarted: false
     };
     this.updateTime = this.updateTime.bind(this);
     this.startQuestionTimer = this.startQuestionTimer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
+    this.handleCtrlKeyPress = this.handleCtrlKeyPress.bind(this);
+  }
+
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleCtrlKeyPress);
+  }
+
+  handleCtrlKeyPress(e) {
+    console.log('KEY PRESSED');
+    console.log('CTRL pressed?', e.ctrlKey, 'keycode?', e.keyCode);
+    if (e.ctrlKey && e.keyCode === 13){
+      if(this.state.canAnswer) {
+        $('.submit').click();
+      } else {
+        $('.skip').click();
+      }
+    }
+  }
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleCtrlKeyPress);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,9 +45,15 @@ class SubmitView extends React.Component {
     }else {
       if (nextProps.answeredCorrect !== undefined) {
         if(nextProps.answeredCorrect){
-          this.setState({answerFeedback: "Nice job! That's correct."});
+          this.setState({
+            answerFeedback: "Nice job! That's correct.",
+            feedbackClass: 'correct-answer-feedback'
+          });
         } else {
-          this.setState({answerFeedback: "Not quite. Maybe next time."});
+          this.setState({
+            answerFeedback: "Not quite. Maybe next time.",
+            feedbackClass: 'wrong-answer-feedback'
+          });
         }
 
       }
@@ -60,7 +87,8 @@ class SubmitView extends React.Component {
       questionTimer: setInterval(this.updateTime, 100),
       startTime: Date.now(),
       timerIsOn: true,
-      canAnswer: true
+      canAnswer: true,
+      nextButtonText: 'Next Question'
     });
     //this.props.getNextQuestion();
   }
@@ -69,18 +97,33 @@ class SubmitView extends React.Component {
 
     this.setState({
       answerFeedback: '',
-      canAnswer: true
+      canAnswer: true,
+      hasStarted: true
     });
     this.props.getNextQuestion();
+  }
+  renderSubmitButton() {
+    if (this.state.hasStarted) {
+      return (
+          <button onClick={this.handleSubmit} className="btn btn-lg btn-primary col-md-3 submit">Submit</button>
+      )
+    } else {
+      return null;
+    }
+  }
+
+  renderFeedback() {
+
   }
 
   render() {
     return (
       <div className="submitView">
-        <button onClick={this.handleSubmit} className="btn btn-lg btn-primary col-md-3 submit">{this.state.mainButtonText}</button>
+        {this.renderSubmitButton()}
         <div className="seconds-timer">{this.state.displayTimeElapsed}</div>
-        <div className="answered-correct-feedback">{this.state.answerFeedback}</div>
-        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 skip">NextQuestion</button>
+        <div className={this.state.feedbackClass}>{this.state.answerFeedback}</div>
+        <div>Pro tip: Use CTRL/COMMAND + Enter to answer and advance rapidly!</div>
+        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 skip">{this.state.nextButtonText}</button>
       </div>
     )
   }
