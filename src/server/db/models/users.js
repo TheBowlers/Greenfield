@@ -23,12 +23,11 @@ exports.formatUserData = function(user) {
     email: user._json.emails[0].value,
     score: 0,
     token: user._json.etag.split('"').join(''), // Trims token from '"someToken"' to resemble a simple string. May have unintended consequences down the road.-ZB
-    image: user._json.image.url, //TODO: Give default value in case Google doesn't have an image...maybe Google automatically assigns an image to this data || SOME_DEFAULT_URL ,
-    questionsAnswered: []
+    image: user._json.image.url,
+    questionsAnswered: [],
+    questionsAttempted: 0,
+    questionsCorrect: 0
   }
-
-  //should eliminate circular reference. NOT TOTALLY SURE THIS IS NECESSARY
-  //let newUser = JSON.parse(JSON.stringify(newUserObj))
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -84,6 +83,7 @@ exports.formatResponseData = function(params, db, callback) {
   let max = 0;
   let pointsAccumulated = 0;
   let bestTime = 0;
+  answeredPrior = false;
   findQById(db, questionId, function(question) {
     pointsScored = question.difficulty * 1000;
     if (question.time - params.timeToAnswer > 0) {
@@ -142,6 +142,7 @@ exports.formatResponseData = function(params, db, callback) {
 exports.updateScore = function(req, res) {
 
   let email = req.body.email;
+  let isCorrect = req.body.isCorrect;
 
   MongoClient.connect(url, function(err, db) {
     if (err) {
@@ -150,7 +151,7 @@ exports.updateScore = function(req, res) {
       //render questionResponseData
       let questionData = exports.formatResponseData(req.body, db, function(questionData, answeredPrior) {
         let points = questionData.lastPoints;
-        updateUserScore(db, email, points, function(response) {
+        updateUserScore(db, email, points, isCorrect, function(response) {
         console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
         //Score property is not updated in this response. But the next one will be
           if (answeredPrior) {
