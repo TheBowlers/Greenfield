@@ -1,4 +1,5 @@
 import React from 'react';
+import Leaderboard from './Leaderboard.jsx'
 
 class Header extends React.Component {
   constructor(props) {
@@ -7,9 +8,11 @@ class Header extends React.Component {
     this.state = {
       profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
       username: "Default",
-      userScore: "9,000"
+      userScore: "9,000",
+      leaderboardEntries: []
     };
 
+    // this.getUsers = this.getUsers.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -22,6 +25,26 @@ class Header extends React.Component {
       });
     }
   }
+
+  // getUsers() {
+  //   const request = $.ajax({
+  //     method: "GET",
+  //     url: '/users',
+  //     dataType: 'application/json'
+  //   });
+
+  //   request.done((data) => {
+  //     console.log('Got Users data, success', data.responseText);
+  //     document.user = JSON.parse(data.responseText);
+  //   });
+
+  //   request.fail((data) => {
+  //     console.log('Got Users data, fail', data.responseText);
+  //     this.setState({
+  //       leaderboardEntries: JSON.parse(data.responseText)
+  //     })
+  //   });
+  // }
 
   loginWithGoogle() {
     window.location = "/auth/google";
@@ -48,40 +71,7 @@ class Header extends React.Component {
               </li>
             </ul>
           </div>
-          <div className="bs-example">
-            <div id="leaderboard" className="modal fade">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 className="modal-title">Leaderboard</h4>
-                        </div>
-                        <div className="modal-body">
-                          <table className="table table-striped table-hover ">
-                            <thead>
-                              <tr>
-                                <th>User</th>
-                                <th>Total <div>Score</div></th>
-                                <th>Correct <div>Answers</div></th>
-                                <th>Questions <div>Attempted</div></th>
-                                <th>Percent</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <td>Kent Shepard</td>
-                                <td>100,000</td>
-                                <td>75</td>
-                                <td>150</td>
-                                <td>50%</td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-          </div>
+          <Leaderboard />
         </div>
 
       )
