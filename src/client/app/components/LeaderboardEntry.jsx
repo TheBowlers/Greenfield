@@ -5,9 +5,9 @@ var LeaderboardEntry = ({user, score, questionsCorrect, questionsAttempted}) => 
     <tr>
       <td>{user}</td>
       <td>{score}</td>
-      <td>{questionsCorrect}</td>
+      <td>{questionsCorrect !== undefined ? questionsCorrect : 0}</td>
       <td>{questionsAttempted}</td>
-      <td>{questionsCorrect / questionsAttempted}</td>
+      <td>{questionsCorrect !== undefined ? (questionsCorrect / questionsAttempted).toFixed(4) * 100 + '%' : '0%'}</td>
     </tr>
   </tbody>
 );
