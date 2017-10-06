@@ -97,3 +97,8 @@ h1 {
 th, tr {
   text-align: center;
 }
+
+.inactive {
+   pointer-events: none;
+   cursor: default;
+}

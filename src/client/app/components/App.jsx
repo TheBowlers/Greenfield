@@ -20,7 +20,6 @@ class App extends React.Component {
       this.getUserInfo();
       this.setState({user: document.user});
     }
-
   }
 
   getUserInfo() {
@@ -46,10 +45,6 @@ class App extends React.Component {
       this.setState({user: document.user});
     });
   }
-
-
-
-
 
   logout() {
     document.user = null;

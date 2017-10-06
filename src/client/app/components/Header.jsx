@@ -5,7 +5,6 @@ class Header extends React.Component {
     super(props)
 
     this.state = {
-      dropdownClicked: false,
       profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
       username: "Default",
       userScore: "9,000"
@@ -24,12 +23,6 @@ class Header extends React.Component {
     }
   }
 
-  handleDropdownClick() {
-    this.setState({
-      dropdownClicked: !this.state.dropdownClicked
-    });
-  }
-
   loginWithGoogle() {
     window.location = "/auth/google";
   }
@@ -41,11 +34,11 @@ class Header extends React.Component {
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
               <li><a href="#">{this.state.userScore} points</a><span></span></li>
-              <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
-                <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu"  >
-                  <li><a href="#">Signed in as</a></li>
-                  <li><a href="#"><strong>{this.props.user.displayName}</strong></a></li>
+                  <li><a className="inactive">Signed in as</a></li>
+                  <li><a className="inactive"><strong>{this.props.user.displayName}</strong></a></li>
                   <li className="divider"></li>
                   <li><a href="#">Your Stats</a></li>
                   <li className="divider"></li>
@@ -55,7 +48,44 @@ class Header extends React.Component {
               </li>
             </ul>
           </div>
+          <div className="bs-example">
+              <a href="#myModal" className="btn btn-lg btn-primary" data-toggle="modal">Launch Demo Modal</a>
+
+              <div id="myModal" className="modal fade">
+                  <div className="modal-dialog">
+                      <div className="modal-content">
+                          <div className="modal-header">
+                              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              <h4 className="modal-title">Leaderboard</h4>
+                          </div>
+                          <div className="modal-body">
+                            <table className="table table-striped table-hover ">
+                              <thead>
+                                <tr>
+                                  <th>User</th>
+                                  <th>Total <div>Score</div></th>
+                                  <th>Correct <div>Answers</div></th>
+                                  <th>Questions <div>Attempted</div></th>
+                                  <th>Percent</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Kent Shepard</td>
+                                  <td>100,000</td>
+                                  <td>75</td>
+                                  <td>150</td>
+                                  <td>50%</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
         </div>
+
       )
     } else {
       return (
