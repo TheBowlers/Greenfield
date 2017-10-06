@@ -31,7 +31,7 @@ var findAllUsers = function(db, success, failure) {
   var collection = db.collection('test-users');
     //Find question, empty should return all
   // For testing purposes if you need to drop table:collection.drop()
-  collection.find().toArray(function(err, user) {
+  collection.find().project({ _id: 0, displayName: 1, score: 1 }).sort({ score: 1}).toArray(function(err, user) {
     if (user.length) {
       success(user);
     } else {
