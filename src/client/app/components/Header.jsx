@@ -17,7 +17,10 @@ class Header extends React.Component {
     console.log('new props are', newProps);
     if(newProps.user) {
       console.log('new score is:', typeof newProps.user.score);
-      this.setState({userScore: newProps.user.score.toLocaleString()});
+      this.setState({
+        userScore: newProps.user.score.toLocaleString(),
+        profilePic: newProps.user.image
+      });
     }
   }
 

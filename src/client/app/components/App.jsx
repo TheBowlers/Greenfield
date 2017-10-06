@@ -28,7 +28,7 @@ class App extends React.Component {
     console.log('Getting next question');
     const request = $.ajax({
       method: "GET",
-      url: '/users',
+      url: '/users/email',
       data: {
         email: document.user.email
       },
