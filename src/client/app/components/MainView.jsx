@@ -18,6 +18,7 @@ class MainView extends React.Component {
         "time": "5",
         "author": "admin"
       },
+      nextQuestion: {},
       answerField: "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
       questionStartTime: 0,
       answerSubmitTime: 0
@@ -27,9 +28,6 @@ class MainView extends React.Component {
     this.submitAnswer = this.submitAnswer.bind(this);
   }
 
-  componentDidMount() {
-
-  }
 
   submitAnswer() {
     const questionEndTime = Date.now();
@@ -60,19 +58,16 @@ class MainView extends React.Component {
 
     request.done((data) => {
       console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
     });
 
     request.fail((data) => {
       console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
     });
   }
 
   renderNewQuestion(questionData) {
     console.log('renderNewQuestion Called');
+    $('.answer-field').text('').focus();
     this.setState({
       currentQuestion: questionData,
       answerField: '',

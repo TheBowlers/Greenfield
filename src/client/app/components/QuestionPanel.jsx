@@ -7,7 +7,28 @@ import SubmitView from './SubmitView.jsx'
 class QuestionPanel extends React.Component {
   constructor(props) {
     super(props);
+    this.handleCtrlKeyPress = this.handleCtrlKeyPress.bind(this);
   }
+
+  componentWillMount() {
+    document.addEventListener('keydown', this.handleCtrlKeyPress);
+  }
+
+  handleCtrlKeyPress(e) {
+    console.log('KEY PRESSED');
+    console.log('CTRL pressed?', e.ctrlKey, 'keycode?', e.keyCode);
+    if (e.ctrlKey && e.keyCode === 13){
+      $('.submit').click();
+    }
+  }
+
+
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleCtrlKeyPress);
+  }
+
+
 
   render() {
     return (

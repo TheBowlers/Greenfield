@@ -75,3 +75,8 @@ h1 {
 .questionView {
   font-size: 3em;
 }
+
+.seconds-timer {
+  font-size: 1.5em;
+  font-weight: bold;
+}
