@@ -2,6 +2,27 @@
 
 ## Users
 
+### Leaderboard GET
+
+/users GET
+Sent when leaderboard data needs to be rendered
+
+### Parameters
+
+No parameters necessary. Empty request body returns all users' data as an array of objects.
+
+Example:
+```JSON
+[
+    {
+        "displayName": "Zack Biernat",
+        "score": 22000,
+        "questionsAttempted": 10,
+        "questionsCorrect": 5
+    }
+]
+```
+
 ### Question Answer PUT
 
 /users PUT
@@ -22,7 +43,7 @@ Example:
 {
   "email": "jonathandavidlewis@gmail.com",
   "question_id": "59d5d9ba47f17d558312855d",
-  "timeToAnswer": 50000,
+  "timeToAnswer": 5000,
   "isCorrect": true
 }
 
@@ -37,15 +58,17 @@ Example:
     "score": 14000,
     "token": "\"Sh4n9u6EtD24TM0RmWv7jTXojqc/v6QHZOtaBb6lx6yHmKClKzYWK30\"",
     "image": "https://lh3.googleusercontent.com/-rYHI9wtK9Cc/AAAAAAAAAAI/AAAAAAAAFcs/HL8ghRxkbSk/photo.jpg?sz=50",
-    "questionsAnswered": {
+    "questionsAnswered": [
         "59d5d9ba47f17d558312855d": {
             "id": "59d5d9ba47f17d558312855d",
             "bestTimeToAnswer": 5000,
-            "pointsAwarded": -39000,
+            "pointsAwarded": 1400,
             "respondedCorrect": true,
-            "lastPoints": 0
+            "lastPoints": 1400
         }
-    }
+    ],
+    "qustionsAttempted": 1,
+    "questionsCorrect": 1
 }
 ```
 
@@ -57,7 +80,7 @@ Example:
 ```JSON
 
 {
-  "questionType": "zackbiernat@gmail.com",
+  "questionType": "textResponse",
   "points": 0,
   "questionData": {
       "_id": "asfueihf375y4",
@@ -129,15 +152,15 @@ Example reponse
 
 #### Parameters
 
-| param |   description   | data type | examples |  
-|------------|-----------|------------|-----------|  
-| __questionType__ |  The type of question | String |'textResponse' |  
-| __title__ |  Title to display when showing question | String | 'Function Binding' |  
-| __questionText__ |  The question text displayed to the user | String | 'What Array method removes and returns the last element in an array?' |  
-| __answerText__ |  The text of the correct answer | String | 'pop' |  
-| __difficulty__ |  Difficult of answering the question, 1-5 |Int | 1, 2, 3, 4, 5 |  
-| __time__ |  time to answer for full points in milliseconds | Int | 3000 |  
-| __author__ |  Username of the author | String | 'Zack' | 
+| param |   description   | data type | examples |
+|------------|-----------|------------|-----------|
+| __questionType__ |  The type of question | String |'textResponse' |
+| __title__ |  Title to display when showing question | String | 'Function Binding' |
+| __questionText__ |  The question text displayed to the user | String | 'What Array method removes and returns the last element in an array?' |
+| __answerText__ |  The text of the correct answer | String | 'pop' |
+| __difficulty__ |  Difficult of answering the question, 1-5 |Int | 1, 2, 3, 4, 5 |
+| __time__ |  time to answer for full points in milliseconds | Int | 3000 |
+| __author__ |  Username of the author | String | 'Zack' |
 
 #### Response
 ```JSON
