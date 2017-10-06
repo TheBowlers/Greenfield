@@ -31,7 +31,7 @@ var findAllUsers = function(db, success, failure) {
   var collection = db.collection('test-users');
     //Find question, empty should return all
   // For testing purposes if you need to drop table:collection.drop()
-  collection.find().project({ _id: 0, displayName: 1, score: 1 }).sort({ score: 1}).toArray(function(err, user) {
+  collection.find().project({ _id: 0, displayName: 1, score: 1 , questionsAttempted: 1, questionsCorrect: 1}).sort({ score: -1}).toArray(function(err, user) {
     if (user.length) {
       success(user);
     } else {
@@ -42,16 +42,28 @@ var findAllUsers = function(db, success, failure) {
 
 
 //Update user's score
-var updateUserScore = function (db, email, points, callback) {
+var updateUserScore = function (db, email, points, isCorrect, callback) {
+
 
     var collection = db.collection('test-users');
 
-    collection.findOneAndUpdate(
-      { email: email },
-      { $inc: { "score" : points } } //adds number of points to user's score
-    , function(err, response) {
-      callback(response);
-    })
+    if (isCorrect == true) {
+      collection.findOneAndUpdate(
+        { email: email },
+        { $inc: { "score" : points, questionsAttempted: 1, questionsCorrect: 1 } } //adds number of points to user's score
+      , function(err, response) {
+        callback(response);
+      })
+    } else {
+      collection.findOneAndUpdate(
+        { email: email },
+        { $inc: { "score" : points, questionsAttempted: 1} } //adds number of points to user's score
+      , function(err, response) {
+        callback(response);
+      })
+    }
+
+
 
 }
 
