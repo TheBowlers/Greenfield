@@ -46,19 +46,29 @@ exports.formatUserData = function(user) {
 //Sends user object for given email address
 exports.getUser = function(req, res) {
 
+  let errorBool = false;
+  let errorMessage = '';
   let email = req.query.email;
+  if (!email) {
+    errorMessage += "No 'email' in request body. \n";
+    errorBool = true;
+  }
+  if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the user's data is fetched. If it is not found the response is an error message.
+    res.status(404).send(errorMessage);
 
-  MongoClient.connect(url, function(err, db) {
-    if (err) {
-      console.log('Could not connect', err);
-    } else {
-      findUserByEmail(db, email, function(userData) {
-        res.status(200).send(userData[0]);
-      }, function(userData) {
-        res.status(404).send('Could not get data for user with that email');
-      })
-    }
-  })
+  } else {
+    MongoClient.connect(url, function(err, db) {
+      if (err) {
+        console.log('Could not connect', err);
+      } else {
+        findUserByEmail(db, email, function(userData) {
+          res.status(200).send(userData[0]);
+        }, function(userData) {
+          res.status(404).send('Could not get data for user with that email');
+        })
+      }
+    })
+  }
 }
 
 exports.getAllUsers = function(req, res) {
@@ -163,7 +173,7 @@ exports.updateScore = function(req, res) {
     errorMessage += "No 'isCorrect' in request body. \n";
     errorBool = true;
   }
-  if (errorBool) { // If req.body did not include the required fields an error is sent.
+  if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the question response is logged in user's data.
     res.status(404).send(errorMessage);
 
   } else {
