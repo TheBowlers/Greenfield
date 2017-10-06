@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = require('../../../.././config.js').dbUrl;
 //Question helper functions
 var insertQ = require('.././utils/questions-helpers.js').insertQ;
-var findQ = require('.././utils/questions-helpers.js').findQ;
+var findQByType = require('.././utils/questions-helpers.js').findQByType;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
@@ -38,7 +38,7 @@ exports.getQuestion = function(req, res) {
         return console.error(err);
       }
       console.log('Connected to MongoDB server');
-      findQ(db, questionType, function(questions) {
+      findQByType(db, questionType, function(questions) {
         questions.forEach(function(question) {
           response.push(question);
           console.log(response)
