@@ -27,6 +27,41 @@ class MainView extends React.Component {
     this.changeView = this.changeView.bind(this);
     this.getNextQuestion = this.getNextQuestion.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
+    this.getFirstQuestion = this.getFirstQuestion.bind(this);
+    this.storeFirstQuestion = this.storeFirstQuestion.bind(this);
+  }
+
+  componentWillMount() {
+    this.getFirstQuestion();
+  }
+
+  storeFirstQuestion(questionData) {
+    console.log('First Question ready Called');
+    this.setState({
+      nextQuestion: questionData
+    });
+  }
+
+  getFirstQuestion() {
+    console.log('Getting next question');
+    const request = $.ajax({
+      method: "GET",
+      url: '/questions',
+      data: {questionType: 'textResponse'},
+      dataType: 'application/json'
+    });
+
+    request.done((data) => {
+      console.log('success');
+      const question = JSON.parse(data.responseText);
+      this.storeFirstQuestion(question);
+    });
+
+    request.fail((data) => {
+      console.log('failed');
+      const question = JSON.parse(data.responseText);
+      this.storeFirstQuestion(question);
+    });
   }
 
 
@@ -75,17 +110,20 @@ class MainView extends React.Component {
 
   renderNewQuestion(questionData) {
     console.log('renderNewQuestion Called');
-    $('.answer-field').text('').focus();
     this.setState({
-      currentQuestion: questionData,
-      answerField: '',
-      questionStartTime: Date.now(),
-      startTimer: true
+      nextQuestion: questionData
     });
   }
 
   getNextQuestion() {
     console.log('Getting next question');
+    this.setState({
+      currentQuestion: this.state.nextQuestion,
+      answerField: '',
+      questionStartTime: Date.now(),
+      startTimer: true
+    });
+    $('.answer-field').text('').focus();
     const request = $.ajax({
       method: "GET",
       url: '/questions',
