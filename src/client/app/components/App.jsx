@@ -10,9 +10,46 @@ class App extends React.Component {
 
     this.state = {
       loggedIn: Boolean(document.user),
-      displayname: document.user || null
+      user: null
     };
+    this.getUserInfo = this.getUserInfo.bind(this);
   }
+
+  componentWillMount() {
+    this.getUserInfo();
+    if (document.user) {
+      this.setState({user: document.user});
+    }
+
+  }
+
+  getUserInfo() {
+
+    console.log('Getting next question');
+    const request = $.ajax({
+      method: "GET",
+      url: '/users',
+      data: {
+        email: "jonathandavidlewis@gmail.com"
+      },
+      dataType: 'application/json'
+    });
+
+    request.done((data) => {
+      console.log('Got User data, success', data.responseText);
+      document.user = JSON.parse(data.responseText);
+    });
+
+    request.fail((data) => {
+      console.log('Got User data, fail', data.responseText);
+      document.user = JSON.parse(data.responseText);
+      this.setState({user: document.user});
+    });
+  }
+
+
+
+
 
   logout() {
     document.user = null;
@@ -24,7 +61,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header displayname={this.state.displayname}logout={this.logout} loggedIn={this.state.loggedIn} />
+        <Header user={this.state.user} logout={this.logout} loggedIn={this.state.loggedIn} />
         <MainView loggedIn={this.state.loggedIn} />
         <Footer />
       </div>

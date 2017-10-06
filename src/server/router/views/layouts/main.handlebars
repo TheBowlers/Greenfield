@@ -4,11 +4,19 @@
   <title>QuizzerWizard</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css">
   <link rel="stylesheet" href="./public/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   {{#if user}}
-    <script type="text/javascript">document.user = "{{user}}";</script>
+    <script type="text/javascript">
+      document.user = {};
+      document.user.displayName = "{{user.displayName}}";
+      document.user.email = "{{email}}";
+      document.user.score = 0;
+      document.user.image = "{{image}}";
+    </script>
   {{/if}}
 </head>
 <body>
 {{{body}}}
+
 </body>
 </html>

@@ -120,7 +120,16 @@ passport.use(new GoogleStrategy({
 // Global Vars for Handlebars
 
 app.use(function (req, res, next) {
-  res.locals.user = req.user?  req.user.displayName : null;
+  if(req.user) {
+    res.locals.user = req.user;
+    res.locals.email = req.user.emails[0].value;
+    res.locals.image = req.user.image;
+  } else {
+    res.locals.user = null;
+    res.locals.email = '';
+    res.locals.image = 'http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png';
+  }
+
   console.log('USER EXTRACTED:', res.locals.user);
   next();
 });
