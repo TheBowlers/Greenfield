@@ -1,6 +1,6 @@
 import React from 'react'
 
-var LeaderboardEntry = ({user, score, }) => (
+var LeaderboardEntry = ({user, score, correctAnswers, questionsAttempted}) => (
   <tbody>
     <tr>
       <td>{user}</td>
