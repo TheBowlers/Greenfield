@@ -8,29 +8,42 @@ class SubmitView extends React.Component {
       startTime: Date.now(),
       timeElapsed: 0,
       timerIsOn: false,
-      displayTimeElapsed: ''
+      displayTimeElapsed: '',
+      canAnswer: false
     };
     this.updateTime = this.updateTime.bind(this);
     this.startQuestionTimer = this.startQuestionTimer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('Submit Getting new props', nextProps)
     if (nextProps.timerIsOn) {
       this.startQuestionTimer();
+    }else {
+      if (nextProps.answeredCorrect !== undefined) {
+        if(nextProps.answeredCorrect){
+          this.setState({answerFeedback: "Nice job! That's correct."});
+        } else {
+          this.setState({answerFeedback: "Not quite. Maybe next time."});
+        }
+
+      }
     }
-    if (nextProps.answerFeedback) {
-      this.setState({answerFeedback: nextProps.answerFeedback});
-    }
+
 
   }
 
   handleSubmit() {
-    clearInterval(this.state.questionTimer);
-    this.setState({timerIsOn: false});
-
-
-    this.props.submitAnswer();
+    if(this.state.canAnswer === true) {
+      clearInterval(this.state.questionTimer);
+      this.setState({
+        timerIsOn: false,
+        canAnswer: false
+      });
+      this.props.submitAnswer();
+    }
   }
 
   updateTime() {
@@ -46,13 +59,19 @@ class SubmitView extends React.Component {
     this.setState({
       questionTimer: setInterval(this.updateTime, 100),
       startTime: Date.now(),
-      timerIsOn: true
-  });
+      timerIsOn: true,
+      canAnswer: true
+    });
     //this.props.getNextQuestion();
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  handleNextQuestionClick() {
 
+    this.setState({
+      answerFeedback: '',
+      canAnswer: true
+    });
+    this.props.getNextQuestion();
   }
 
   render() {
@@ -60,8 +79,8 @@ class SubmitView extends React.Component {
       <div className="submitView">
         <button onClick={this.handleSubmit} className="btn btn-lg btn-primary col-md-3 submit">{this.state.mainButtonText}</button>
         <div className="seconds-timer">{this.state.displayTimeElapsed}</div>
-        <div className="seconds-timer">{this.state.answerFeedback}</div>
-        <button onClick={this.props.getNextQuestion} className="btn btn-lg btn-primary col-md-3 skip">NextQuestion</button>
+        <div className="answered-correct-feedback">{this.state.answerFeedback}</div>
+        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 skip">NextQuestion</button>
       </div>
     )
   }

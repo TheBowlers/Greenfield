@@ -9,7 +9,7 @@ class MainView extends React.Component {
     this.state = {
       mainView: 'start',
       currentQuestion: {
-        "_id": "demo",
+        "_id": "59d54a6c8c4d5137387b7eb4",
         "title": "Ready to start quizzing?",
         "questionText": "When you start quizzing, a new question will appear here. Read the prompt and try to answer quickly to receive a bonus",
         "answerText": "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
@@ -22,7 +22,7 @@ class MainView extends React.Component {
       answerField: "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
       questionStartTime: 0,
       answerSubmitTime: 0,
-      startTimer: false
+      startTimer: false,
     };
     this.changeView = this.changeView.bind(this);
     this.getNextQuestion = this.getNextQuestion.bind(this);
@@ -31,12 +31,18 @@ class MainView extends React.Component {
 
 
   submitAnswer() {
-    this.setState({startTimer: false});
+
+    const correctAnswer = this.state.currentQuestion.answerText;
+    const isCorrect = ($('.answer-field').text() == correctAnswer);
+    this.setState({
+      startTimer: false,
+      isCorrect: isCorrect
+    });
     const questionEndTime = Date.now();
     const timeToAnswer = questionEndTime - this.state.questionStartTime;
     const questionId = this.state.currentQuestion._id;
-    const correctAnswer = this.state.currentQuestion.answerText;
-    const isCorrect = ($('.answer-field').text() == correctAnswer);
+
+
     if(isCorrect) {
       console.log('Answer Correct!');
     } else {
@@ -53,7 +59,7 @@ class MainView extends React.Component {
         email: document.user.email,
         question_id: questionId,
         timeToAnswer: timeToAnswer,
-        isCorrect: isCorrect
+        answeredCorrect: isCorrect
       },
       dataType: 'application/json'
     });
@@ -110,7 +116,7 @@ class MainView extends React.Component {
         <div className="container-fluid mainView">
           <div className="row">
             <ModulesPanel />
-            <QuestionPanel timerIsOn = {this.state.startTimer} submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
+            <QuestionPanel answeredCorrect = {this.state.isCorrect} timerIsOn = {this.state.startTimer} submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
             <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
           </div>
         </div>

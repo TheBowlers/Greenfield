@@ -27,27 +27,23 @@ class App extends React.Component {
 
     console.log('Getting next question');
     const request = $.ajax({
-      method: "PUT",
-      url: '/users/update',
+      method: "GET",
+      url: '/users',
       data: {
-        email: "jonathandavidlewis@gmail.com",
-        question_id: "59d5d9ba47f17d558312855d",
-        timeToAnswer: 50000,
-        isCorrect: true
+        email: "jonathandavidlewis@gmail.com"
       },
       dataType: 'application/json'
     });
 
     request.done((data) => {
-      console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
+      console.log('Got User data, success', data.responseText);
+      document.user = JSON.parse(data.responseText);
     });
 
     request.fail((data) => {
-      console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
+      console.log('Got User data, fail', data.responseText);
+      document.user = JSON.parse(data.responseText);
+      this.setState({user: document.user});
     });
   }
 

@@ -13,6 +13,14 @@ class Header extends React.Component {
 
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log('new props are', newProps);
+    if(newProps.user) {
+      console.log('new score is:', typeof newProps.user.score);
+      this.setState({userScore: newProps.user.score.toLocaleString()});
+    }
+  }
+
   handleDropdownClick() {
     this.setState({
       dropdownClicked: !this.state.dropdownClicked
@@ -29,7 +37,7 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">{this.state.userScore}</a></li>
+              <li><a href="#">{this.state.userScore} points</a><span></span></li>
               <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
                 <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu"  >
