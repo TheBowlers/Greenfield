@@ -3,8 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var url = require('../../../.././config.js').dbUrl;
 //Question helper functions
 var insertQ = require('.././utils/questions-helpers.js').insertQ;
-var findQByType = require('.././utils/questions-helpers.js').findQByType;
-var findQById = require('.././utils/questions-helpers.js').findQById;
+var findQ = require('.././utils/questions-helpers.js').findQ;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
@@ -33,15 +32,13 @@ exports.getQuestion = function(req, res) {
       }
     });
 
-
-    //Could also be made to give an utterly random question
   } else {
     MongoClient.connect(url, function(err, db) {
       if(err){
         return console.error(err);
       }
       console.log('Connected to MongoDB server');
-      findQByType(db, questionType, function(questions) {
+      findQ(db, questionType, function(questions) {
         questions.forEach(function(question) {
           response.push(question);
           console.log(response)
@@ -61,19 +58,81 @@ exports.getQuestion = function(req, res) {
 
 exports.postQuestion = function(req, res) {
   //The question object which will be added
-  let question = req.body;
+  let errorBool = false;
+  let errorMessage = '';
+  let questionType = req.body.questionType;
+  let title = req.body.title;
+  let questionText = req.body.questionText;
+  let answerText = req.body.answerText;
+  let difficulty = req.body.difficulty;
+  let time = req.body.time;
 
-  MongoClient.connect(url, function(err, db) {
-    console.log('Connected to MongoDB server');
-    insertQ(db, question, function(question) {
+  if (!questionType) {
+    errorMessage += "No 'questionType' in request body. \n";
+    errorBool = true;
+  }
+  if (!title) {
+    errorMessage += "No 'title' in request body. \n";
+    errorBool = true;
+  }
+  if (!questionText) {
+    errorMessage += "No 'questionText' in request body. \n";
+    errorBool = true;
+  }
+  if (!answerText) {
+    errorMessage += "No 'answerText' in request body. \n";
+    errorBool = true;
+  }
+  if (!difficulty) {
+    errorMessage += "No 'difficulty' in request body. \n";
+    errorBool = true;
+  }
+  if (difficulty < 1 || difficulty > 5 || !difficulty) {
+    errorMessage += "Difficulty should be between 1 and 5 \n";
+    errorBool = true;
+  }
+  if (!time) {
+    errorMessage += "No 'time' in request body. \n";
+    errorBool = true;
+  }
+  if (time < 2000) {
+    errorMessage += "Time must be at least 2000 ms \n";
+    errorBool = true;
+  }
+  if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the question is posted.
+    res.status(404).send(errorMessage);
 
-      // Sends question + _id
-      res.status(200).send(question[0]);
-      db.close();
-      });
-  });
+  } else {
+
+    let question = exports.renderQuestion(req.body);
+
+    MongoClient.connect(url, function(err, db) {
+      console.log('Connected to MongoDB server');
+      insertQ(db, question, function(question) {
+
+        // Sends question + _id
+        res.status(200).send(question[0]);
+        db.close();
+        });
+    });
+  }
 }
 
+// Sterilizes posted questions in case the request body contains extra information
+//TODO: change this section if other type of questions are included in database
+exports.renderQuestion = function(question) {
+  return {
+    questionType: question.questionType,
+    title: question.title,
+    questionText: question.questionText,
+    answerText: question.answerText,
+    difficulty: question.difficulty,
+    time: question.time
+  }
+}
+
+
+/*********** TODO: determine if the following functions are necessary ***************/
 exports.deleteQuestion = function(req, res) {
   //id determines which question
   let id = req.body.id;
