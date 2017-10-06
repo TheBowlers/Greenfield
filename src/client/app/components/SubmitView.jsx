@@ -11,13 +11,23 @@ class SubmitView extends React.Component {
       displayTimeElapsed: ''
     };
     this.updateTime = this.updateTime.bind(this);
-    this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
+    this.startQuestionTimer = this.startQuestionTimer.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.timerIsOn) {
+      this.startQuestionTimer();
+    }
+    if (nextProps.answerFeedback) {
+      this.setState({answerFeedback: nextProps.answerFeedback});
+    }
+
   }
 
   handleSubmit() {
     clearInterval(this.state.questionTimer);
-    this.setState({timerIsOn: true});
+    this.setState({timerIsOn: false});
 
 
     this.props.submitAnswer();
@@ -31,13 +41,14 @@ class SubmitView extends React.Component {
 
   }
 
-  handleNextQuestionClick() {
+  startQuestionTimer() {
+    clearInterval(this.state.questionTimer);
     this.setState({
       questionTimer: setInterval(this.updateTime, 100),
       startTime: Date.now(),
       timerIsOn: true
   });
-    this.props.getNextQuestion();
+    //this.props.getNextQuestion();
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -48,8 +59,9 @@ class SubmitView extends React.Component {
     return (
       <div className="submitView">
         <button onClick={this.handleSubmit} className="btn btn-lg btn-primary col-md-3 submit">{this.state.mainButtonText}</button>
-        <div class="seconds-timer">{this.state.displayTimeElapsed}</div>
-        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 skip">NextQuestion</button>
+        <div className="seconds-timer">{this.state.displayTimeElapsed}</div>
+        <div className="seconds-timer">{this.state.answerFeedback}</div>
+        <button onClick={this.props.getNextQuestion} className="btn btn-lg btn-primary col-md-3 skip">NextQuestion</button>
       </div>
     )
   }

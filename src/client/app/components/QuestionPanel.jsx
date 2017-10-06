@@ -35,7 +35,7 @@ class QuestionPanel extends React.Component {
       <div className="col-md-6">
         <QuestionView currentQuestion={this.props.currentQuestion}/>
         <AnswerView answerField = {this.props.answerField} currentQuestion={this.props.currentQuestion}/>
-        <SubmitView submitAnswer = {this.props.submitAnswer} getNextQuestion = {this.props.getNextQuestion} changeView = {this.props.changeView} mainView = {this.props.mainView} />
+        <SubmitView timerIsOn = {this.props.timerIsOn} submitAnswer = {this.props.submitAnswer} getNextQuestion = {this.props.getNextQuestion} changeView = {this.props.changeView} mainView = {this.props.mainView} />
       </div>
     )
   }

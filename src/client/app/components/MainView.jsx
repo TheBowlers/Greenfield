@@ -21,7 +21,8 @@ class MainView extends React.Component {
       nextQuestion: {},
       answerField: "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
       questionStartTime: 0,
-      answerSubmitTime: 0
+      answerSubmitTime: 0,
+      startTimer: false
     };
     this.changeView = this.changeView.bind(this);
     this.getNextQuestion = this.getNextQuestion.bind(this);
@@ -30,6 +31,7 @@ class MainView extends React.Component {
 
 
   submitAnswer() {
+    this.setState({startTimer: false});
     const questionEndTime = Date.now();
     const timeToAnswer = questionEndTime - this.state.questionStartTime;
     const questionId = this.state.currentQuestion._id;
@@ -71,7 +73,8 @@ class MainView extends React.Component {
     this.setState({
       currentQuestion: questionData,
       answerField: '',
-      questionStartTime: Date.now()
+      questionStartTime: Date.now(),
+      startTimer: true
     });
   }
 
@@ -107,7 +110,7 @@ class MainView extends React.Component {
         <div className="container-fluid mainView">
           <div className="row">
             <ModulesPanel />
-            <QuestionPanel submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
+            <QuestionPanel timerIsOn = {this.state.startTimer} submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
             <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
           </div>
         </div>
