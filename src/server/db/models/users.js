@@ -150,13 +150,17 @@ exports.formatResponseData = function(params, db, callback) {
 }
 
 exports.updateScore = function(req, res) {
-
+  console.log(req.body)
   let errorBool = false;
   let errorMessage = '';
   let email = req.body.email;
   let question_id = req.body.question_id;
   let timeToAnswer = req.body.timeToAnswer;
-  let isCorrect = req.body.isCorrect;
+  let isCorrect = req.body.answeredCorrect;
+  console.log(email)
+  console.log(question_id)
+  console.log(timeToAnswer)
+  console.log(isCorrect)
   if (!email) {
     errorMessage += "No 'email' in request body. \n";
     errorBool = true;
