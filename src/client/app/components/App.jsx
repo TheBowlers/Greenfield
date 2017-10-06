@@ -16,8 +16,8 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    this.getUserInfo();
     if (document.user) {
+      this.getUserInfo();
       this.setState({user: document.user});
     }
 
@@ -30,7 +30,7 @@ class App extends React.Component {
       method: "GET",
       url: '/users',
       data: {
-        email: "jonathandavidlewis@gmail.com"
+        email: document.user.email
       },
       dataType: 'application/json'
     });
@@ -53,7 +53,7 @@ class App extends React.Component {
 
   logout() {
     document.user = null;
-    this.setState({loggedIn: flase});
+    this.setState({loggedIn: false});
     window.location = "/logout";
     console.log('LOGGING OUT');
   }
