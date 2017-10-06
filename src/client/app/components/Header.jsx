@@ -6,13 +6,13 @@ class Header extends React.Component {
     super(props)
 
     this.state = {
-      profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
+      profilePic: null,
       username: "Default",
-      userScore: "9,000",
+      userScore: null,
       leaderboardEntries: []
     };
 
-    // this.getUsers = this.getUsers.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -26,25 +26,25 @@ class Header extends React.Component {
     }
   }
 
-  // getUsers() {
-  //   const request = $.ajax({
-  //     method: "GET",
-  //     url: '/users',
-  //     dataType: 'application/json'
-  //   });
+  getUsers() {
+    const request = $.ajax({
+      method: "GET",
+      url: '/users',
+      dataType: 'application/json'
+    });
 
-  //   request.done((data) => {
-  //     console.log('Got Users data, success', data.responseText);
-  //     document.user = JSON.parse(data.responseText);
-  //   });
+    request.done((data) => {
+      console.log('Got Users data, success', data.responseText);
+      document.user = JSON.parse(data.responseText);
+    });
 
-  //   request.fail((data) => {
-  //     console.log('Got Users data, fail', data.responseText);
-  //     this.setState({
-  //       leaderboardEntries: JSON.parse(data.responseText)
-  //     })
-  //   });
-  // }
+    request.fail((data) => {
+      console.log('Got Users data, fail', data.responseText);
+      this.setState({
+        leaderboardEntries: JSON.parse(data.responseText)
+      })
+    });
+  }
 
   loginWithGoogle() {
     window.location = "/auth/google";
@@ -56,7 +56,7 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#leaderboard" data-toggle="modal">{this.state.userScore} points</a><span></span></li>
+              <li><a href="#leaderboard" data-toggle="modal" onClick={this.getUsers}>{this.state.userScore} points</a><span></span></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu"  >
@@ -71,9 +71,8 @@ class Header extends React.Component {
               </li>
             </ul>
           </div>
-          <Leaderboard />
+          <Leaderboard leaderboardEntries={this.state.leaderboardEntries}/>
         </div>
-
       )
     } else {
       return (

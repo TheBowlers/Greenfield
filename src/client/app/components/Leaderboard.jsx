@@ -1,6 +1,7 @@
 import React from 'react'
+import Leaderboard from './LeaderboardEntry.jsx'
 
-var Leaderboard = () => (
+var Leaderboard = ({leaderboardEntries}) => (
   <div className="bs-example">
     <div id="leaderboard" className="modal fade">
         <div className="modal-dialog">
@@ -20,15 +21,11 @@ var Leaderboard = () => (
                         <th>Percent</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>Kent Shepard</td>
-                        <td>100,000</td>
-                        <td>75</td>
-                        <td>150</td>
-                        <td>50%</td>
-                      </tr>
-                    </tbody>
+                    {leaderboardEntries.map((user) => {
+                      return (
+                        <LeaderboardEntry user={user.name}/>
+                      )
+                    })}
                   </table>
                 </div>
             </div>
