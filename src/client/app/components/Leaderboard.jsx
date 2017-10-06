@@ -1,5 +1,5 @@
 import React from 'react'
-import Leaderboard from './LeaderboardEntry.jsx'
+import LeaderboardEntry from './LeaderboardEntry.jsx'
 
 var Leaderboard = ({leaderboardEntries}) => (
   <div className="bs-example">
@@ -21,9 +21,9 @@ var Leaderboard = ({leaderboardEntries}) => (
                         <th>Percent</th>
                       </tr>
                     </thead>
-                    {leaderboardEntries.map((user) => {
+                    {leaderboardEntries.map((user, index) => {
                       return (
-                        <LeaderboardEntry user={user.name}/>
+                        <LeaderboardEntry key={index} user={user.displayName} score={user.score} questionsCorrect={user.questionsCorrect} questionsAttempted={user.questionsAttempted}/>
                       )
                     })}
                   </table>

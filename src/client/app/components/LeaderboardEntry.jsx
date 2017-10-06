@@ -1,13 +1,13 @@
 import React from 'react'
 
-var LeaderboardEntry = ({user, score, correctAnswers, questionsAttempted}) => (
+var LeaderboardEntry = ({user, score, questionsCorrect, questionsAttempted}) => (
   <tbody>
     <tr>
       <td>{user}</td>
       <td>{score}</td>
-      <td>{correctAnswers}</td>
+      <td>{questionsCorrect}</td>
       <td>{questionsAttempted}</td>
-      <td>{correctAnswers / questionsAttempted}</td>
+      <td>{questionsCorrect / questionsAttempted}</td>
     </tr>
   </tbody>
 );

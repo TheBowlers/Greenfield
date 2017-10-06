@@ -27,23 +27,20 @@ class Header extends React.Component {
   }
 
   getUsers() {
-    const request = $.ajax({
-      method: "GET",
-      url: '/users',
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('Got Users data, success', data.responseText);
-      document.user = JSON.parse(data.responseText);
-    });
-
-    request.fail((data) => {
-      console.log('Got Users data, fail', data.responseText);
-      this.setState({
-        leaderboardEntries: JSON.parse(data.responseText)
-      })
-    });
+    $.ajax({
+      url: 'http://127.0.0.1:8080/users',
+      method: 'GET',
+      success: function(data) {
+        console.log('success', data);
+        this.setState({
+          leaderboardEntries: data
+        })
+        $('#leaderboard').modal('show');
+      }.bind(this),
+      error: function(err) {
+        console.log(err);
+      }.bind(this)
+    })
   }
 
   loginWithGoogle() {
@@ -56,7 +53,7 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#leaderboard" data-toggle="modal" onClick={this.getUsers}>{this.state.userScore} points</a><span></span></li>
+              <li><a href="#leaderboard" onClick={this.getUsers}>{this.state.userScore} points</a><span></span></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu"  >
