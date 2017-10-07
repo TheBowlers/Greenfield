@@ -64,14 +64,17 @@ exports.postQuestion = function(req, res) {
   if (Array.isArray(req.body)) {
     let checkedQuestions = [];
     let errorMessage = '';
+    let index = 0;
     //foreach element render a question
     req.body.forEach(function(question) {
       let rendered = renderQuestion(question);
       if (typeof rendered === 'string') {
+        errorMessage += 'Found errors at position ' + index + '\n';
         errorMessage += rendered;
       } else {
         checkedQuestions.push(rendered);
       }
+      index ++;
     });
     if (errorMessage.length) {
       res.status(404).send(errorMessage);
