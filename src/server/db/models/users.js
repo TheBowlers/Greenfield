@@ -118,7 +118,6 @@ exports.formatResponseData = function(params, db, callback) {
         bestTime = questionResponseData.bestTimeToAnswer
         console.log(bestTime, 'Best time thus far', pointsAccumulated, 'Points awarded thus far')
       }
-
       if (pointsAccumulated + pointsScored < max) {
         pointsScored += pointsAccumulated;
       } else {
@@ -128,7 +127,7 @@ exports.formatResponseData = function(params, db, callback) {
       if (bestTime === 0 || bestTime > params.timeToAnswer) {
         bestTime = params.timeToAnswer
       }
-      if (!params.isCorrect) {
+      if (!params.answeredCorrect) {
         pointsScored = 0;
       }
 
@@ -140,10 +139,10 @@ exports.formatResponseData = function(params, db, callback) {
         id: questionId,
         bestTimeToAnswer: bestTime,
         pointsAwarded: pointsScored,
-        respondedCorrect: params.isCorrect,
+        respondedCorrect: params.answeredCorrect,
         lastPoints: netPoints
       }
-      //console.log('line 105',questionData)
+      console.log('line 105',questionData)
       callback(questionData, answeredPrior);
     });
   });
@@ -186,7 +185,7 @@ exports.updateScore = function(req, res) {
           let points = questionData.lastPoints;
           updateUserScore(db, email, points, isCorrect, function(response) {
             console.log(response)
-          console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
+            console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
           //Score property is not updated in this response. But the next one will be
             // if (answeredPrior) {
             //   console.log('answeredPrior')
