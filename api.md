@@ -176,3 +176,27 @@ Example reponse
 }
 
 ```
+
+```JSO
+//For multiple questions...
+[{
+   "_id": "59d280d22e38d4a336f661fa",
+   "questionType": "textResponse",
+   "title": "Westeros geography",
+   "questionText": "What is the southern-most kingdom in Westeros?",
+   "answerText": "Dorne",
+   "difficulty": 2,
+   "time": 10000,
+   "author": "Zack"
+},
+{
+  "questionType": "textResponse",
+   "title": "Westeros geography",
+   "questionText": "What is the northern-most kingdom in Westeros?",
+   "answerText": "The North",
+   "difficulty": 1,
+   "time": 10000,
+   "author": "Zack"
+}]
+```
+
