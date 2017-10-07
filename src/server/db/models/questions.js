@@ -1,3 +1,5 @@
+'use strict'
+
 var MongoClient = require('mongodb').MongoClient;
 //Use proper url for MongoDB cluster
 var url = require('../../../.././config.js').dbUrl;
@@ -7,6 +9,8 @@ var findQByType = require('.././utils/questions-helpers.js').findQByType;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
+var insertManyQs = require('.././utils/questions-helpers.js').insertManyQs;
+
 
 exports.getQuestion = function(req, res) {
   //fetched questions are pushed to array
@@ -56,16 +60,68 @@ exports.getQuestion = function(req, res) {
     }
 }
 
+//Accepts an array of questions or a single question object which it iterates through and posts
 exports.postQuestion = function(req, res) {
   //The question object which will be added
+  if (Array.isArray(req.body)) {
+    let checkedQuestions = [];
+    let errorMessage = '';
+    let index = 0;
+    //foreach element render a question
+    req.body.forEach(function(question) {
+      let rendered = renderQuestion(question);
+      if (typeof rendered === 'string') {
+        errorMessage += 'Found errors at position ' + index + '\n';
+        errorMessage += rendered;
+      } else {
+        checkedQuestions.push(rendered);
+      }
+      index ++;
+    });
+    if (errorMessage.length) {
+      res.status(404).send(errorMessage);
+    } else if (checkedQuestions.length) {
+      MongoClient.connect(url, function(err, db) {
+        console.log('Connected to MongoDB server');
+        insertManyQs(db, checkedQuestions, function(questions) {
+
+          // Sends questions + _id
+          res.status(200).send(questions);
+          db.close();
+        });
+      });
+    } else res.status(404).send('None of those questions could be posted.')
+  } else {
+
+    let question = renderQuestion(req.body);
+    if (typeof question === 'string') {
+      res.status(404).send(question);
+    }
+
+    MongoClient.connect(url, function(err, db) {
+      console.log('Connected to MongoDB server');
+      insertQ(db, question, function(question) {
+
+        // Sends question + _id
+        res.status(200).send(question[0]);
+        db.close();
+      });
+    });
+  }
+}
+
+// Sterilizes posted questions in case the request body contains extra information
+//TODO: change this section if other type of questions are included in database
+var renderQuestion = function(question) {
+
   let errorBool = false;
   let errorMessage = '';
-  let questionType = req.body.questionType;
-  let title = req.body.title;
-  let questionText = req.body.questionText;
-  let answerText = req.body.answerText;
-  let difficulty = req.body.difficulty;
-  let time = req.body.time;
+  let questionType = question.questionType;
+  let title = question.title;
+  let questionText = question.questionText;
+  let answerText = question.answerText;
+  let difficulty = question.difficulty;
+  let time = question.time;
 
   if (!questionType) {
     errorMessage += "No 'questionType' in request body. \n";
@@ -100,28 +156,9 @@ exports.postQuestion = function(req, res) {
     errorBool = true;
   }
   if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the question is posted.
-    res.status(404).send(errorMessage);
+    return errorMessage;
 
-  } else {
-
-    let question = exports.renderQuestion(req.body);
-
-    MongoClient.connect(url, function(err, db) {
-      console.log('Connected to MongoDB server');
-      insertQ(db, question, function(question) {
-
-        // Sends question + _id
-        res.status(200).send(question[0]);
-        db.close();
-        });
-    });
-  }
-}
-
-// Sterilizes posted questions in case the request body contains extra information
-//TODO: change this section if other type of questions are included in database
-exports.renderQuestion = function(question) {
-  return {
+  } else return {
     questionType: question.questionType,
     title: question.title,
     questionText: question.questionText,
