@@ -44,7 +44,7 @@ Example:
   "email": "jonathandavidlewis@gmail.com",
   "question_id": "59d5d9ba47f17d558312855d",
   "timeToAnswer": 5000,
-  "isCorrect": true
+  "answeredCorrect": true
 }
 
 ```
