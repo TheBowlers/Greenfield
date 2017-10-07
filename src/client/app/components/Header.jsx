@@ -1,30 +1,46 @@
 import React from 'react';
+import Leaderboard from './Leaderboard.jsx'
 
 class Header extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      dropdownClicked: false,
-      profilePic: "http://www.holidaybibleweek.co.uk/wp-content/uploads/mystery-300x300.png",
+      profilePic: null,
       username: "Default",
-      userScore: "9,000"
+      userScore: null,
+      leaderboardEntries: []
     };
 
+    this.getUsers = this.getUsers.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
     console.log('new props are', newProps);
     if(newProps.user) {
       console.log('new score is:', typeof newProps.user.score);
-      this.setState({userScore: newProps.user.score.toLocaleString()});
+      this.setState({
+        userScore: newProps.user.score.toLocaleString(),
+        profilePic: newProps.user.image
+      });
     }
   }
 
-  handleDropdownClick() {
-    this.setState({
-      dropdownClicked: !this.state.dropdownClicked
-    });
+  getUsers() {
+    $.ajax({
+      url: 'http://127.0.0.1:8080/users',
+      method: 'GET',
+      success: function(data) {
+        console.log('success', data);
+        this.setState({
+          leaderboardEntries: data
+        })
+        $('#leaderboard').modal('show');
+      }.bind(this),
+      error: function(err) {
+        console.log(err);
+      }.bind(this)
+    })
   }
 
   loginWithGoogle() {
@@ -37,12 +53,12 @@ class Header extends React.Component {
         <div className="nav navbar">
           <div className="container">
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">{this.state.userScore} points</a><span></span></li>
-              <li className={this.state.dropdownClicked === true ? "dropdown open" : "dropdown"}>
-                <a href="#" onClick={this.handleDropdownClick.bind(this)} className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
+              <li><a href="#leaderboard" onClick={this.getUsers}>{this.state.userScore} points</a><span></span></li>
+              <li className="dropdown">
+                <a href="#" className="dropdown-toggle profile" data-toggle="dropdown" role="button"><img className="profile-pic" src={this.state.profilePic} /><span className="caret"></span></a>
                 <ul className="dropdown-menu" role="menu"  >
-                  <li><a href="#">Signed in as</a></li>
-                  <li><a href="#"><strong>{this.props.user.displayName}</strong></a></li>
+                  <li><a className="inactive">Signed in as</a></li>
+                  <li><a className="inactive"><strong>{this.props.user.displayName}</strong></a></li>
                   <li className="divider"></li>
                   <li><a href="#">Your Stats</a></li>
                   <li className="divider"></li>
@@ -52,6 +68,7 @@ class Header extends React.Component {
               </li>
             </ul>
           </div>
+          <Leaderboard leaderboardEntries={this.state.leaderboardEntries}/>
         </div>
       )
     } else {

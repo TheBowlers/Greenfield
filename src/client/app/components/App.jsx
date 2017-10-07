@@ -20,7 +20,6 @@ class App extends React.Component {
       this.getUserInfo();
       this.setState({user: document.user});
     }
-
   }
 
   getUserInfo() {
@@ -28,7 +27,7 @@ class App extends React.Component {
     console.log('Getting next question');
     const request = $.ajax({
       method: "GET",
-      url: '/users',
+      url: '/users/email',
       data: {
         email: document.user.email
       },
@@ -46,10 +45,6 @@ class App extends React.Component {
       this.setState({user: document.user});
     });
   }
-
-
-
-
 
   logout() {
     document.user = null;

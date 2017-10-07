@@ -68,7 +68,7 @@ var updateUserScore = function (db, email, points, isCorrect, callback) {
 }
 
 var updateUserQuestions = function(db, email, questionData, callback) {
-
+  console.log(questionData)
   var collection = db.collection('test-users');
   let questionId = questionData.id;
 
