@@ -1,5 +1,3 @@
-'use strict'
-
 var MongoClient = require('mongodb').MongoClient;
 //Use proper url for MongoDB cluster
 var url = require('../../../.././config.js').dbUrl;
