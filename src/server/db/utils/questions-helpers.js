@@ -14,6 +14,17 @@ var insertQ = function(db, question, callback) {
   });
 }
 
+var insertManyQs = function(db, questionsArray, callback) {
+  //Specify the collection where we will 'insert' in this case 'questions'
+  var collection = db.collection('test-questions');
+  //can use 'insertMany' to insert and array of JSON objects into collection
+  collection.insertMany(questionsArray, function(err, result) {
+
+    console.log('Inserted a list of  questions', questionsArray, 'into Mongo collection');
+    callback(result.ops);
+  });
+}
+
 
 var findAllQ = function(db, callback) {
   var collection = db.collection('test-questions');
@@ -85,5 +96,6 @@ module.exports = {
   findQById: findQById,
   updateQ: updateQ,
   removeQ: removeQ,
-  findAllQ: findAllQ
+  findAllQ: findAllQ,
+  insertManyQs: insertManyQs
 }
