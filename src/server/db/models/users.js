@@ -169,7 +169,7 @@ exports.updateScore = function(req, res) {
     errorBool = true;
   }
   if (isCorrect === undefined) {
-    errorMessage += "No 'isCorrect' in request body. \n";
+    errorMessage += "No 'answeredCorrect' in request body. \n";
     errorBool = true;
   }
   if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the question response is logged in user's data.
