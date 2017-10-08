@@ -7,7 +7,7 @@ var LeaderboardEntry = ({user, score, questionsCorrect, questionsAttempted}) => 
       <td>{score}</td>
       <td>{questionsCorrect !== undefined ? questionsCorrect : 0}</td>
       <td>{questionsAttempted}</td>
-      <td>{questionsCorrect !== undefined ? (questionsCorrect / questionsAttempted).toFixed(4) * 100 + '%' : '0%'}</td>
+      <td>{console.log(questionsCorrect)} {questionsCorrect !== undefined ? (questionsCorrect / questionsAttempted).toFixed(4) * 100 + '%' : '0%'}</td>
     </tr>
   </tbody>
 );

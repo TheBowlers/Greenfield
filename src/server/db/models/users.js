@@ -187,18 +187,17 @@ exports.updateScore = function(req, res) {
             console.log(response)
             console.log('Updated user score:', response.value.score, 'to be', points + response.value.score)
           //Score property is not updated in this response. But the next one will be
-            // if (answeredPrior) {
-            //   console.log('answeredPrior')
-            //  // update only that field
-            //   updateUserQuestionsData(db, email, questionData, function(response) {
-            //     res.status(200).send(response.value);
-            //   })
-            // } else {
-            //   updateUserQuestions(db, email, questionData, function(response) {
-            //     res.status(200).send(response.value);
-            //   })
-            // }
-            res.status(200).send()
+            if (answeredPrior) {
+              console.log('answeredPrior')
+             // update only that field
+              updateUserQuestionsData(db, email, questionData, function(response) {
+                res.status(200).send(response.value);
+              })
+            } else {
+              updateUserQuestions(db, email, questionData, function(response) {
+                res.status(200).send(response.value);
+              })
+            }
           })
         });
       }
