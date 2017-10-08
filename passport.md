@@ -134,3 +134,7 @@ if (req.user) {
     }
 
 ```
+
+## How to setup in Google Console
+
+[Google console](https://console.cloud.google.com/home/dashboard)
