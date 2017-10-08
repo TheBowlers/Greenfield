@@ -4,13 +4,14 @@ var url = require('../../../.././config.js').dbUrl;
 //Question helper functions
 var insertQ = require('.././utils/questions-helpers.js').insertQ;
 var findQByType = require('.././utils/questions-helpers.js').findQByType;
+var findQByCategory = require('.././utils/questions-helpers.js').findQByCategory;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
 var insertManyQs = require('.././utils/questions-helpers.js').insertManyQs;
 
-
-exports.getQuestion = function(req, res) {
+/*This function is not currently being used to handle any request. It will eventually be combined with it's sibling function, getQuestionFromCategory to double filter the body of questions from which one question is sent to the client*/
+exports.getQuestionFromType = function(req, res) {
   //fetched questions are pushed to array
   let response = [];
 
@@ -29,6 +30,15 @@ exports.getQuestion = function(req, res) {
             response.push(question);
             console.log(response)
           });
+        if (!response.length) {
+          res.status(404).send('No questions for that category.')
+        }
+        else if (response.length === 1) {
+          res.status(200).send(response[0])
+        } else {
+          let chooseOne = Math.floor(Math.random() * response.length);
+          res.send(response[chooseOne]);
+        }
       res.status(200).send(response);
         });
       }
@@ -45,11 +55,10 @@ exports.getQuestion = function(req, res) {
           response.push(question);
           console.log(response)
         });
-        if (response.length === 1) { //TODO: Use better logic lines 42-47
+        if (response.length === 1) {
           res.send(response[0])
         } else {
           let chooseOne = Math.floor(Math.random() * response.length);
-          console.log(response.length)
           res.send(response[chooseOne]);
         }
         db.close();
@@ -58,6 +67,74 @@ exports.getQuestion = function(req, res) {
     }
 }
 
+
+exports.getQuestionFromCategory = function(req, res) {
+  //fetched questions are pushed to array
+  let response = [];
+
+  //Question genre id
+  let category = req.query.category;
+
+  //sends all questions
+  if (!category) {
+    /*START TODO*/
+    /* This code represents sending a random question back to the server if no category is defined. For now we will send all questions when no category is defined.*/
+    // MongoClient.connect(url, function(err, db) {
+    //   if(err){
+    //     return console.error(err);
+    //   } else {
+    //     let response = [];
+    //     findAllQ(db, function(questions) {
+    //       questions.forEach(function(question) {
+    //         response.push(question);
+    //         console.log(response)
+    //       });
+    //       if (response.length === 1) {
+    //       res.send(response[0])
+    //     } else {
+    //       let chooseOne = Math.floor(Math.random() * response.length);
+    //       res.status(200).send(response[chooseOne]);
+    //     }
+    //     });
+    //   }
+    // });
+    /*END TODO*/
+    MongoClient.connect(url, function(err, db) {
+      if (err) {
+        return console.error(err);
+      } else {
+        let response = [];
+        findAllQ(db, function(questions) {
+          questions.forEach(function(question) {
+            response.push(question);
+          });
+
+        res.status(200).send(response);
+        })
+      }
+    })
+  } else {
+    MongoClient.connect(url, function(err, db) {
+      if(err){
+        return console.error(err);
+      }
+      console.log('Connected to MongoDB server');
+      findQByCategory(db, category, function(questions) {
+        questions.forEach(function(question) {
+          response.push(question);
+          console.log(response)
+        });
+        if (response.length === 1) { //TODO: Use better logic lines 42-47
+          res.send(response[0])
+        } else {
+          let chooseOne = Math.floor(Math.random() * response.length);
+          res.send(response[chooseOne]);
+        }
+        db.close();
+      });
+    });
+  }
+}
 //Accepts an array of questions or a single question object which it iterates through and posts
 exports.postQuestion = function(req, res) {
   //The question object which will be added
@@ -115,7 +192,7 @@ var renderQuestion = function(question) {
   let errorBool = false;
   let errorMessage = '';
   let questionType = question.questionType;
-  let title = question.title;
+  let category = question.category;
   let questionText = question.questionText;
   let answerText = question.answerText;
   let difficulty = question.difficulty;
@@ -125,8 +202,8 @@ var renderQuestion = function(question) {
     errorMessage += "No 'questionType' in request body. \n";
     errorBool = true;
   }
-  if (!title) {
-    errorMessage += "No 'title' in request body. \n";
+  if (!category) {
+    errorMessage += "No 'category' in request body. \n";
     errorBool = true;
   }
   if (!questionText) {
@@ -158,7 +235,7 @@ var renderQuestion = function(question) {
 
   } else return {
     questionType: question.questionType,
-    title: question.title,
+    category: question.category,
     questionText: question.questionText,
     answerText: question.answerText,
     difficulty: question.difficulty,

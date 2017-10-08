@@ -167,7 +167,7 @@ exports.updateScore = function(req, res) {
     errorMessage += "No 'timeToAnswer' in request body. \n";
     errorBool = true;
   }
-  if (isCorrect === undefined) {
+  if (req.body.answeredCorrect === undefined) {
     errorMessage += "No 'answeredCorrect' in request body. \n";
     errorBool = true;
   }
