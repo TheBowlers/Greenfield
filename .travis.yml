@@ -3,10 +3,4 @@ node_js:
   - '6'
   - 'node'
 sudo: enabled
-<<<<<<< HEAD
-script:
-=======
-script: 
->>>>>>> master
-  - npm run build
-  - npm test
+script: npm run travis
