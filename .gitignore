@@ -13,3 +13,5 @@ jquery/
 /config.js
 .floo
 .flooignore
+
+.DS_Store
