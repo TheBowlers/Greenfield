@@ -179,7 +179,7 @@ console.log('public directory is: ' + __dirname.substring(0, __dirname.length - 
 
 
 //Question handler functions
-var handleGetQuestion = require('.././db/models/questions.js').getQuestion;
+var handleGetQuestion = require('.././db/models/questions.js').getQuestionFromCategory;
 var handlePostQuestion = require('.././db/models/questions.js').postQuestion;
 var handleDeleteQuestion = require('.././db/models/questions.js').deleteQuestion;
 var handleUpdateQuestion = require('.././db/models/questions.js').updateQuestion;

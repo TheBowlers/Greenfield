@@ -49,6 +49,18 @@ var findQByType = function(db, questionType, callback) {
     });
 }
 
+var findQByCategory = function(db, questionType, callback) {
+  //Specify the collection where we will 'find' in this case 'questions'
+
+  var collection = db.collection('test-questions');
+    //Find question, empty should return all
+    collection.find({category: questionType})
+    .toArray(function(err, questions) {
+      console.log('Found the following record(s)...');
+      callback(questions);
+    });
+}
+
 //Using 'find' to return data row(s) for a given questionId
 var findQById = function(db, questionId, callback) {
   //Specify the collection where we will 'find' in this case 'questions'
@@ -93,6 +105,7 @@ var removeQ = function(db, id, callback) {
 module.exports = {
   insertQ: insertQ,
   findQByType: findQByType,
+  findQByCategory: findQByCategory,
   findQById: findQById,
   updateQ: updateQ,
   removeQ: removeQ,
