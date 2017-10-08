@@ -1,6 +1,6 @@
 import React from 'react'
 import LeaderboardEntry from './LeaderboardEntry.jsx'
-
+//huzzah
 var Leaderboard = ({leaderboardEntries}) => (
   <div className="bs-example">
     <div id="leaderboard" className="modal fade">
