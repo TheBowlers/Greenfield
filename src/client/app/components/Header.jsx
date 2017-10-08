@@ -28,7 +28,7 @@ class Header extends React.Component {
 
   getUsers() {
     $.ajax({
-      url: 'http://127.0.0.1:8080/users',
+      url: '/users',
       method: 'GET',
       success: function(data) {
         console.log('success', data);
