@@ -46,7 +46,6 @@ var updateUserScore = function (db, email, points, isCorrect, callback) {
 
 
     var collection = db.collection('test-users');
-    console.log(isCorrect)
     if (isCorrect === true) {
       collection.findOneAndUpdate(
         { email: email },
