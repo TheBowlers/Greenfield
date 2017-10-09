@@ -57,7 +57,7 @@ var updateUserScore = function (db, email, points, isCorrect, callback) {
     } else {
       collection.findOneAndUpdate(
         { email: email },
-        { $inc: { "score" : points, questionsAttempted: 1} } //adds number of points to user's score
+        { $inc: {questionsAttempted: 1} } //adds number of points to user's score
       , function(err, response) {
         callback(response);
       })
