@@ -176,7 +176,7 @@ class MainView extends React.Component {
               <hr/>
               <p>Crammr uses an algorithm to help guide your practice toward a fun and effective learning experience.</p>
               <br/>
-              <p>By mixing a fun and competative play with learning goals and repetition, you will build basic skills for more rapid recall.</p>
+              <p>By mixing a fun and competitive play with learning goals and repetition, you will build basic skills for more rapid recall.</p>
             </div>
             <div className="jumbotron col-lg-3">
               <h1>Crammr</h1>
@@ -190,7 +190,7 @@ class MainView extends React.Component {
               <hr/>
               <p>With Crammr, you can create a custom learning plan and earn points and badges as you practice.</p>
               <br/>
-              <p>Challende yourself to compete on the leaderboard and earn achievements for reaching your learning goals.</p>
+              <p>Challenge yourself to compete on the leaderboard and earn achievements for reaching your learning goals.</p>
 
             </div>
           </div>
