@@ -28,7 +28,7 @@ h1 {
   border-width: 1px 2px 1px 2px;
   border-style: solid;
   border-color: #4E7AB5;
-  height: 100px;
+  height: 125px;
   text-align: center;
 }
 
@@ -41,7 +41,7 @@ h1 {
 
 .modules, .stats {
   border: 2px solid #4E7AB5;
-  height: 525px;
+  height: 550px;
 }
 .mainView {
   margin: 0px 10%;
