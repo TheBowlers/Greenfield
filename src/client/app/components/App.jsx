@@ -37,6 +37,7 @@ class App extends React.Component {
       }
     })
     .done((data) => {
+<<<<<<< HEAD
       console.log('getUserInfo in App.jsx succeeded', data);
       document.user = data;
       this.setState({user: document.user});
@@ -59,6 +60,14 @@ class App extends React.Component {
       console.log('Got User data, fail', data.responseText);
       document.user = JSON.parse(data.responseText);
 >>>>>>> Refactor get user info ajax request and add a key to modules categories
+=======
+      console.log('getUserInfo request in App.jsx succeeded', data);
+      document.user = data;
+      this.setState({user: document.user});
+    })
+    .fail((err) => {
+      console.log('getUserInfo request in App.jsx failed', err);
+>>>>>>> Include more descriptive success and failure console logs
     });
   }
 

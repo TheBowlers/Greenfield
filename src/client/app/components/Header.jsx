@@ -36,15 +36,20 @@ class Header extends React.Component {
     })
     .done((data) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
       console.log('getUsers in Header.jsx succeeded', data);
 =======
       console.log('success', data);
 >>>>>>> Refactor getUsers in Header
+=======
+      console.log('getUsers request in Header.jsx succeeded', data);
+>>>>>>> Include more descriptive success and failure console logs
       this.setState({
         leaderboardEntries: data
       })
       $('#leaderboard').modal('show');
     })
+<<<<<<< HEAD
 <<<<<<< HEAD
     .fail((err) => {
       console.log('getUsers in Header.jsx failed', err);
@@ -52,6 +57,10 @@ class Header extends React.Component {
     .fail((data) => {
       console.log(err);
 >>>>>>> Refactor getUsers in Header
+=======
+    .fail((err) => {
+      console.log('getUsers request in Header.jsx failed', err);
+>>>>>>> Include more descriptive success and failure console logs
     });
   }
 
