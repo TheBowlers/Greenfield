@@ -190,7 +190,7 @@ var handleUpdateQuestion = require('.././db/models/questions.js').updateQuestion
 //Fetches all questions
 app.get('/questions', handleGetQuestions);
 //Fetches a random question for given 'category'
-app.get('/questions/categories', handleGetQuestionFromCategory);
+app.get('/questions/category', handleGetQuestionFromCategory);
 //Adds question to database, creates unizue '_id' which contains the timeStamp
 app.post('/questions', handlePostQuestion);
 //Delete a question from database by '_id'
