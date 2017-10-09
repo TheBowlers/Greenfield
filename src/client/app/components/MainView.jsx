@@ -10,7 +10,7 @@ class MainView extends React.Component {
       mainView: 'start',
       currentQuestion: {
         "_id": "59d54a6c8c4d5137387b7eb4",
-        "title": "Ready to start quizzing?",
+        "category": "Ready to start quizzing?",
         "questionText": "When you start quizzing, a new question will appear here. Read the prompt and try to answer quickly to receive a bonus",
         "answerText": "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
         "questionType": "textResponse",
