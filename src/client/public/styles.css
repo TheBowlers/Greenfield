@@ -84,6 +84,9 @@ h1 {
   background-color: red;
   font-size: 1.5em;
   font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
   overflow: hidden;
 }
 
@@ -92,6 +95,8 @@ h1 {
   font-size: 1.5em;
   font-weight: bold;
   color: black;
+  text-overflow: ellipsis;
+  text-align: center;
   overflow: hidden
 }
 
