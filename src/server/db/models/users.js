@@ -138,9 +138,10 @@ exports.formatResponseData = function(params, db, callback) {
       let questionData = {
         id: questionId,
         bestTimeToAnswer: bestTime,
-        pointsAwarded: pointsScored,
-        respondedCorrect: params.answeredCorrect,
-        lastPoints: netPoints
+        pointsAwarded: netPoints,
+        respondedCorrect: params.isCorrect,
+        lastPoints: pointsScored
+
       }
       console.log('line 105',questionData)
       callback(questionData, answeredPrior);
