@@ -18,7 +18,8 @@ class ModulesPanel extends React.Component {
     this.renderCategoryItems = this.renderCategoryItems.bind(this);
   }
 
-  selectCategory() {
+  selectCategory(e) {
+    this.setState({selectedCategory: event.target.textContent});
 
   }
 
