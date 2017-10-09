@@ -29,7 +29,7 @@ class StatsPanel extends React.Component {
   render() {
     return (
       <div className="col-md-3 stats">
-        <h1>Question Stats</h1>
+        <h2 className="text-center">Question Stats</h2>
         <table className="table table-striped table-hover ">
           <thead>
               <tr>

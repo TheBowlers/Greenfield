@@ -129,7 +129,7 @@ class SubmitView extends React.Component {
           <div className={this.state.feedbackClass}>{this.state.answerFeedback}</div>
 
         </div>
-        <div>Pro tip: Use CTRL/COMMAND + Enter to answer and advance rapidly!</div>
+        <div>Pro tip: Use CTRL + Enter to answer and advance rapidly!</div>
       </div>
     )
   }

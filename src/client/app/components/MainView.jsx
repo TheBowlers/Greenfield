@@ -23,12 +23,14 @@ class MainView extends React.Component {
       questionStartTime: 0,
       answerSubmitTime: 0,
       startTimer: false,
+      selectedCategory: null
     };
     this.changeView = this.changeView.bind(this);
     this.getNextQuestion = this.getNextQuestion.bind(this);
     this.submitAnswer = this.submitAnswer.bind(this);
     this.getFirstQuestion = this.getFirstQuestion.bind(this);
     this.storeFirstQuestion = this.storeFirstQuestion.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
   }
 
   componentWillMount() {
@@ -46,8 +48,8 @@ class MainView extends React.Component {
     console.log('Getting next question');
     const request = $.ajax({
       method: "GET",
-      url: '/questions',
-      data: {questionType: 'textResponse'},
+      url: '/questions/category',
+      data: {category: this.state.selectedCategory},
       dataType: 'application/json'
     });
 
@@ -127,8 +129,8 @@ class MainView extends React.Component {
     $('.answer-field').text('').focus();
     const request = $.ajax({
       method: "GET",
-      url: '/questions',
-      data: {questionType: 'textResponse'},
+      url: '/questions/category',
+      data: {category: this.state.selectedCategory},
       dataType: 'application/json'
     });
 
@@ -145,6 +147,11 @@ class MainView extends React.Component {
     });
   }
 
+  selectCategory(category) {
+    this.setState({selectedCategory: category});
+
+  }
+
   changeView(viewName) {
     this.setState({mainView: viewName});
   }
@@ -154,7 +161,7 @@ class MainView extends React.Component {
       return (
         <div className="container-fluid mainView">
           <div className="row">
-            <ModulesPanel />
+            <ModulesPanel selectCategory = {this.selectCategory} selectedCategory = {this.state.selectedCategory}/>
             <QuestionPanel answeredCorrect = {this.state.isCorrect} timerIsOn = {this.state.startTimer} submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
             <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion} user={this.props.user}/>
           </div>
