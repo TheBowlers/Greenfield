@@ -45,7 +45,7 @@ h1 {
   margin: 0px 10%;
 }
 
-.submit {
+.submit, .skip {
   float: right;
   margin: 8px 8px;
 }
@@ -84,6 +84,7 @@ h1 {
   background-color: red;
   font-size: 1.5em;
   font-weight: bold;
+  overflow: hidden;
 }
 
 .correct-answer-feedback {
@@ -91,6 +92,7 @@ h1 {
   font-size: 1.5em;
   font-weight: bold;
   color: black;
+  overflow: hidden
 }
 
 th, tr {

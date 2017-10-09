@@ -118,12 +118,15 @@ class SubmitView extends React.Component {
 
   render() {
     return (
+      <div>
       <div className="submitView">
         {this.renderSubmitButton()}
+        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 col-md-offset-5 skip">{this.state.nextButtonText}</button>
         <div className="seconds-timer">{this.state.displayTimeElapsed}</div>
         <div className={this.state.feedbackClass}>{this.state.answerFeedback}</div>
-        <div>Pro tip: Use CTRL/COMMAND + Enter to answer and advance rapidly!</div>
-        <button onClick={this.handleNextQuestionClick} className="btn btn-lg btn-primary col-md-3 skip">{this.state.nextButtonText}</button>
+
+      </div>
+      <div>Pro tip: Use CTRL/COMMAND + Enter to answer and advance rapidly!</div>
       </div>
     )
   }
