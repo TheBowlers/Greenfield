@@ -23,7 +23,7 @@ class StatsPanel extends React.Component {
         return questionsAnswered[i].bestTimeToAnswer / 1000
       }
     }
-    return 'Not answered yet'
+    return 'Not answered correctly yet'
   }
 
   render() {
