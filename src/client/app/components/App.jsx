@@ -57,7 +57,7 @@ class App extends React.Component {
     return (
       <div>
         <Header user={this.state.user} logout={this.logout} loggedIn={this.state.loggedIn} />
-        <MainView loggedIn={this.state.loggedIn} />
+        <MainView loggedIn={this.state.loggedIn} getUserInfo={this.getUserInfo}/>
         <Footer />
       </div>
     )
