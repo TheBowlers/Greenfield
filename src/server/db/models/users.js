@@ -68,6 +68,7 @@ exports.getUser = function(req, res) {
         })
       }
     })
+    db.close();
   }
 }
 
@@ -79,8 +80,10 @@ exports.getAllUsers = function(req, res) {
     } else {
       findAllUsers(db, function(userData) {
         res.status(200).send(userData);
+        db.close();
       }, function(userData) {
         res.status(404).send('Could not get users, check auth');
+        db.close();
       })
     }
   })
@@ -193,10 +196,12 @@ exports.updateScore = function(req, res) {
              // update only that field
               updateUserQuestionsData(db, email, questionData, function(response) {
                 res.status(200).send(response.value);
+                db.close();
               })
             } else {
               updateUserQuestions(db, email, questionData, function(response) {
                 res.status(200).send(response.value);
+                db.close();
               })
             }
           })

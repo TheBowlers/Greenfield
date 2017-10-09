@@ -15,6 +15,7 @@ var signupUser = function(db, user, callback) {
 var findUserByEmail = function(db, email, success, failure) {
   //Specify the collection where we will 'find' in this case 'users'
   var collection = db.collection('test-users');
+
     //Find question, empty should return all
   // For testing purposes if you need to drop table:collection.drop()
   collection.find({ email: email }).toArray(function(err, user) {

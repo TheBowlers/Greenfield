@@ -86,10 +86,9 @@ passport.serializeUser(function(user, done) {
 
   //TODO: A function which tests if user is in db by email
   handleUserDataGoogle(user)
-  done(null, user);  // todo: only pass user.id when we can do a DB lookup
+  done(null, user);
 });
 
-console.log(passport._serializers.toString());
 
 passport.deserializeUser(function(user, done) { // todo: Once above method is updated to user.id, pass userId when we can do a DB lookup
   //user.findById(id)...

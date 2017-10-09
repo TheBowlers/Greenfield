@@ -171,6 +171,8 @@ var renderQuestion = function(question) {
   let answerText = question.answerText;
   let difficulty = question.difficulty;
   let time = question.time;
+  let author = question.author;
+
 
   if (!questionType) {
     errorMessage += "No 'questionType' in request body. \n";
@@ -204,6 +206,10 @@ var renderQuestion = function(question) {
     errorMessage += "Time must be at least 2000 ms \n";
     errorBool = true;
   }
+  if (!author) {
+    errorMessage += "No 'author' in request body. \n";
+    errorBool = true;
+  }
   if (errorBool) { // If req.body did not include the required fields an error is sent. Otherwise the question is posted.
     return errorMessage;
 
@@ -213,7 +219,8 @@ var renderQuestion = function(question) {
     questionText: question.questionText,
     answerText: question.answerText,
     difficulty: question.difficulty,
-    time: question.time
+    time: question.time,
+    author: question.author
   }
 }
 
@@ -224,7 +231,6 @@ exports.deleteQuestion = function(req, res) {
   let id = req.body.id;
 
   MongoClient.connect(url, function(err, db) {
-    //assert.equal(null, err);
     console.log('Connected to MongoDB server');
     removeQ(db, id, function() {
       res.status(200).send('Question removed');
