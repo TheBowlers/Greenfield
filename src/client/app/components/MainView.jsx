@@ -156,7 +156,7 @@ class MainView extends React.Component {
           <div className="row">
             <ModulesPanel />
             <QuestionPanel answeredCorrect = {this.state.isCorrect} timerIsOn = {this.state.startTimer} submitAnswer = {this.submitAnswer} answerField = {this.state.answerField} getNextQuestion = {this.getNextQuestion} changeView = {this.changeView} mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
-            <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion}/>
+            <StatsPanel mainView = {this.state.mainView} currentQuestion = {this.state.currentQuestion} user={this.props.user}/>
           </div>
         </div>
       )
