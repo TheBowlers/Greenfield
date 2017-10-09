@@ -1,0 +1,762 @@
+﻿[
+ {
+   "questionText": "What CSS selector character is used to match only the children of an element?",
+   "answerText": ">",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What CSS selector character is used to select sibling elements?",
+   "answerText": "+",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector that matches every fourth li (4, 8, 12, etc.)",
+   "answerText": "$(li:nth-child(4n)')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector that matches third child element in a list",
+   "answerText": "$('li:nth-child(3)')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector that matches every li which is an odd-numbered child",
+   "answerText": "$('li:nth-child(odd)')",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector which selects all elements which are the last child of their parent.",
+   "answerText": "$('*:last-child')",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector which selects elements that are the only child of their container parent",
+   "answerText": "$(':only-child')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector which selects all elements that do not have child elements or text nodes",
+   "answerText": "$(':empty')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector which uses a pseudo-class for selecting all elements that do not match the class .color",
+   "answerText": "$(':not(.color)')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write a jquery selector which selects any element with a title",
+   "answerText": "$('[title]')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select all types of form elements (input, select, textarea, etc)?",
+   "answerText": ":input",
+   "time": 12000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select text fields?",
+   "answerText": ":text",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select password fields?",
+   "answerText": ":password",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select radio buttons?",
+   "answerText": ":radio",
+   "time": 12000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select checkboxes?",
+   "answerText": ":checkbox",
+   "time": 12000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select submit buttons?",
+   "answerText": ":submit",
+   "time": 12000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select image buttons?",
+   "answerText": ":image",
+   "time": 12000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select reset buttons?",
+   "answerText": ":reset",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select file upload fields?",
+   "answerText": ":file",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select all form elements that aren't disabled?",
+   "answerText": ":enabled",
+   "time": 12000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select all disabled form elements?",
+   "answerText": ":disabled",
+   "time": 12000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select checked radio buttons and checkboxes?",
+   "answerText": ":checked",
+   "time": 12000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "What is the pseudo-class to select the selected &lt;option&gt; in a &lt;select&gt; element?",
+   "answerText": ":selected",
+   "time": 12000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Use jQuery and a psuedoclasss to select any h1, h2, h3, h4, h5 or h6",
+   "answerText": "$(':header')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the first match for the 'nav' class",
+   "answerText": "$('.foo').first()",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the last match for the 'nav' class",
+   "answerText": "$('.foo').last()",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the first and third items that match the 'nav' class.",
+   "answerText": "$('.foo').slice(2, 10)",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting all the children of any p tags",
+   "answerText": "$('p').children()",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting all the parents of p tags",
+   "answerText": "$('p').parents()",
+   "time": 15000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the nearest ancestor of all p which is an h2",
+   "answerText": "$('p').closest('h2')",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting siblings of elements with the 'true' class",
+   "answerText": "$('.true').siblings()",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the previous sibling of all elements with the 'top' class",
+   "answerText": "$('.top').prev()",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting all previous siblings of span elements",
+   "answerText": "$('span').prevAll()",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "Write jQuery using a method for selecting the next sibling of all p elements",
+   "answerText": "$('p').next()",
+   "time": 15000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "jQuery"
+ },
+ {
+   "questionText": "In express.js, What property of the request object contains the an object representing the querystring of a GET request?",
+   "answerText": "query",
+   "time": 10000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "Express"
+ },
+ {
+   "questionText": "After HTML page is loaded, __________ continues executing in the browser, changing the page, receiving events from it, or getting other data from the server.",
+   "answerText": "javascript",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "internal model of the HTML page is called the ___ (acronym)",
+   "answerText": "DOM",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What character means 'not' in javascript?",
+   "answerText": "!",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What is the result of 'R' * 'j' ?",
+   "answerText": "NaN",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What object property holds the function to call when the page is fully loaded?",
+   "answerText": "window.onload",
+   "time": 10000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What object property has the URL of the current page?",
+   "answerText": "window.location",
+   "time": 10000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "what tag is used to reference a stylesheet in html?",
+   "answerText": "link",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "HTML"
+ },
+ {
+   "questionText": "what is the tag for a horizontal rule in HTML?",
+   "answerText": "hr",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "HTML"
+ },
+ {
+   "questionText": "what is the tag for a line break in HTML?",
+   "answerText": "br",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "HTML"
+ },
+ {
+   "questionText": "What target in an anchor tag will cause a new window/tab to open? Use double quotes.",
+   "answerText": "\"_blank\"",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "HTML"
+ },
+ {
+   "questionText": "What do you write in your javascript to enable strict mode?",
+   "answerText": "'use strict'",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What is the value of a variable just before the line which defines it?",
+   "answerText": "undefined",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Write 3 words in Javascript which will return true if the object window contains the key document",
+   "answerText": "document in window",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What keyword is used to create ES2015 classes?",
+   "answerText": "class",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "what keyword will stop a loop altogether?",
+   "answerText": "break",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What keyword will skip to the next iteration of a loop?",
+   "answerText": "continue",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What keyword can be used to block-scope i in loops?",
+   "answerText": "let",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What keyword is escpecially NOT set in arrow functions, but set in other functions?",
+   "answerText": "this",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get the current URL",
+   "answerText": "location.href",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get just the current filename or directory part of the URL",
+   "answerText": "location.pathname",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get the entire query string (?a=b&amp;c=d) from the URL",
+   "answerText": "location.search",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get the URL hash ID (#contents) from the URL",
+   "answerText": "location.hash",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get 'https:' if the current page is SSL, or 'http:' if not.",
+   "answerText": "location.protocol",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Get the name of the current server",
+   "answerText": "location.hostname",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "A function in/on an object is called a ______.",
+   "answerText": "method",
+   "time": 5000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "For the following loop condition: (var prop in person), write the JavaScript to access the value of the key in the current iteration.",
+   "answerText": "person[prop]",
+   "time": 8000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What native method will allow you to create DOM elements?",
+   "answerText": "document.createElement",
+   "time": 10000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "ECMA Script 2015 is also known as ECMA Script _ ?",
+   "answerText": "6",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: 7",
+   "answerText": "Number",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: 78.4",
+   "answerText": "Number",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: 'Hello!'",
+   "answerText": "String",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: true",
+   "answerText": "Boolean",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: {hello: \"World\"}",
+   "answerText": "Object",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: [6, 3, 8]",
+   "answerText": "Array",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: undefined",
+   "answerText": "undefined",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What JavaScript data type is this: null",
+   "answerText": null,
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What object/method will determine if somethign is an array?",
+   "answerText": "Array.isArray",
+   "time": 10000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "What native method will chance a number to a string and include commas or other localized display characteristics?",
+   "answerText": "Number.toLocaleString",
+   "time": 10000,
+   "difficulty": 4,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Type out the 'or' operator in Javascript",
+   "answerText": "||",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Type out the 'and' operator in Javascript",
+   "answerText": "&&",
+   "time": 5000,
+   "difficulty": 1,
+   "author": "Jonathan Lewis",
+   "category": "JavaScript"
+ },
+ {
+   "questionText": "Set the display property for a flex container in CSS",
+   "answerText": "display: flex",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set the flex direction to column",
+   "answerText": "flex-direction: column",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set horizontal flex alignment to line up at the beginning of the flex line",
+   "answerText": "justify-content: flex-start",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set horizontal flex alignment to line up at the end of the flex line",
+   "answerText": "justify-content: flex-end",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set horizontal flex alignment to center",
+   "answerText": "justify-content: center",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set horizontal flex alignment to keep even space between all flex elements",
+   "answerText": "justify-content: space-between",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Set horizontal flex alignment to keep even space around all flex elements",
+   "answerText": "justify-content: space-around",
+   "time": 12000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Flex property for alignment perpendicular to the flex line (Usually vertical)",
+   "answerText": "align-items",
+   "time": 10000,
+   "difficulty": 2,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Wrap elements of the flex container",
+   "answerText": "flex-wrap: wrap",
+   "time": 10000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Type of alignment of the wrapped flex lines",
+   "answerText": "align-content",
+   "time": 10000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property for the order of flex items",
+   "answerText": "order",
+   "time": 6000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property for the alignment of a particular flex item (overrides align-items for the container)",
+   "answerText": "align-self",
+   "time": 6000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies the alignment for items inside a flexible container.",
+   "answerText": "align-items",
+   "time": 6000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies the alignment for an item inside a flexible container",
+   "answerText": "align-self",
+   "time": 6000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies the length of the item, relative to the rest when using flexbox",
+   "answerText": "flex",
+   "time": 6000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies the initial main size of a flex item. This property determines the size of the content-box unless specified otherwise using box-sizing.",
+   "answerText": "flex-basis",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies how flex items are placed in the flex container defining the main axis and the direction (normal or reversed).",
+   "answerText": "flex-direction",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies how much the item will grow relative to the rest.&nbsp;property specifies the flex grow factor of a flex item. It specifies what amount of space inside the flex container the item should take up.",
+   "answerText": "flex-grow",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "CSS property specifies whether the flexible items should wrap or not",
+   "answerText": "flex-wrap",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ },
+ {
+   "questionText": "Specifies the alignment between the items inside a flexible container when the items do not use all available space.&nbsp;property defines how the browser distributes space between and around content items along the main axis of their container.",
+   "answerText": "justify-content",
+   "time": 8000,
+   "difficulty": 3,
+   "author": "Jonathan Lewis",
+   "category": "CSS"
+ }
+]
