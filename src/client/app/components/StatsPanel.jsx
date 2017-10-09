@@ -3,6 +3,27 @@ import React from 'react';
 class StatsPanel extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      bestTime: null
+    }
+  }
+
+  componentWillReceiveProps(newProps) {
+    let bestTimeToAnswer = this.findQuestionStats(newProps.user.questionsAnswered, newProps.currentQuestion._id)
+    this.setState({
+      bestTime: bestTimeToAnswer
+    })
+  }
+
+  findQuestionStats(questionsAnswered, currentQuestionId) {
+    let questions = this.props.user.questionsAnswered
+    for (var i = 0; i < questionsAnswered.length; i++) {
+      if (currentQuestionId === questionsAnswered[i].id) {
+        return questionsAnswered[i].bestTimeToAnswer / 1000
+      }
+    }
+    return 'Not answered yet'
   }
 
   render() {
@@ -17,7 +38,7 @@ class StatsPanel extends React.Component {
             </thead>
           <tbody>
             <tr>
-              <td>{this.props.currentQuestion.title}</td>
+              <td>{this.props.currentQuestion.category}</td>
             </tr>
           </tbody>
         </table>
@@ -41,7 +62,7 @@ class StatsPanel extends React.Component {
             </thead>
           <tbody>
             <tr>
-              <td>{this.props.currentQuestion.time/100} Seconds</td>
+              <td>{typeof this.state.bestTime === 'number' ? `${this.state.bestTime} Seconds` : this.state.bestTime}</td>
             </tr>
           </tbody>
         </table>
