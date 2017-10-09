@@ -61,14 +61,15 @@ exports.getUser = function(req, res) {
       if (err) {
         console.log('Could not connect', err);
       } else {
+        console.log(db)
         findUserByEmail(db, email, function(userData) {
           res.status(200).send(userData[0]);
         }, function(userData) {
           res.status(404).send('Could not get data for user with that email');
         })
       }
+      db.close();
     })
-    db.close();
   }
 }
 
