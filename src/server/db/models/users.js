@@ -154,7 +154,7 @@ exports.updateScore = function(req, res) {
   let email = req.body.email;
   let question_id = req.body.question_id;
   let timeToAnswer = req.body.timeToAnswer;
-  let isCorrect = Boolean(req.body.answeredCorrect);
+  let isCorrect = JSON.parse(req.body.answeredCorrect);
   if (!email) {
     errorMessage += "No 'email' in request body. \n";
     errorBool = true;
