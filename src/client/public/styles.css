@@ -64,7 +64,6 @@ h1 {
 .btn-google:hover {
   cursor: pointer;
   cursor: hand;
-  content: url("/public/images/btn_google_signin_light_focus_web@2x.png");
 }
 
 .profile-pic {
