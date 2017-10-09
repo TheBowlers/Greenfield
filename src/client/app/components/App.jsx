@@ -29,8 +29,7 @@ class App extends React.Component {
       url: '/users/email',
       data: {
         email: document.user.email
-      },
-      dataType: 'json'
+      }
     })
     .done((data) => {
       console.log('Got User data, success', data);
