@@ -54,7 +54,7 @@ h1 {
 
 .answer-field {
   height: 100%;
-  font-size: 2em;
+  font-size: 2rem;
 }
 
 .btn-google {
@@ -74,7 +74,7 @@ h1 {
 }
 
 .questionView {
-  font-size: 3em;
+  font-size: 3rem;
 }
 
 .seconds-timer {
@@ -110,4 +110,15 @@ th, tr {
 .inactive {
    pointer-events: none;
    cursor: default;
+}
+
+.category-item {
+  cursor: pointer;
+  border: 2px solid #222222;
+  box-sizing: border-box;
+}
+
+.selected-category {
+  border: 2px solid #BBBBBB;
+  box-sizing: border-box;
 }
