@@ -46,8 +46,7 @@ var updateUserScore = function (db, email, points, isCorrect, callback) {
 
 
     var collection = db.collection('test-users');
-
-    if (isCorrect == true) {
+    if (isCorrect === true) {
       collection.findOneAndUpdate(
         { email: email },
         { $inc: { "score" : points, questionsAttempted: 1, questionsCorrect: 1 } } //adds number of points to user's score

@@ -105,6 +105,7 @@ class MainView extends React.Component {
 
     request.fail((data) => {
       console.log('failed');
+      this.props.getUserInfo();
     });
   }
 
