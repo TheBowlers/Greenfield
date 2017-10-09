@@ -112,6 +112,22 @@ th, tr {
    cursor: default;
 }
 
+.main-banner {
+   display: flex;
+   justify-content: space-around;
+   align-content: center;
+  margin-top: 40px;
+  margin-bottom: auto;
+ }
+
+.main-banner h2 {
+  font-weight: bold;
+}
+
+.main-banner hr {
+  border-color: #FFF;
+}
+
 .category-item {
   cursor: pointer;
   border: 2px solid #222222;
@@ -121,4 +137,5 @@ th, tr {
 .selected-category {
   border: 2px solid #BBBBBB;
   box-sizing: border-box;
+
 }
