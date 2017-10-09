@@ -9,7 +9,7 @@ class StatsPanel extends React.Component {
     return (
       <div className="col-md-3 stats">
         <h1>Question Stats</h1>
-        <table class="table table-striped table-hover ">
+        <table className="table table-striped table-hover ">
           <thead>
               <tr>
                 <th>Category</th>
@@ -21,7 +21,7 @@ class StatsPanel extends React.Component {
             </tr>
           </tbody>
         </table>
-        <table class="table table-striped table-hover ">
+        <table className="table table-striped table-hover ">
           <thead>
               <tr>
                 <th>Difficulty</th>
@@ -33,7 +33,7 @@ class StatsPanel extends React.Component {
             </tr>
           </tbody>
         </table>
-        <table class="table table-striped table-hover ">
+        <table className="table table-striped table-hover ">
           <thead>
               <tr>
                 <th>Your best time</th>
@@ -45,7 +45,7 @@ class StatsPanel extends React.Component {
             </tr>
           </tbody>
         </table>
-        <table class="table table-striped table-hover ">
+        <table className="table table-striped table-hover ">
           <thead>
               <tr>
                 <th>Time to beat</th>
@@ -57,7 +57,7 @@ class StatsPanel extends React.Component {
             </tr>
           </tbody>
         </table>
-        <table class="table table-striped table-hover ">
+        <table className="table table-striped table-hover ">
           <thead>
               <tr>
                 <th>Author</th>
