@@ -33,6 +33,7 @@ class App extends React.Component {
       data: {
         email: document.user.email
 <<<<<<< HEAD
+<<<<<<< HEAD
       }
     })
     .done((data) => {
@@ -45,6 +46,9 @@ class App extends React.Component {
 =======
       },
       dataType: 'json'
+=======
+      }
+>>>>>>> Refactor getUsers in Header
     })
     .done((data) => {
       console.log('Got User data, success', data);
