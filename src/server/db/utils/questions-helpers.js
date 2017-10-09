@@ -28,6 +28,7 @@ var insertManyQs = function(db, questionsArray, callback) {
 
 var findAllQ = function(db, callback) {
   var collection = db.collection('questions');
+
     //Find question, empty should return all
     collection.find({})
     .toArray(function(err, docs) {
