@@ -123,22 +123,22 @@ Example reponse
 ```
 
 
-### /questions?questionType GET
+### /questions/category?category GET
 
-`/questions?questionType=textResponse`
+`/questions/category?category=textResponse`
 
 #### Parameters
 
 | param |   description   | data type | examples |
 |------------|-----------|----------|-------------|
-| __questionType__ |  The type of question | String | 'textResponse' |
+| __category__ |  The type of question | String | 'textResponse' |
 
 #### Response
 ```JSON
 {
    "_id": "59d280d22e38d4a336f661fa",
    "questionType": "textResponse",
-   "title": "Westeros geography",
+   "category": "Westeros geography",
    "questionText": "What is the southern-most kingdom in Westeros?",
    "answerText": "Dorne",
    "difficulty": 2,
@@ -155,7 +155,7 @@ Example reponse
 | param |   description   | data type | examples |
 |------------|-----------|------------|-----------|
 | __questionType__ |  The type of question | String |'textResponse' |
-| __title__ |  Title to display when showing question | String | 'Function Binding' |
+| __category__ |  Category to display when showing question | String | 'Function Binding' |
 | __questionText__ |  The question text displayed to the user | String | 'What Array method removes and returns the last element in an array?' |
 | __answerText__ |  The text of the correct answer | String | 'pop' |
 | __difficulty__ |  Difficult of answering the question, 1-5 |Int | 1, 2, 3, 4, 5 |
@@ -167,7 +167,7 @@ Example reponse
 {
    "_id": "59d280d22e38d4a336f661fa",
    "questionType": "textResponse",
-   "title": "Westeros geography",
+   "Category": "Westeros geography",
    "questionText": "What is the southern-most kingdom in Westeros?",
    "answerText": "Dorne",
    "difficulty": 2,
@@ -182,7 +182,7 @@ Example reponse
 [{
    "_id": "59d280d22e38d4a336f661fa",
    "questionType": "textResponse",
-   "title": "Westeros geography",
+   "category": "Westeros geography",
    "questionText": "What is the southern-most kingdom in Westeros?",
    "answerText": "Dorne",
    "difficulty": 2,
@@ -191,7 +191,7 @@ Example reponse
 },
 {
   "questionType": "textResponse",
-   "title": "Westeros geography",
+   "category": "Westeros geography",
    "questionText": "What is the northern-most kingdom in Westeros?",
    "answerText": "The North",
    "difficulty": 1,
