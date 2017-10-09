@@ -4,12 +4,61 @@ var url = require('../../../.././config.js').dbUrl;
 //Question helper functions
 var insertQ = require('.././utils/questions-helpers.js').insertQ;
 var findQByType = require('.././utils/questions-helpers.js').findQByType;
+var findQByCategory = require('.././utils/questions-helpers.js').findQByCategory;
 var updateQ = require('.././utils/questions-helpers.js').updateQ;
 var removeQ = require('.././utils/questions-helpers.js').removeQ;
 var findAllQ = require('.././utils/questions-helpers.js').findAllQ;
 var insertManyQs = require('.././utils/questions-helpers.js').insertManyQs;
 
+//Returns a random question for a given category. If no category is given a random question is sent.
+exports.getQuestionFromCategory = function(req, res) {
+  let response = [];
 
+  //Question genre id
+  let category = req.query.category;
+
+  //sends all questions
+  if (!category) {
+    MongoClient.connect(url, function(err, db) {
+      if(err){
+        return console.error(err);
+      } else {
+        let response = [];
+        findAllQ(db, function(questions) {
+          questions.forEach(function(question) {
+            response.push(question);
+          });
+        let chooseOne = Math.floor(Math.random() * response.length);
+        res.status(200).send(response[chooseOne]);
+        });
+      }
+      db.close();
+
+    });
+
+  } else {
+    MongoClient.connect(url, function(err, db) {
+      if(err){
+        return console.error(err);
+      }
+      console.log('Connected to MongoDB server');
+      findQByCategory(db, category, function(questions) {
+        questions.forEach(function(question) {
+          response.push(question);
+        });
+        if (response.length === 1) {
+          res.send(response[0])
+        } else {
+          let chooseOne = Math.floor(Math.random() * response.length);
+          res.send(response[chooseOne]);
+        }
+        db.close();
+      });
+    });
+    }
+}
+
+// This function is currently only being utilized for getting all questions. It will eventually be useful for filtering responses by questionType. Currently there is only one questionType.
 exports.getQuestion = function(req, res) {
   //fetched questions are pushed to array
   let response = [];
@@ -32,6 +81,8 @@ exports.getQuestion = function(req, res) {
       res.status(200).send(response);
         });
       }
+      db.close();
+
     });
 
   } else {
@@ -115,7 +166,7 @@ var renderQuestion = function(question) {
   let errorBool = false;
   let errorMessage = '';
   let questionType = question.questionType;
-  let title = question.title;
+  let category = question.category;
   let questionText = question.questionText;
   let answerText = question.answerText;
   let difficulty = question.difficulty;
@@ -125,8 +176,8 @@ var renderQuestion = function(question) {
     errorMessage += "No 'questionType' in request body. \n";
     errorBool = true;
   }
-  if (!title) {
-    errorMessage += "No 'title' in request body. \n";
+  if (!category) {
+    errorMessage += "No 'category' in request body. \n";
     errorBool = true;
   }
   if (!questionText) {
@@ -158,7 +209,7 @@ var renderQuestion = function(question) {
 
   } else return {
     questionType: question.questionType,
-    title: question.title,
+    category: question.category,
     questionText: question.questionText,
     answerText: question.answerText,
     difficulty: question.difficulty,
