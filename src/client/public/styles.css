@@ -111,3 +111,19 @@ th, tr {
    pointer-events: none;
    cursor: default;
 }
+
+.main-banner {
+   display: flex;
+   justify-content: space-around;
+   align-content: center;
+  margin-top: 40px;
+  margin-bottom: auto;
+ }
+
+.main-banner h2 {
+  font-weight: bold;
+}
+
+.main-banner hr {
+  border-color: #FFF;
+}
