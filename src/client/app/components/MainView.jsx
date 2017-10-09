@@ -38,31 +38,23 @@ class MainView extends React.Component {
   }
 
   storeFirstQuestion(questionData) {
-    console.log('First Question ready Called');
     this.setState({
       nextQuestion: questionData
     });
   }
 
   getFirstQuestion() {
-    console.log('Getting next question');
-    const request = $.ajax({
+    $.ajax({
       method: "GET",
       url: '/questions/category',
-      data: {category: this.state.selectedCategory},
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.storeFirstQuestion(question);
-    });
-
-    request.fail((data) => {
-      console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.storeFirstQuestion(question);
+      data: {category: this.state.selectedCategory}
+    })
+    .done((data) => {
+      console.log('getFirstQuestion request in MainView.jsx succeeded', data);
+     this.storeFirstQuestion(data);
+    })
+    .fail((err) => {
+      console.log('getFirstQuestion request in MainView.jsx failed', err);
     });
   }
 
