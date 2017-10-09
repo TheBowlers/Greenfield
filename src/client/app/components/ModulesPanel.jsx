@@ -5,21 +5,22 @@ class ModulesPanel extends React.Component {
     super(props);
     this.state = {
       categories: [
-          'JavaScript',
-          'CSS',
-          'jQuery',
-          'HTML',
-          'Express'
-      ],
-      selectedCategory: {
-
-      }
+        'JavaScript',
+        'CSS',
+        'jQuery',
+        'HTML',
+        'Express'
+      ]
     };
     this.renderCategoryItems = this.renderCategoryItems.bind(this);
   }
 
-  selectCategory() {
-
+  isActiveCategory(category) {
+    if (category === this.props.selectedCategory) {
+      return "selected-category";
+    } else {
+      return "";
+    }
   }
 
   renderCategoryItems() {
@@ -27,7 +28,7 @@ class ModulesPanel extends React.Component {
     return (
       this.state.categories.map((category) => {
         return (
-            <table className="table table-striped table-hover ">
+            <table className={"table table-striped table-hover category-item " + this.isActiveCategory(category)} onClick={(e) => this.props.selectCategory(category)}>
               <tbody>
               <tr>
                 <td>{category}</td>
@@ -42,21 +43,16 @@ class ModulesPanel extends React.Component {
   render() {
     return (
       <div className="col-md-3 modules hidden-sm hidden-xs">
-        <table className="table table-striped table-hover ">
-          <thead>
+        <h2 className="module-title text-center">Categories</h2>
+        <table className={"table table-striped table-hover category-item " + this.isActiveCategory(null)} onClick={(e) => this.props.selectCategory(null)}>
+          <tbody>
           <tr>
-            <th>Categories</th>
+            <td>All</td>
           </tr>
-          </thead>
+          </tbody>
         </table>
-        {this.renderCategoryItems()};
-        <ul className="list-unstyled category-list">
-          <li className="category-item">JavaScript</li>
-          <li className="category-item">CSS</li>
-          <li className="category-item">jQuery</li>
-          <li className="category-item">HTML</li>
-          <li className="category-item">Express</li>
-        </ul>
+        {this.renderCategoryItems()}
+
       </div>
     )
   }
