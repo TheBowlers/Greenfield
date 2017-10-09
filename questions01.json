@@ -631,7 +631,7 @@
  },
  {
    "questionText": "What JavaScript data type is this: null",
-   "answerText": null,
+   "answerText": "null",
    "time": 5000,
    "difficulty": 1,
    "author": "Jonathan Lewis",
