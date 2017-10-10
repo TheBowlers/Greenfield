@@ -24,20 +24,19 @@ class ModulesPanel extends React.Component {
   }
 
   renderCategoryItems() {
-
     return (
-      this.state.categories.map((category) => {
+      this.state.categories.map((category, index) => {
         return (
-            <table className={"table table-striped table-hover category-item " + this.isActiveCategory(category)} onClick={(e) => this.props.selectCategory(category)}>
-              <tbody>
-              <tr>
-                <td>{category}</td>
-              </tr>
-              </tbody>
-            </table>
+          <table key={index} className={"table table-striped table-hover category-item " + this.isActiveCategory(category)} onClick={(e) => this.props.selectCategory(category)}>
+            <tbody>
+            <tr>
+              <td>{category}</td>
+            </tr>
+            </tbody>
+          </table>
         )
-    })
-  )
+      })
+    )
   }
 
   render() {

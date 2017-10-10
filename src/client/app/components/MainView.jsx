@@ -10,7 +10,7 @@ class MainView extends React.Component {
       mainView: 'start',
       currentQuestion: {
         "_id": "59d54a6c8c4d5137387b7eb4",
-        "title": "Ready to start quizzing?",
+        "category": "Ready to start quizzing?",
         "questionText": "When you start quizzing, a new question will appear here. Read the prompt and try to answer quickly to receive a bonus",
         "answerText": "Here is where you type in your answer. When you are ready, press 'Start Quizzing'",
         "questionType": "textResponse",
@@ -38,31 +38,23 @@ class MainView extends React.Component {
   }
 
   storeFirstQuestion(questionData) {
-    console.log('First Question ready Called');
     this.setState({
       nextQuestion: questionData
     });
   }
 
   getFirstQuestion() {
-    console.log('Getting next question');
-    const request = $.ajax({
+    $.ajax({
       method: "GET",
       url: '/questions/category',
-      data: {category: this.state.selectedCategory},
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.storeFirstQuestion(question);
-    });
-
-    request.fail((data) => {
-      console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.storeFirstQuestion(question);
+      data: {category: this.state.selectedCategory}
+    })
+    .done((data) => {
+      console.log('getFirstQuestion in MainView.jsx succeeded', data);
+     this.storeFirstQuestion(data);
+    })
+    .fail((err) => {
+      console.log('getFirstQuestion in MainView.jsx failed', err);
     });
   }
 
@@ -79,17 +71,7 @@ class MainView extends React.Component {
     const timeToAnswer = questionEndTime - this.state.questionStartTime;
     const questionId = this.state.currentQuestion._id;
 
-
-    if(isCorrect) {
-      console.log('Answer Correct!');
-    } else {
-      console.log('Answer incorrect.');
-    }
-    console.log(`It took you ${timeToAnswer/1000} seconds to answer`);
-
-
-    console.log('Submitting answer...');
-    const request = $.ajax({
+    $.ajax({
       method: "PUT",
       url: '/users/update',
       data: {
@@ -97,53 +79,44 @@ class MainView extends React.Component {
         question_id: questionId,
         timeToAnswer: timeToAnswer,
         answeredCorrect: isCorrect
-      },
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-    });
-
-    request.fail((data) => {
-      console.log('failed');
+      }
+    })
+    .done((data) => {
+      console.log('submitAnswer in MainView.jsx succeeded', data);
       this.props.getUserInfo();
+    })
+    .fail((err) => {
+      console.log('submitAnswer in MainView.jsx failed', err);
     });
   }
 
   renderNewQuestion(questionData) {
-    console.log('renderNewQuestion Called');
     this.setState({
       nextQuestion: questionData
     });
   }
 
   getNextQuestion() {
-    console.log('Getting next question');
     this.setState({
       currentQuestion: this.state.nextQuestion,
       answerField: '',
       questionStartTime: Date.now(),
       startTimer: true
     });
+
     $('.answer-field').text('').focus();
-    const request = $.ajax({
+
+    $.ajax({
       method: "GET",
       url: '/questions/category',
-      data: {category: this.state.selectedCategory},
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
-    });
-
-    request.fail((data) => {
-      console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
+      data: {category: this.state.selectedCategory}
+    })
+    .done((data) => {
+      console.log('getNextQuestion in MainView.jsx succeeded', data);
+      this.renderNewQuestion(data);
+    })
+    .fail((err) => {
+      console.log('getNextQuestion in MainView.jsx failed', err);
     });
   }
 

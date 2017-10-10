@@ -10,10 +10,6 @@ class QuestionPanel extends React.Component {
 
   }
 
-
-
-
-
   render() {
     return (
       <div className="col-md-6">
