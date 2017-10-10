@@ -18,7 +18,7 @@ class Header extends React.Component {
   componentWillReceiveProps(newProps) {
     console.log('new props are', newProps);
     if(newProps.user) {
-      console.log('new score is:', typeof newProps.user.score);
+      console.log('new score is:', newProps.user.score);
       this.setState({
         userScore: newProps.user.score.toLocaleString(),
         profilePic: newProps.user.image
@@ -28,19 +28,19 @@ class Header extends React.Component {
 
   getUsers() {
     $.ajax({
-      url: '/users',
-      method: 'GET',
-      success: function(data) {
-        console.log('success', data);
-        this.setState({
-          leaderboardEntries: data
-        })
-        $('#leaderboard').modal('show');
-      }.bind(this),
-      error: function(err) {
-        console.log(err);
-      }.bind(this)
+      method: "GET",
+      url: '/users'
     })
+    .done((data) => {
+      console.log('getUsers request in Header.jsx succeeded', data);
+      this.setState({
+        leaderboardEntries: data
+      })
+      $('#leaderboard').modal('show');
+    })
+    .fail((err) => {
+      console.log('getUsers request in Header.jsx failed', err);
+    });
   }
 
   loginWithGoogle() {

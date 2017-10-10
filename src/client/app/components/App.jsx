@@ -23,26 +23,21 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-
     console.log('Getting next question');
-    const request = $.ajax({
+    $.ajax({
       method: "GET",
       url: '/users/email',
       data: {
         email: document.user.email
-      },
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('Got User data, success', data.responseText);
-      document.user = JSON.parse(data.responseText);
-    });
-
-    request.fail((data) => {
-      console.log('Got User data, fail', data.responseText);
-      document.user = JSON.parse(data.responseText);
+      }
+    })
+    .done((data) => {
+      console.log('getUserInfo request in App.jsx succeeded', data);
+      document.user = data;
       this.setState({user: document.user});
+    })
+    .fail((err) => {
+      console.log('getUserInfo request in App.jsx failed', err);
     });
   }
 
