@@ -18,6 +18,10 @@ class Header extends React.Component {
   componentWillReceiveProps(newProps) {
     console.log('User information:', newProps);
     if(newProps.user) {
+<<<<<<< HEAD
+=======
+      console.log('new score is:', newProps.user.score);
+>>>>>>> 3af6cb0aa6d8113718fe7d303ae84a671834fb6e
       this.setState({
         userScore: newProps.user.score.toLocaleString(),
         profilePic: newProps.user.image
