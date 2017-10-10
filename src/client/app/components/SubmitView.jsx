@@ -3,8 +3,9 @@ import React from 'react';
 class SubmitView extends React.Component {
   constructor(props) {
     super(props);
+
     this.state={
-      nextButtonText: 'Start Quizzing!',
+      nextButtonText: 'Start!',
       startTime: Date.now(),
       timeElapsed: 0,
       timerIsOn: false,
@@ -32,6 +33,7 @@ class SubmitView extends React.Component {
       }
     }
   }
+
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleCtrlKeyPress);
   }
@@ -64,7 +66,7 @@ class SubmitView extends React.Component {
         timerIsOn: false,
         canAnswer: false,
         hasStarted: false,
-        nextButtonText: 'Next Question'
+        nextButtonText: 'Next'
       });
 
       this.props.submitAnswer();
@@ -86,9 +88,8 @@ class SubmitView extends React.Component {
       startTime: Date.now(),
       timerIsOn: true,
       canAnswer: true,
-      nextButtonText: 'Skip Question'
+      nextButtonText: 'Skip'
     });
-    //this.props.getNextQuestion();
   }
 
   handleNextQuestionClick() {
@@ -100,6 +101,7 @@ class SubmitView extends React.Component {
     });
     this.props.getNextQuestion();
   }
+
   renderSubmitButton() {
     if (this.state.hasStarted) {
       return (
@@ -108,10 +110,6 @@ class SubmitView extends React.Component {
     } else {
       return null;
     }
-  }
-
-  renderFeedback() {
-
   }
 
   render() {

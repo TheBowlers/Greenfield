@@ -71,14 +71,6 @@ class MainView extends React.Component {
     const timeToAnswer = questionEndTime - this.state.questionStartTime;
     const questionId = this.state.currentQuestion._id;
 
-
-    if(isCorrect) {
-      console.log('Answer Correct!');
-    } else {
-      console.log('Answer incorrect.');
-    }
-    console.log(`It took you ${timeToAnswer/1000} seconds to answer`);
-
     $.ajax({
       method: "PUT",
       url: '/users/update',
