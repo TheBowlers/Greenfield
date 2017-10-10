@@ -133,6 +133,7 @@ exports.formatResponseData = function(params, db, callback) {
       }
       if (!params.answeredCorrect) {
         pointsScored = 0;
+        bestTime = null;
       }
 
       let netPoints = pointsScored - pointsAccumulated;
@@ -143,7 +144,7 @@ exports.formatResponseData = function(params, db, callback) {
         id: questionId,
         bestTimeToAnswer: bestTime,
         pointsAwarded: netPoints,
-        respondedCorrect: params.isCorrect,
+        respondedCorrect: params.answeredCorrect,
         lastPoints: pointsScored
 
       }
