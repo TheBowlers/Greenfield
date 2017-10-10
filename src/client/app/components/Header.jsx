@@ -19,9 +19,12 @@ class Header extends React.Component {
     console.log('User information:', newProps);
     if(newProps.user) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       console.log('new score is:', newProps.user.score);
 >>>>>>> Refactor getUsers in Header
+=======
+>>>>>>> Merge conflict
       this.setState({
         userScore: newProps.user.score.toLocaleString(),
         profilePic: newProps.user.image
