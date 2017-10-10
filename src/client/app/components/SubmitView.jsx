@@ -24,8 +24,6 @@ class SubmitView extends React.Component {
   }
 
   handleCtrlKeyPress(e) {
-    console.log('KEY PRESSED');
-    console.log('CTRL pressed?', e.ctrlKey, 'keycode?', e.keyCode);
     if (e.ctrlKey && e.keyCode === 13){
       if(this.state.canAnswer) {
         $('.submit').click();
@@ -39,7 +37,6 @@ class SubmitView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('Submit Getting new props', nextProps)
     if (nextProps.timerIsOn) {
       this.startQuestionTimer();
     }else {
@@ -58,8 +55,6 @@ class SubmitView extends React.Component {
 
       }
     }
-
-
   }
 
   handleSubmit() {

@@ -99,38 +99,32 @@ class MainView extends React.Component {
   }
 
   renderNewQuestion(questionData) {
-    console.log('renderNewQuestion Called');
     this.setState({
       nextQuestion: questionData
     });
   }
 
   getNextQuestion() {
-    console.log('Getting next question');
     this.setState({
       currentQuestion: this.state.nextQuestion,
       answerField: '',
       questionStartTime: Date.now(),
       startTimer: true
     });
+
     $('.answer-field').text('').focus();
-    const request = $.ajax({
+
+    $.ajax({
       method: "GET",
       url: '/questions/category',
-      data: {category: this.state.selectedCategory},
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
-    });
-
-    request.fail((data) => {
-      console.log('failed');
-      const question = JSON.parse(data.responseText);
-      this.renderNewQuestion(question);
+      data: {category: this.state.selectedCategory}
+    })
+    .done((data) => {
+      console.log('getNextQuestion in MainView.jsx succeeded', data);
+      this.renderNewQuestion(data);
+    })
+    .fail((err) => {
+      console.log('getNextQuestion in MainView.jsx failed', err);
     });
   }
 

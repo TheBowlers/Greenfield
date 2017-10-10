@@ -23,7 +23,6 @@ class App extends React.Component {
   }
 
   getUserInfo() {
-    console.log('Getting next question');
     $.ajax({
       method: "GET",
       url: '/users/email',
