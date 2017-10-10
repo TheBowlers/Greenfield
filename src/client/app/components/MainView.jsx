@@ -50,11 +50,11 @@ class MainView extends React.Component {
       data: {category: this.state.selectedCategory}
     })
     .done((data) => {
-      console.log('getFirstQuestion request in MainView.jsx succeeded', data);
+      console.log('getFirstQuestion in MainView.jsx succeeded', data);
      this.storeFirstQuestion(data);
     })
     .fail((err) => {
-      console.log('getFirstQuestion request in MainView.jsx failed', err);
+      console.log('getFirstQuestion in MainView.jsx failed', err);
     });
   }
 
@@ -90,11 +90,11 @@ class MainView extends React.Component {
       }
     })
     .done((data) => {
-      console.log('submitAnswer request in MainView.jsx succeeded', data);
+      console.log('submitAnswer in MainView.jsx succeeded', data);
       this.props.getUserInfo();
     })
     .fail((err) => {
-      console.log('submitAnswer request in MainView.jsx failed', err);
+      console.log('submitAnswer in MainView.jsx failed', err);
     });
   }
 

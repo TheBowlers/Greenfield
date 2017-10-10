@@ -32,14 +32,14 @@ class Header extends React.Component {
       url: '/users'
     })
     .done((data) => {
-      console.log('getUsers request in Header.jsx succeeded', data);
+      console.log('getUsers in Header.jsx succeeded', data);
       this.setState({
         leaderboardEntries: data
       })
       $('#leaderboard').modal('show');
     })
     .fail((err) => {
-      console.log('getUsers request in Header.jsx failed', err);
+      console.log('getUsers in Header.jsx failed', err);
     });
   }
 

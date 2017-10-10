@@ -32,12 +32,12 @@ class App extends React.Component {
       }
     })
     .done((data) => {
-      console.log('getUserInfo request in App.jsx succeeded', data);
+      console.log('getUserInfo in App.jsx succeeded', data);
       document.user = data;
       this.setState({user: document.user});
     })
     .fail((err) => {
-      console.log('getUserInfo request in App.jsx failed', err);
+      console.log('getUserInfo in App.jsx failed', err);
     });
   }
 
