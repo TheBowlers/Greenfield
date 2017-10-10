@@ -79,9 +79,7 @@ class MainView extends React.Component {
     }
     console.log(`It took you ${timeToAnswer/1000} seconds to answer`);
 
-
-    console.log('Submitting answer...');
-    const request = $.ajax({
+    $.ajax({
       method: "PUT",
       url: '/users/update',
       data: {
@@ -89,17 +87,14 @@ class MainView extends React.Component {
         question_id: questionId,
         timeToAnswer: timeToAnswer,
         answeredCorrect: isCorrect
-      },
-      dataType: 'application/json'
-    });
-
-    request.done((data) => {
-      console.log('success');
-    });
-
-    request.fail((data) => {
-      console.log('failed');
+      }
+    })
+    .done((data) => {
+      console.log('submitAnswer request in MainView.jsx succeeded', data);
       this.props.getUserInfo();
+    })
+    .fail((err) => {
+      console.log('submitAnswer request in MainView.jsx failed', err);
     });
   }
 
