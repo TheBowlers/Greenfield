@@ -25,14 +25,12 @@
         <div class="col-lg-8">
           <div class="radio">
             <label>
-              <input required type="radio" name="questionType" id="optionsRadios1" value="textResponse" checked="">
-              Text Response
+              <input required type="radio" name="questionType" id="optionsRadios1" value="textResponse" checked=""> Text Response
             </label>
           </div>
           <div class="radio">
             <label>
-              <input required type="radio" name="questionType" id="optionsRadios2" value="multipleChoice">
-              Multiple Choice
+              <input required type="radio" name="questionType" id="optionsRadios2" value="multipleChoice"> Multiple Choice
             </label>
           </div>
         </div>
@@ -58,7 +56,7 @@
       <div class="form-group">
         <label for="inputAuthor" class="col-lg-2 control-label">Author</label>
         <div class="col-lg-8">
-          <input disabled type="form-control" class="form-control" id="inputAuthor" value="admin">
+          <input disabled type="form-control" class="form-control" id="inputAuthor">
         </div>
       </div>
       <div class="form-group">
@@ -72,11 +70,14 @@
 </div>
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function () {
     $('#inputAuthor').val(document.user.displayName);
 
+    $(':reset').click(function () {
+      location.reload();
+    });
 
-    $('form').submit(function() {
+    $('form').submit(function () {
       var questionData = {
         category: $('#inputCategory').val(),
         questionText: $('#questionText').val(),
@@ -88,14 +89,14 @@
       };
 
       $.ajax({
-        url: 'http://127.0.0.1:8080/questions',
+        url: '/questions',
         type: 'POST',
         data: questionData,
-        success: function(data) {
+        success: function (data) {
           alert('Question submitted!');
           location.reload();
         },
-        error: function(err) {
+        error: function (err) {
           alert('There was an error submitting the question.');
         }
       })

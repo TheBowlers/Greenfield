@@ -84,9 +84,8 @@ class Header extends React.Component {
                   <li><a className="inactive">Signed in as</a></li>
                   <li><a className="inactive"><strong>{this.props.user.displayName}</strong></a></li>
                   <li className="divider"></li>
-                  <li><a href="#">Your Stats</a></li>
+                  <li><a href="/add/question">Add a Question</a></li>
                   <li className="divider"></li>
-                  <li><a href="#">Account Settings</a></li>
                   <li><a href="/logout" onClick={this.props.logout}>Sign out</a></li>
                 </ul>
               </li>

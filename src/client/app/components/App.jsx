@@ -18,6 +18,7 @@ class App extends React.Component {
   componentWillMount() {
     if (document.user) {
       this.getUserInfo();
+      this.setState({user: document.user});
     }
   }
 
