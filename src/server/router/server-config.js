@@ -141,7 +141,7 @@ app.get('/', function(req, res, next) {
     res.render('index');
 });
 
-app.get('/admin', function(req, res, next) {
+app.get('/add/question', function(req, res, next) {
   if(req.user) {
     res.render('admin');
   } else {
