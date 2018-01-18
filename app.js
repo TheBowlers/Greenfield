@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const app = require('./src/server/router/server-config.js');
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 
 app.set('port', port);
 if (!module.parent) {
