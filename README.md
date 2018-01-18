@@ -1,6 +1,8 @@
-# Project Name
+> Deployed at [crammr.herokuapp.com](https://crammr.herokuapp.com/)
 
-> Pithy project description
+# Crammr
+
+> Crammr is a gamified quizzing app that awards points for correct answers within the given time frame. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users are able to input their own questions and create custom lesson plans.
 
 ## Team
 
@@ -10,45 +12,33 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
 1. [Development](#development)
+    1. [Requirements](#requirements)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Some usage instructions
-
-## Requirements
-
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
-
 ## Development
+
+### Requirements
+- Node package manager
+- Node v6+
+- MongoDB Shard & URL
+  - https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+- Google clientID and clientSecret for Google Login
+  - https://console.developers.google.com
+- see package.json for dependencies
 
 ### Installing Dependencies
 
 From within the root directory:
 
-```sh
-sudo npm install -g bower
-npm install
-bower install
-```
+`npm install`
+`npm start`
 
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+If you'd like webpack to watch for any changes run `npm run watch` in a separate terminal.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 
