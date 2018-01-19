@@ -2,7 +2,7 @@
 
 # Crammr
 
-> Crammr is a gamified quizzing app that awards points for correct answers within the given time frame. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users are able to input their own questions and create custom lesson plans.
+> Crammr is a gamified quizzing app that awards points for correct answers within the given timeframe. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users are able to input their own questions and create custom lesson plans.
 
 ## Team
 
@@ -31,7 +31,7 @@
 
 ### Credentials
 
-Once you have acquire your Mongo Shard URL and ID and Secret from Google you will need to store them in config.js in the root directory with the follow format:
+Once you have acquired your Mongo Shard URL, clientID, and clientSecret you will need to store them in config.js, in the root directory, with the follow format:
 
 ```javascript
 module.exports = {
