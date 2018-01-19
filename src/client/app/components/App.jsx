@@ -37,7 +37,7 @@ class App extends React.Component {
     })
     .fail((err) => {
       console.log('getUserInfo in App.jsx failed', err);
-    })
+    });
   }
 
   logout() {
