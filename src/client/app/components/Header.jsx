@@ -18,13 +18,6 @@ class Header extends React.Component {
   componentWillReceiveProps(newProps) {
     console.log('User information:', newProps);
     if(newProps.user) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      console.log('new score is:', newProps.user.score);
->>>>>>> Refactor getUsers in Header
-=======
->>>>>>> Merge conflict
       this.setState({
         userScore: newProps.user.score.toLocaleString(),
         profilePic: newProps.user.image
@@ -38,32 +31,14 @@ class Header extends React.Component {
       url: '/users'
     })
     .done((data) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
       console.log('getUsers in Header.jsx succeeded', data);
-=======
-      console.log('success', data);
->>>>>>> Refactor getUsers in Header
-=======
-      console.log('getUsers request in Header.jsx succeeded', data);
->>>>>>> Include more descriptive success and failure console logs
       this.setState({
         leaderboardEntries: data
       })
       $('#leaderboard').modal('show');
     })
-<<<<<<< HEAD
-<<<<<<< HEAD
     .fail((err) => {
       console.log('getUsers in Header.jsx failed', err);
-=======
-    .fail((data) => {
-      console.log(err);
->>>>>>> Refactor getUsers in Header
-=======
-    .fail((err) => {
-      console.log('getUsers request in Header.jsx failed', err);
->>>>>>> Include more descriptive success and failure console logs
     });
   }
 

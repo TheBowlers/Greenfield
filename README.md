@@ -47,18 +47,8 @@ module.exports = {
 
 From within the root directory:
 
-<<<<<<< HEAD
-```sh
-npm install
-```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-=======
 `npm install`
 `npm start`
->>>>>>> Update ReadMe
 
 If you'd like webpack to watch for any changes run `npm run watch` in a separate terminal.
 

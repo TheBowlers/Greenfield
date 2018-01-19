@@ -27,7 +27,6 @@ class ModulesPanel extends React.Component {
     return (
       this.state.categories.map((category, index) => {
         return (
-<<<<<<< HEAD
           <table key={index} className={"table table-striped table-hover category-item " + this.isActiveCategory(category)} onClick={(e) => this.props.selectCategory(category)}>
             <tbody>
             <tr>
@@ -35,15 +34,6 @@ class ModulesPanel extends React.Component {
             </tr>
             </tbody>
           </table>
-=======
-            <table key={index} className={"table table-striped table-hover category-item " + this.isActiveCategory(category)} onClick={(e) => this.props.selectCategory(category)}>
-              <tbody>
-              <tr>
-                <td>{category}</td>
-              </tr>
-              </tbody>
-            </table>
->>>>>>> Refactor get user info ajax request and add a key to modules categories
         )
       })
     )
