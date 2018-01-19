@@ -14,7 +14,8 @@
 
 1. [Development](#development)
     1. [Requirements](#requirements)
-    1. [Installing Dependencies](#installing-dependencies)
+    1. [Credentials](#credentials)
+    1. [Quick Start](#quick-start)
 1. [Contributing](#contributing)
 
 ## Development
@@ -28,7 +29,21 @@
   - https://console.developers.google.com
 - see package.json for dependencies
 
-### Installing Dependencies
+### Credentials
+
+Once you have acquire your Mongo Shard URL and ID and Secret from Google you will need to store them in config.js in the root directory with the follow format:
+
+```javascript
+module.exports = {
+  Google: {
+    clientID: 'XXXXXXXXXX-XXXXXXXXXXXXXXXXX.apps.googleusercontent.com',
+    clientSecret: 'X-XXX-XXX-XXXXXXXX'
+  },
+  dbUrl: 'mongodb://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+};
+```
+
+### Quick Start
 
 From within the root directory:
 
