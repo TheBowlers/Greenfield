@@ -2,7 +2,7 @@
 
 # Crammr
 
-> Crammr is a gamified quizzing app that awards points for correct answers within the given time frame. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users are able to input their own questions and create custom lesson plans.
+> Crammr is a gamified quizzing app that awards points for correct answers within the given time frame. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users have the ability to input their own questions and create custom lesson plans if they would like.
 
 ## Team
 
