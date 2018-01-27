@@ -1,6 +1,8 @@
-# Project Name
+> Deployed at [crammr.herokuapp.com](https://crammr.herokuapp.com/)
 
-> Pithy project description
+# Crammr
+
+> Crammr is a gamified quizzing app that awards points for correct answers within the given time frame. Users are able to check the leaderboard to see their total score and percentage of questions they've answered correctly. The app's default question bank is populated with software questions but users have the ability to input their own questions and create custom lesson plans if they would like.
 
 ## Team
 
@@ -10,43 +12,48 @@
 
 ## Table of Contents
 
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
 1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
+    1. [Requirements](#requirements)
+    1. [Credentials](#credentials)
+    1. [Quick Start](#quick-start)
 1. [Contributing](#contributing)
-
-## Usage
-
-> Some usage instructions
-
-## Requirements
-
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
 
 ## Development
 
-### Installing Dependencies
+### Requirements
+- Node package manager
+- Node v6+
+- MongoDB Shard & URL
+  - https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+- Google clientID and clientSecret for Google Login
+  - https://console.developers.google.com
+- see package.json for dependencies
+
+### Credentials
+
+Once you have acquired your Mongo Shard URL, clientID, and clientSecret you will need to store them in config.js, in the root directory, with the follow format:
+
+```javascript
+module.exports = {
+  Google: {
+    clientID: 'XXXXXXXXXX-XXXXXXXXXXXXXXXXX.apps.googleusercontent.com',
+    clientSecret: 'X-XXX-XXX-XXXXXXXX'
+  },
+  dbUrl: 'mongodb://XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+};
+```
+
+### Quick Start
 
 From within the root directory:
 
-```sh
-npm install
-```
+`npm install`
+`npm start`
 
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
-
+If you'd like webpack to watch for any changes run `npm run watch` in a separate terminal.
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 

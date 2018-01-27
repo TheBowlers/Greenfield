@@ -6,7 +6,8 @@
     "test": "mocha test",
     "start": "nodemon app.js",
     "build": "node_modules/.bin/webpack -d",
-    "build:watch": "node_modules/.bin/webpack -d --watch",
+    "watch": "node_modules/.bin/webpack -d --watch",
+    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
     "testpr": "bash testpr.sh",
     "travis": "node_modules/.bin/webpack -d & mocha test"
   },

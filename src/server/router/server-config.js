@@ -136,12 +136,12 @@ app.use(function (req, res, next) {
 
 
 app.get('/', function(req, res, next) {
-    console.log('Curerent logged in user:', req.user);
+    console.log('Current logged in user:', req.user);
     console.log('GETTING WITH HANDLEBARS');
     res.render('index');
 });
 
-app.get('/admin', function(req, res, next) {
+app.get('/add/question', function(req, res, next) {
   if(req.user) {
     res.render('admin');
   } else {

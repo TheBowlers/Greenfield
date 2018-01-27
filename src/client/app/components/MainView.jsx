@@ -155,7 +155,7 @@ class MainView extends React.Component {
               <h1>Crammr</h1>
               <img className="wizard" src="http://southparkstudios.mtvnimages.com/shared/characters/alter-egos/the-grand-wizard.png?height=165" alt="" />
               <p>
-                <a href="https://github.com/TheBowlers/Greenfield" target="_blank" className="btn btn-lg btn-primary">Visit our Github</a>
+                <a href="https://github.com/KentShepard/Crammr" target="_blank" className="btn btn-lg btn-primary">Visit our Github</a>
               </p>
             </div>
             <div className="jumbotron col-lg-3">
